@@ -7,6 +7,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     TestCo: typeof import('./src/components/Test/TestCo.vue')['default']
+    ToggleTheme: typeof import('./src/components/common/ToggleTheme/ToggleTheme.vue')['default']
   }
 }

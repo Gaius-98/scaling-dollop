@@ -19,8 +19,8 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
-    'no-debugger': import.meta.env.MODE == 'development' ? 'off' : 'warn',
-    'no-console': import.meta.env.MODE == 'development' ? 'off' : 'warn',
+    'no-debugger': 'off',
+    'no-console': 'off',
     'no-bitwise': 'off',
     'no-tabs': 'off',
     'array-element-newline': ['error', 'consistent'],
