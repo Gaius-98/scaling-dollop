@@ -14,12 +14,19 @@ import { storeToRefs } from 'pinia'
 
 const sysStore = useSysStore()
 const { theme } = storeToRefs(sysStore)
+
 const onToggleTheme = (val:string) => {
   const reverse = val == 'dark' ? 'light' : 'dark'
   document.body.classList.replace(reverse, val)
+  localStorage.setItem('ev-theme', val)
   sysStore.$patch({
     theme: val,
   })
+}
+
+const localTheme = localStorage.getItem('ev-theme')
+if (localTheme) {
+  onToggleTheme(localTheme)
 }
 document.body.classList.add(theme.value)
 </script>
