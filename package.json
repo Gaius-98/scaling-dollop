@@ -12,12 +12,15 @@
     "axios": "^1.2.0",
     "element-plus": "^2.2.8",
     "js-cookie": "^3.0.1",
+    "md5": "^2.3.0",
+    "normalize.css": "^8.0.1",
     "pinia": "^2.0.27",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
+    "@types/md5": "^2.3.2",
     "@types/node": "^18.7.3",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",

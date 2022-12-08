@@ -23,6 +23,7 @@ module.exports = {
     'no-console': 'off',
     'no-bitwise': 'off',
     'no-tabs': 'off',
+    'no-undef': 'off',
     'array-element-newline': ['error', 'consistent'],
     indent: ['error', 2, { MemberExpression: 0, SwitchCase: 1, ignoredNodes: ['TemplateLiteral'] }],
     quotes: ['error', 'single'],
