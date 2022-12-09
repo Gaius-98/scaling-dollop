@@ -8,7 +8,7 @@ export type res<T = any> = {
   msg:string
 }
 const service = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_REQ_URL,
 })
 
 service.interceptors.request.use((config) => {
