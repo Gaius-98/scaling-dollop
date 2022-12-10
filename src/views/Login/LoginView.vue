@@ -9,74 +9,76 @@
         :rules="formRules"
         label-width="60px"
       >
-        <Transition name="slide-fade">
-          <div
-            v-if="loginType == 'password'"
-            class="login_card_form"
-          >
-            <el-form-item
-              label="账号"
-              prop="username"
+        <div class="login_card_container">
+          <Transition name="slide-fade">
+            <div
+              v-if="loginType == 'password'"
+              class="login_card_container_form"
             >
-              <el-input v-model="loginForm.username">
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              label="密码"
-              prop="password"
-            >
-              <el-input
-                v-model="loginForm.password"
-                type="password"
+              <el-form-item
+                label="账号"
+                prop="username"
               >
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              label="验证码"
-              prop="captcha"
+                <el-input v-model="loginForm.username">
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                label="密码"
+                prop="password"
+              >
+                <el-input
+                  v-model="loginForm.password"
+                  type="password"
+                >
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                label="验证码"
+                prop="captcha"
+              >
+                <el-input v-model="loginForm.captcha">
+                  <template #append>
+                    <div
+                      class="login_card_captcha"
+                      @click="getSvgCaptcha"
+                      v-html="svg"
+                    >
+                    </div>
+                  </template>
+                </el-input>
+              </el-form-item>
+            </div>
+          </Transition>
+          <Transition name="slide-fade-reverse">
+            <div
+              v-if="loginType == 'email'"
+              class="login_card_container_form"
             >
-              <el-input v-model="loginForm.captcha">
-                <template #append>
-                  <div
-                    class="login_card_captcha"
-                    @click="getSvgCaptcha"
-                    v-html="svg"
-                  >
-                  </div>
-                </template>
-              </el-input>
-            </el-form-item>
-          </div>
-        </Transition>
-        <Transition name="slide-fade-reverse">
-          <div
-            v-if="loginType == 'email'"
-            class="login_card_form"
-          >
-            <el-form-item
-              label="邮箱"
-              prop="email"
-            >
-              <el-input v-model="loginForm.email">
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              label="验证码"
-              prop="emailCode"
-            >
-              <el-input v-model="loginForm.emailCode">
-                <template #append>
-                  <el-button
-                    :disabled="isSent"
-                    @click="sendEmail"
-                  >
-                    发送验证码 <span v-show="isSent">{{ timeSpan }}s</span>
-                  </el-button>
-                </template>
-              </el-input>
-            </el-form-item>
-          </div>
-        </Transition>
+              <el-form-item
+                label="邮箱"
+                prop="email"
+              >
+                <el-input v-model="loginForm.email">
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                label="验证码"
+                prop="emailCode"
+              >
+                <el-input v-model="loginForm.emailCode">
+                  <template #append>
+                    <el-button
+                      :disabled="isSent"
+                      @click="sendEmail"
+                    >
+                      发送验证码 <span v-show="isSent">{{ timeSpan }}s</span>
+                    </el-button>
+                  </template>
+                </el-input>
+              </el-form-item>
+            </div>
+          </Transition>
+        </div>
         <div class="login_card_opt">
           <el-button @click="onLogin">
             登录
@@ -232,9 +234,15 @@ getSvgCaptcha()
         height: 30px;
         cursor: pointer;
       }
-      .login_card_form{
-        height: 150px;
+      .login_card_container{
+          display: flex;
+          width: 100%;
+        .login_card_container_form{
+          width: 100%;
+          height: 150px;
+        }
       }
+      
       .login_card_opt{
         display: flex;
         justify-content: space-between;
