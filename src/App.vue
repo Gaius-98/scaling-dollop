@@ -8,6 +8,7 @@ getSysConfig().then(res => {
   sysStore.$patch({
     sysConfig: data,
   })
+  document.title = data.sysName
 })
 </script>
 
