@@ -1,6 +1,6 @@
 import request from '../utils/request'
 
-const api = {
-  
-}
-export default api
+export const getSysConfig = () => request<sysConfig>({
+  url: '/config/findSys',
+  method: 'post',
+})

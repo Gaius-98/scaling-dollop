@@ -1,6 +1,14 @@
 <script setup lang="ts">
-console.log(import.meta.env.MODE)
-console.log(import.meta.env.VITE_KEY)
+import { getSysConfig } from '@/api/common'
+import { useSysStore } from '@/store/sysConfig'
+
+const sysStore = useSysStore()
+getSysConfig().then(res => {
+  const { data } = res
+  sysStore.$patch({
+    sysConfig: data,
+  })
+})
 </script>
 
 <template>

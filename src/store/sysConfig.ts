@@ -1,7 +1,12 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 export const useSysStore = defineStore('sysStore', () => {
   const theme = ref<string>('dark')
-  return { theme }
+  const sysConfig = reactive<sysConfig>({
+    sysName: '',
+    sysLoginBackground: '',
+    sysLogo: '',
+  })
+  return { theme, sysConfig }
 })

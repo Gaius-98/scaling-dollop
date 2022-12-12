@@ -1,7 +1,15 @@
 <template>
   <div class="login">
     <el-card class="login_card">
-      <div class="login_card_logo">
+      <div class="login_card_sys">
+        <img
+          :src="sysConfig.sysLogo"
+          alt=""
+          class="login_card_sys_logo"
+        >
+        <div class="login_card_sys_name">
+          {{ sysConfig.sysName }}
+        </div>
       </div>
       <el-form
         ref="loginFormRef"
@@ -80,15 +88,15 @@
           </Transition>
         </div>
         <div class="login_card_opt">
-          <el-button @click="onLogin">
-            登录
-          </el-button>
           <el-link
             class="login_card_opt_toggle"
             @click="onChangeLoginType()"
           >
             {{ loginType == 'email' ? '密码登录' :'邮箱登录' }}
           </el-link>
+          <el-button @click="onLogin">
+            登录
+          </el-button>
         </div>
       </el-form>
     </el-card>
@@ -97,10 +105,17 @@
 
 <script lang='ts' setup>
 import { setCookie } from '@/utils/cookie'
-import { ElMessage, FormInstance, FormRules } from 'element-plus'
-import { reactive, toRefs, ref, onBeforeUnmount } from 'vue'
+import { FormInstance, FormRules } from 'element-plus'
+import { reactive, ref, onBeforeUnmount } from 'vue'
 import * as loginApi from './service/api'
 import md5 from 'md5'
+import { useSysStore } from '@/store/sysConfig'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const sysStore = useSysStore()
+const { sysConfig } = storeToRefs(sysStore)
 
 const loginType = ref<loginType>('password')
 const onChangeLoginType = () => {
@@ -142,17 +157,10 @@ const sendEmail = () => {
   loginFormRef.value.validate((valid) => {
     if (valid && loginForm.email) {
       loginApi.sendEmail({ email: loginForm.email })
-      .then(res => {
-        const { code, data, msg } = res
-        if (code == 0) {
-          isSent.value = true 
-          startTime()
-        } else {
-          ElMessage.error(msg)
-        }
+      .then(() => {
+        isSent.value = true 
+        startTime()
       })
-    } else {
-      ElMessage.error('请输入正确的邮箱')
     }
   })
 }
@@ -179,24 +187,23 @@ const onLogin = () => {
       if (loginType.value == 'password') {
         const params = { ...loginForm }
         params.password = md5(loginForm.password)
-        loginApi.loginByPwd(loginForm)
+        loginApi.loginByPwd(params)
         .then(res => {
-          const { code, data, msg } = res
-          if (code == 0) {
-            setCookie('ev-token', data.token)
-          } else {
-            ElMessage.error(msg)
-          }
+          const { data } = res
+          console.log(data)
+          setCookie('ev-token', data.token)
+          router.push({
+            name: 'home',
+          })
         })
       } else {
         loginApi.loginByEmail(loginForm)
         .then(res => {
-          const { code, data, msg } = res
-          if (code == 0) {
-            setCookie('ev-token', data.token)
-          } else {
-            ElMessage.error(msg)
-          }
+          const { data } = res
+          setCookie('ev-token', data.token)
+          router.push({
+            name: 'home',
+          })
         })
       }
     }
@@ -207,10 +214,8 @@ const svg = ref<string>('')
 const getSvgCaptcha = () => {
   loginApi.getCaptcha()
   .then(res => {
-    const { code, data, msg } = res
-    if (code == 0) {
-      svg.value = data
-    }
+    const { data } = res
+    svg.value = data
   })
 }
 getSvgCaptcha()
@@ -225,10 +230,26 @@ getSvgCaptcha()
       width: 400px;
       height: 300px;
       align-self: center;
-      .login_card_logo{
+      .login_card_sys{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+        padding: 10px 20px ;
+      }
+      .login_card_sys_logo{
         width: 40px;
         height: 40px;
-        margin: 15px auto;
+      }
+      .login_card_sys_name{
+        font-size: 25px;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color:transparent;
+        background-image:linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+                         linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+                         linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+        animation: change-color 2s   infinite;
       }
       .login_card_captcha{
         height: 30px;
@@ -275,5 +296,35 @@ getSvgCaptcha()
 .slide-fade-reverse-leave-to {
   transform: translateX(50px);
   opacity: 0;
+}
+/** 
+动画 
+*/
+@keyframes change-color {
+  0%{
+    background-image:linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+                     linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+                     linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  }
+  25%{
+    background-image:linear-gradient(127deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+                     linear-gradient(37deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+                     linear-gradient(246deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  }
+  50%{
+    background-image:linear-gradient(37deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+                     linear-gradient(307deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+                     linear-gradient(156deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  }
+  75%{
+    background-image:linear-gradient(127deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+                     linear-gradient(37deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+                     linear-gradient(246deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  }
+  100%{
+    background-image:linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+                     linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+                     linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  }
 }
 </style>
