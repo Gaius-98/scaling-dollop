@@ -137,7 +137,11 @@ const validateEmail = (rule:any, value:any, callback:any) => {
   if (value) {
     if (!/^\w{3,}@\w+(\.\w+)+$/.test(value)) {
       callback(new Error('请输入正确的邮箱格式'))
+    } else {
+      callback()
     }
+  } else {
+    callback('请输入邮箱，再进行操作')
   }
 }
 const formRules = reactive<FormRules>({
@@ -154,6 +158,7 @@ const timer = ref(0)
 
 const sendEmail = () => {
   if (!loginFormRef.value) return 
+  
   loginFormRef.value.validate((valid) => {
     if (valid && loginForm.email) {
       loginApi.sendEmail({ email: loginForm.email })
