@@ -26,3 +26,17 @@ declare interface loginParamsEml {
 declare interface loginParams extends loginParamsEml, loginParamsPwd{
   
 }
+
+/**
+ * 用户信息
+ */
+declare interface userInfo {
+  id:number,
+  userId:string,
+  name:string,
+  username:string,
+  age:number,
+  sex:number,
+  phoneNumber:number,
+  email:string
+}

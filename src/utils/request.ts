@@ -19,8 +19,8 @@ service.interceptors.request.use((config) => {
   return config
 }, (error) => error)
 service.interceptors.response.use((res:AxiosResponse<any, any>) => {
-  const { code, data, msg } = res.data
-  if (code === 0) {
+  const { code, msg } = res.data
+  if (code == 0) {
     return res.data
   }
   ElMessage.error(msg)
