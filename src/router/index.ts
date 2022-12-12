@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { ElMessage } from 'element-plus'
 import { getCookie } from '@/utils/cookie'
 
 const routes:Array<RouteRecordRaw> = [
@@ -10,6 +9,10 @@ const routes:Array<RouteRecordRaw> = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/Login/LoginView.vue'),
+  }, {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/Home/HomeView.vue'),
   },
 ]
 
@@ -20,11 +23,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   let cookieToken = getCookie('ev-token')
+  console.log(cookieToken)
   if (!cookieToken && to.name !== 'login' && to.name !== 'register') {
-    ElMessage({
-      message: '您还未登录，请先登录！',
-      type: 'error',
-    })
     next({
       name: 'login',
     })
