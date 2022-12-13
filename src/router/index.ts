@@ -5,7 +5,7 @@ import { business } from './modules/business'
 const routes:Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/business/home',
   },
   {
     path: '/login',

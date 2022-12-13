@@ -8,4 +8,12 @@ declare namespace COMMON{
   declare interface obj{
     [key:string]:any
   }
+  /**
+   * 通用参数
+   */
+  declare interface params {
+    pageNumber:number,
+    pageSize:number,
+    keyword:string
+  }
 }

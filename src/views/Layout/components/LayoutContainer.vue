@@ -1,6 +1,14 @@
 <template>
   <main class="layout_container">
-    <router-view></router-view>
+    <Suspense>
+      <template #default>
+        <router-view></router-view>
+      </template>
+      <template #fallback>
+        <div v-loading="true">
+        </div>
+      </template>
+    </Suspense>
   </main>
 </template>
 

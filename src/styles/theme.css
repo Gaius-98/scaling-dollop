@@ -1,7 +1,19 @@
+/* --------dark主题--------   */
 :root[class='dark']{
-
+  --ev-bg-color:#FFF;
+  --ev-text-color:#000;
+  --ev-col-bg-color:#222222;
+  --ev-box-shadow-color:#333;
+  --ev-active-color:#21ba45;
+  --ev-tint-color:rgba(255,255,255,.3);
 }
 
+/* --------light主题--------   */
 :root[class='light']{
-
+  --ev-bg-color:#000;
+  --ev-text-color:#FFF;
+  --ev-col-bg-color:#fdfdfd;
+  --ev-box-shadow-color:#ccc;
+  --ev-active-color:#409eff;
+  --ev-tint-color:rgba(0,0,0,.3);
 }

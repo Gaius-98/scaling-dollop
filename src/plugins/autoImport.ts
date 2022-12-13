@@ -1,7 +1,8 @@
 import { App } from 'vue'
 
 const install = async (app:App<Element>) => {
-  const directives = await import.meta.glob('@/directives/common/*/*.ts', { eager: true })
+  const directives = import.meta.glob('@/directives/common/*.ts', { eager: true })
+  console.log(directives)
   for (const path in directives) {
     const directive:any = await directives[path]
     await app.directive(directive.default.name, directive.default.options)

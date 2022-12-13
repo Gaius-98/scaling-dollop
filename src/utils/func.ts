@@ -1,3 +1,5 @@
+import { useRouter } from 'vue-router'
+import { cloneDeep } from 'lodash'
 /**
  * 对象扁平化
  * @params {object} 要扁平化的对象
@@ -96,6 +98,36 @@ export const unflat = (obj:COMMON.obj) => {
   return res
 }
 
+/**
+     * routerpush方法改写
+     * @params {string} id
+     */
+export const routerPush = (id:string) => {
+  const router = useRouter()
+  const { options: { routes } } = router
+  const flatten = (routes:any[], arr?:any[]) => {
+    const res = arr || []
+    routes.forEach(route => {
+      res.push(route)
+      if (route.children) {
+        return flatten(route.children, res)
+      }
+    })
+    return res
+  }
+  const cloneRoutes = cloneDeep(routes) as any[]
+  const routeData:any[] = flatten(cloneRoutes)
+  const cur = routeData.find(route => route?.meta?.appId == id)
+  if (cur) {
+    router.push({
+      name: cur.name,
+    })
+  } else {
+    router.push({
+      name: '404',
+    })
+  }
+}
 /**
  * 常用函数
  */

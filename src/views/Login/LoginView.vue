@@ -1,5 +1,8 @@
 <template>
-  <div class="login">
+  <div
+    class="login"
+    :style="{background:`url(${sysConfig.sysLoginBackground})`}"
+  >
     <el-card class="login_card">
       <div class="login_card_sys">
         <img
@@ -106,7 +109,7 @@
 <script lang='ts' setup>
 import { setCookie } from '@/utils/cookie'
 import { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref, onBeforeUnmount } from 'vue'
+import { reactive, ref, onBeforeUnmount, computed } from 'vue'
 import * as loginApi from './service/api'
 import md5 from 'md5'
 import { useSysStore } from '@/store/sysConfig'
@@ -116,7 +119,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const sysStore = useSysStore()
 const { sysConfig } = storeToRefs(sysStore)
-
 const loginType = ref<loginType>('password')
 const onChangeLoginType = () => {
   if (loginType.value == 'email') {
