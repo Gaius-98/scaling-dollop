@@ -5,6 +5,7 @@ import autoImport from '@/plugins/autoImport'
 import router from './router'
 import 'element-plus/es/components/message/style/css'
 import 'normalize.css'
+import '@/assets/iconfont/iconfont.css'
 
 createApp(App).use(createPinia()).use(autoImport).use(router)
 .mount('#app')
