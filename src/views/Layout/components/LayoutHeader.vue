@@ -6,6 +6,9 @@
     >
       {{ pidMenu.appName }}
     </div>
+    <div>
+      <toggle-theme></toggle-theme>
+    </div>
   </header>
 </template>
 
