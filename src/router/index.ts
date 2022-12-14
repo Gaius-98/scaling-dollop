@@ -1,7 +1,12 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { getCookie } from '@/utils/cookie'
-import { business } from './modules/business'
 
+const modules = import.meta.glob('./modules/*.ts', { eager: true })
+const routersModules = []
+for (const path in modules) {
+  const module:any = await modules[path]
+  routersModules.push(module.default)
+}
 const routes:Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -12,7 +17,7 @@ const routes:Array<RouteRecordRaw> = [
     name: 'login',
     component: () => import('@/views/Login/LoginView.vue'),
   },
-  ...business,
+  ...routersModules,
 ]
 
 const router = createRouter({
