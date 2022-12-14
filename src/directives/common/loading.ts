@@ -1,45 +1,32 @@
 import loadingComp from '@/components/common/EvLoading/EvLoading.vue'
 import { createApp } from 'vue'
 
-const judgeLoading = (el:HTMLElement, binding:any) => {
-  const app = createApp(loadingComp)
-  const load = app.mount(document.createElement('div'))
-  let setLoading = (el:HTMLElement) => {
-    const style = getComputedStyle(el)
-    if (['absolute', 'fixed', 'relative'].includes(style.position)) el.appendChild(load.$el)
-    else {
+const judgeLoading = (ele:HTMLElement, binding:any) => {
+  const el = binding.modifiers?.fullscreen ? document.body : ele
+  const setLoading = (el:HTMLElement) => {
+    const curDomStyle = getComputedStyle(el)
+    el.setAttribute('oldPosition', curDomStyle.position)
+    if (!['absolute', 'fixed', 'relative'].includes(curDomStyle.position)) {
       el.style.position = 'relative'
-      el.classList.add('ev-loading')
-      el.appendChild(load.$el)
-    } 
-  }
-  let removeLoading = (el:HTMLElement) => {
-    if (el.classList.contains('ev-loading')) {
-      el.style.position = ''
-      el.classList.remove('ev-loading')
     }
+    el.appendChild(load.$el)
+  }
+  const removeLoading = (el:HTMLElement) => {
     try {
-      el.removeChild(el.loading)
+      el.removeChild(load.$el)
+      el.style.position = el.getAttribute('oldPosition') || ''
     } catch (error) {
       console.warn(error)
     }
   }
   if (binding.value) {
-    if (binding.modifiers?.fullscreen) {
-      let el = document.body
-      el.loading = load.$el
-      setLoading(el)
-    } else {
-      el.loading = load.$el
-      setLoading(el)
-    }
-  } else if (document.body.loading && binding.modifiers?.fullscreen) {
-    let el = document.body
-    removeLoading(el)
-  } else if (el.loading) {
-    removeLoading(el)
+    setLoading(el)
+  } else {
+    removeLoading(el) 
   }
 }
+const app = createApp(loadingComp)
+const load = app.mount(document.createElement('div'))
 const loading = {
   name: 'loading',
   options: {
