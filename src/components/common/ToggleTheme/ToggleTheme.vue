@@ -17,7 +17,7 @@ const { theme } = storeToRefs(sysStore)
 
 const onToggleTheme = (val:string) => {
   const reverse = val == 'dark' ? 'light' : 'dark'
-  document.body.classList.replace(reverse, val)
+  document.documentElement.classList.replace(reverse, val)
   localStorage.setItem('ev-theme', val)
   sysStore.$patch({
     theme: val,
@@ -26,9 +26,11 @@ const onToggleTheme = (val:string) => {
 
 const localTheme = localStorage.getItem('ev-theme')
 if (localTheme) {
-  onToggleTheme(localTheme)
+  sysStore.$patch({
+    theme: localTheme,
+  })
 }
-document.body.classList.add(theme.value)
+document.documentElement.classList.add(theme.value)
 </script>
 <style scoped lang='scss'>
 </style>

@@ -16,6 +16,9 @@ const business:RouteRecordRaw[] = [
         path: 'chart',
         name: 'chart',
         component: () => import('@/views/Chart/ChartList/ChartList.vue'),
+        meta: {
+          appId: '5a8235cd-d4d2-454d-8cab-1b06fad47283',
+        },
       },
       {
         path: 'chartConfig',
@@ -26,6 +29,11 @@ const business:RouteRecordRaw[] = [
           opType: route.query.opType || route.params.opType,
           chartType: route.query.chartType || route.params.chartType,
         }),
+      },
+      {
+        path: '404',
+        name: '404',
+        component: () => import('@/views/404/404View.vue'),
       },
     ],
   },

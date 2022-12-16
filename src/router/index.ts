@@ -5,7 +5,7 @@ const modules = import.meta.glob('./modules/*.ts', { eager: true })
 const routersModules = []
 for (const path in modules) {
   const module:any = await modules[path]
-  routersModules.push(module.default)
+  routersModules.push(...module.default)
 }
 const routes:Array<RouteRecordRaw> = [
   {
@@ -17,6 +17,7 @@ const routes:Array<RouteRecordRaw> = [
     name: 'login',
     component: () => import('@/views/Login/LoginView.vue'),
   },
+  
   ...routersModules,
 ]
 

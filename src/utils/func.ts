@@ -1,4 +1,4 @@
-import { useRouter } from 'vue-router'
+import router from '@/router/index'
 import { cloneDeep } from 'lodash'
 /**
  * 对象扁平化
@@ -99,11 +99,11 @@ export const unflat = (obj:COMMON.obj) => {
 }
 
 /**
-     * routerpush方法改写
-     * @params {string} id
-     */
+ * routerpush方法改写
+ * @params {string} id
+ */
 export const routerPush = (id:string) => {
-  const router = useRouter()
+  console.log(router)
   const { options: { routes } } = router
   const flatten = (routes:any[], arr?:any[]) => {
     const res = arr || []

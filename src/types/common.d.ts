@@ -16,4 +16,14 @@ declare namespace COMMON{
     pageSize:number,
     keyword:string
   }
+  /**
+   * 替换字段
+   */
+  declare interface replaceFields{
+    value:string,
+    children:string,
+    label:string,
+    key:string,
+    icon?:string
+  }
 }

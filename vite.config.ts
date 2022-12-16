@@ -23,13 +23,13 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  // css: {
-  //     preprocessorOptions: {
-  //         scss: {
-  //             additionalData: '@use "@/styles/element-plus/index.scss" as *;',
-  //         },
-  //     },
-  // },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "@/styles/element-plus/index.scss" as *;',
+      },
+    },
+  },
   server: {
     proxy: {
       '/local': {
