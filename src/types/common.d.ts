@@ -26,4 +26,21 @@ declare namespace COMMON{
     key:string,
     icon?:string
   }
+  /**
+   * 请求
+   */
+  declare interface reqForm{
+    url:string,
+    method:'get'|'post',
+    params?:obj,
+    data?:obj
+  }
+  /**
+   * 请求参数
+   */
+  declare interface reqTableData{
+    key:string,
+    paramsKey:string,
+    paramsValue:string
+  }
 }

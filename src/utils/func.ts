@@ -103,7 +103,6 @@ export const unflat = (obj:COMMON.obj) => {
  * @params {string} id
  */
 export const routerPush = (id:string) => {
-  console.log(router)
   const { options: { routes } } = router
   const flatten = (routes:any[], arr?:any[]) => {
     const res = arr || []

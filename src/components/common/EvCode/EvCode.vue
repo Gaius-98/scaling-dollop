@@ -7,6 +7,7 @@
     :indent-with-tab="true"
     :tab-size="2"
     :extensions="extensions"
+    v-bind="$attrs"
     @change="onChange"
   />
 </template>

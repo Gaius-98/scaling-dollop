@@ -20,15 +20,17 @@
     "md5": "^2.3.0",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.27",
+    "uuid": "^9.0.0",
     "vue": "^3.2.41",
     "vue-codemirror": "^6.1.1",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@types/echarts": "^4.9.16",
     "@types/js-cookie": "^3.0.2",
     "@types/md5": "^2.3.2",
     "@types/node": "^18.7.3",
-    "@types/echarts": "^4.9.16",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "@vitejs/plugin-vue": "^3.2.0",

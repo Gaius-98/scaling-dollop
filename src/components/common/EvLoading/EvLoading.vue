@@ -38,14 +38,19 @@ import { reactive, toRefs, ref } from 'vue'
     color: var(--ev-bg-color);
     border-radius: 25px;
   }
-  50% {
+  40% {
     color: var(--ev-col-bg-color);
     border-radius: 5px;
     transform: rotate(360deg);
   }
-  100% {
+  80% {
     color: var(--ev-text-color);
     border-radius: 25px;
   }
+  100% {
+    color: var(--ev-bg-color);
+    border-radius: 25px;
+  }
+
 }
 </style>
