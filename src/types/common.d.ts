@@ -32,8 +32,8 @@ declare namespace COMMON{
   declare interface reqForm{
     url:string,
     method:'get'|'post',
-    params?:obj,
-    data?:obj
+    params:obj,
+    data:obj
   }
   /**
    * 请求参数

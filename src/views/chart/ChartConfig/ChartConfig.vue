@@ -47,7 +47,7 @@
       <el-card header="数据请求">
         <ev-req
           v-model:req-form="reqForm"
-          @getReqData="onHandleData"
+          @get-req-data="onHandleData"
         >
         </ev-req>
       </el-card>
@@ -64,8 +64,15 @@
       class="chart_preview"
       header="图表预览"
     >
+      <el-card header="数据处理">
+        <el-button @click="onHandleDataToOption">
+          运行
+        </el-button>
+        <ev-code v-model:code="handleStr">
+        </ev-code>
+      </el-card>
       <ev-chart
-        style="width:100%;height:100%"
+        style="width:100%;height:400px"
         :option="option"
       >
       </ev-chart>
@@ -77,10 +84,11 @@
 import { ElMessage } from 'element-plus'
 import { reactive, toRefs, ref, provide, watch } from 'vue'
 import api from '../service/api'
-import { formatDefaultOption, formatSeries } from '../utils/format'
+import { formatDefaultOption } from '../utils/format'
 import { flat, unflat } from '@/utils/func'
 import EvChartAttr from '@/components/EvChartAttr/EvChartAttr.vue'
 import * as echarts from 'echarts'
+import axios from 'axios'
 
 const props = defineProps({
   opType: {
@@ -105,6 +113,8 @@ const chartFormData = reactive<saveChart>({
   id: 0,
   time: '',
   creator: '',
+  reqOption: '',
+  handleDatajs: '',
 })
 const loading = ref(true)
 const { opType, chartType, chartId } = toRefs(props)
@@ -134,15 +144,25 @@ if (opType.value == 'add') {
     const { data } = res
     Object.assign(chartFormData, data)
     Object.assign(option, JSON.parse(data.option))
-    jsonOption.value = JSON.stringify(option, null, 4)
-    Object.assign(formTemplate, formatDefaultOption(template, option))
-    Object.assign(flatOption, flat(option))
-    loading.value = false
+    Object.assign(reqForm, JSON.parse(data.reqOption))
+    handleStr.value = data.handleDatajs
+    axios({
+      ...reqForm,
+    }).then(res => {
+      Object.assign(reqData, res)
+      onHandleDataToOption()
+      jsonOption.value = JSON.stringify(option, null, 4)
+      Object.assign(formTemplate, formatDefaultOption(template, option))
+      Object.assign(flatOption, flat(option))
+      loading.value = false
+    })
   })
 }
 
 const onSave = () => {
   chartFormData.option = jsonOption.value
+  chartFormData.reqOption = JSON.stringify(reqForm)
+  chartFormData.handleDatajs = handleStr.value
   let img
   if (document.querySelector('.ev-chart')) {
     img = echarts.getInstanceByDom(
@@ -174,23 +194,31 @@ const onSave = () => {
 provide('chartOpt', flatOption)
 watch(flatOption, () => {
   Object.assign(option, unflat(flatOption))
+  if (handleStr.value) {
+    onHandleDataToOption()
+  }
   jsonOption.value = JSON.stringify(option, null, 4)
 })
 
-const reqForm = reactive<COMMON.reqForm>({ url: '123',
-  method: 'get',
-  params: {
-    name: '123',
-    test: 'test',
-  },
-  data: {
+const reqForm = reactive<COMMON.reqForm>(
+  { url: 'http://jsonplaceholder.typicode.com/comments',
+    method: 'get',
+    params: {
+      postId: '1',
+    },
+    data: {
 
-  } })
+    } },
+)
 const reqDataJson = ref('')
 const reqData = reactive<COMMON.obj>({})
 const onHandleData = (data:COMMON.obj) => {
   Object.assign(reqData, data)
   reqDataJson.value = JSON.stringify(data, null, 4)
+}
+const handleStr = ref('')
+const onHandleDataToOption = () => {
+  eval(handleStr.value)
 }
 </script>
 <style scoped lang='scss'>

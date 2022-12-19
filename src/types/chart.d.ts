@@ -9,5 +9,7 @@ declare interface saveChart {
   option:string,
   img:string,
   time?:string|Date,
-  creator?:string
+  creator?:string,
+  reqOption:string,
+  handleDatajs:string
 }

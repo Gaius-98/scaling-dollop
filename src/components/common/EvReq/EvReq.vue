@@ -54,7 +54,7 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref, PropType } from 'vue'
+import { toRefs, PropType } from 'vue'
 import axios from 'axios'
 import ReqTable from './components/ReqTable.vue'
 
@@ -66,19 +66,21 @@ const props = defineProps({
 })
 const { reqForm } = toRefs(props)
 const emits = defineEmits(['getReqData'])
+
 const onRefresh = () => {
   axios({
     ...reqForm.value,
   })
   .then(res => {
-    console.log(res)
     emits('getReqData', res)
   })
   .catch(err => {
     emits('getReqData', err)
   })
 }
-
+defineExpose({
+  onRefresh,
+})
 </script>
 <style scoped lang='scss'>
 </style>

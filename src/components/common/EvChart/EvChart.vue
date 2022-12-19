@@ -10,6 +10,8 @@
 import { init, EChartsType } from 'echarts'
 import { getChart } from '@/api/common'
 import { reactive, toRefs, ref, onMounted, watch } from 'vue'
+import axios from 'axios'
+import { json } from 'stream/consumers'
 
 const props = defineProps({
   chartId: {
@@ -27,8 +29,16 @@ if (chartId.value) {
   getChart({ chartId: chartId.value })
   .then(res => {
     const { data } = res
-    Object.assign(chartOption, JSON.parse(data.option))
-    initEchart()
+    const req = JSON.parse(data.reqOption)
+    axios({
+      ...req,
+    }).then(res => {
+      const reqData = res
+      const option = JSON.parse(data.option)
+      eval(data.handleDatajs)
+      Object.assign(chartOption, option)
+      initEchart()
+    })
   })
 } else {
   Object.assign(chartOption, option.value)
@@ -64,6 +74,7 @@ watch(option, () => {
   Object.assign(chartOption, option.value)
   initEchart()
 }, { deep: true })
+
 </script>
 <style scoped lang='scss'>
 .ev-chart{

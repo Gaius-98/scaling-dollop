@@ -101,7 +101,7 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { getDict } from '@/api/common'
 import { useRouter } from 'vue-router'
 import api from '../service/api'
