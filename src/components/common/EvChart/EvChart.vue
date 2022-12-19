@@ -32,8 +32,7 @@ if (chartId.value) {
     const req = JSON.parse(data.reqOption)
     axios({
       ...req,
-    }).then(res => {
-      const reqData = res
+    }).then(reqData => {
       const option = JSON.parse(data.option)
       eval(data.handleDatajs)
       Object.assign(chartOption, option)

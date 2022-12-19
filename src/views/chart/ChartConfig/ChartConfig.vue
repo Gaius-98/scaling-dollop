@@ -1,82 +1,104 @@
 <template>
-  <div
-    class="chart_header"
-  >
-    <div>
-      图表名称 
-      <el-input
-        v-model="chartFormData.chartName"
-        style="width:200px"
-      >
-      </el-input>
-    </div>
-    <div class="op">
-      <el-button @click="onSave">
-        保存
-      </el-button>
-    </div>
-  </div>
-  <div
-    v-loading.fullscreen="loading"
-    class="chart_container"
-  >
-    <div class="chart_option">
-      <el-card
-        class="chart_config"
-        header="图表配置"
-      >  
-        <ev-chart-attr
-          :level="0"
-          :form-template="formTemplate"
-        >
-        </ev-chart-attr>
-      </el-card>
-      <el-card
-        class="chart_json"
-        header="配置预览"
-      >
-        <ev-code
-          v-model:code="jsonOption"
-          disabled
-          style="width:100%;height:400px"
-        >
-        </ev-code>
-      </el-card>
-    </div>
-    <div class="chart_req">
-      <el-card header="数据请求">
-        <ev-req
-          v-model:req-form="reqForm"
-          @get-req-data="onHandleData"
-        >
-        </ev-req>
-      </el-card>
-      <el-card header="数据预览">
-        <ev-code
-          v-model:code="reqDataJson"
-          disabled
-          style="width:100%;height:400px"
-        >
-        </ev-code>
-      </el-card>
-    </div>
-    <el-card
-      class="chart_preview"
-      header="图表预览"
+  <div class="chart_config">
+    <div
+      class="chart_header"
     >
-      <el-card header="数据处理">
-        <el-button @click="onHandleDataToOption">
-          运行
+      <div>
+        图表名称 
+        <el-input
+          v-model="chartFormData.chartName"
+          style="width:200px"
+        >
+        </el-input>
+      </div>
+      <div class="op">
+        <el-button
+          type="primary"
+          @click="onSave"
+        >
+          保存
         </el-button>
-        <ev-code v-model:code="handleStr">
-        </ev-code>
-      </el-card>
-      <ev-chart
-        style="width:100%;height:400px"
-        :option="option"
-      >
-      </ev-chart>
-    </el-card>
+      </div>
+    </div>
+    <div
+      v-loading.fullscreen="loading"
+      class="chart_container"
+    >
+      <div class="chart_option">
+        <div class="chart_option_attr">
+          <ev-title>
+            图表配置
+          </ev-title>
+          <ev-chart-attr
+            :level="0"
+            :form-template="formTemplate"
+          >
+          </ev-chart-attr>
+        </div>
+        <div class="chart_option_prew">
+          <ev-title>
+            配置明细
+          </ev-title>
+          <ev-code
+            v-model:code="jsonOption"
+            disabled
+            style="width:100%;height:100%"
+          >
+          </ev-code>
+        </div>
+      </div>
+      <div class="chart_req">
+        <div class="chart_req_form">
+          <ev-title>
+            请求数据
+          </ev-title>
+          <ev-req
+            v-model:req-form="reqForm"
+            @get-req-data="onHandleData"
+          >
+          </ev-req>
+        </div>
+        
+        <div class="chart_req_data">
+          <ev-title>
+            数据预览
+          </ev-title>
+          <ev-code
+            v-model:code="reqDataJson"
+            style="width:100%;height:100%"
+            disabled
+          >
+          </ev-code>
+        </div>
+      </div>
+      <div class="chart_handle">
+        <div class="chart_data_handle">
+          <ev-title>
+            数据处理
+            <template #opt>
+              <el-button @click="onHandleDataToOption">
+                执行
+              </el-button>
+            </template>
+          </ev-title>
+          <ev-code
+            v-model:code="handleStr"
+            style="width:100%;height:100%"
+          >
+          </ev-code>
+        </div>
+        <div class="chart_preview">
+          <ev-title>
+            图表预览
+          </ev-title>
+          <ev-chart
+            style="width:100%;height:100%"
+            :option="option"
+          >
+          </ev-chart>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -222,35 +244,62 @@ const onHandleDataToOption = () => {
 }
 </script>
 <style scoped lang='scss'>
+.chart_config{
+  background: var(--ev-border);
+}
 .chart_header{
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
   height: 60px;
+  margin-bottom: 2px;
+  background: var(--ev-col-bg-color);
 }
 .chart_container{
   display: flex;
   height: calc(100% - 60px);
   .chart_option{
+    width: 500px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    .chart_config{
-      width:400px;
-      height: 400px;
+    margin:0 2px;
+    background: var(--ev-col-bg-color);
+    .chart_option_attr{
+      width: 500px;
+      height: 600px;
       overflow-y: auto;
+      margin-bottom: 2px;
     }
-    .chart_json{
-      width:400px;
-      height: 400px;
+    .chart_option_prew{
+      height:400px;
     }
   }
   .chart_req{
-    width: 400px;
+    width: 600px;
     height: 100%;
+    margin-right: 2px;
+    background: var(--ev-col-bg-color);
+    .chart_req_form{
+      height: 400px;
+      overflow: auto;
+    }
+    .chart_req_data{
+      height: 600px;
+    }
   }
   
-  .chart_preview{
-    flex:1
+  .chart_handle{
+    width: calc(100% - 1100px);
+    background: var(--ev-col-bg-color);
+    .chart_data_handle{
+      height: 600px;
+    }
+    .chart_preview{
+      height: 400px;
+    }
   }
   
 }

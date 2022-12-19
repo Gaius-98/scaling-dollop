@@ -5,7 +5,9 @@
   --ev-col-bg-color:#222222;
   --ev-box-shadow-color:#333;
   --ev-active-color:#21ba45;
-  --ev-tint-color:rgba(255,255,255,.3);
+  --ev-active-shallow-color:#bdf3c98f;
+  --ev-border: #57e678c5;
+  --ev-tint-color:rgba(0,0,0,.6);
 }
 
 /* --------light主题--------   */
@@ -15,5 +17,8 @@
   --ev-col-bg-color:#fdfdfd;
   --ev-box-shadow-color:#ccc;
   --ev-active-color:#409eff;
-  --ev-tint-color:rgba(0,0,0,.3);
+  --ev-active-shallow-color:#96c2ee75;
+  --ev-border: #59a2ecc5;
+  --ev-tint-color:rgba(255,255,255,.6);
 }
+
