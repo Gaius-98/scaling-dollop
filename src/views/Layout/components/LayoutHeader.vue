@@ -24,6 +24,12 @@
     >
     </ev-menu>
     <div class="layout_header_sys_opt">
+      <div
+        class="iconfont icon-peizhi sys"
+        title="后台管理"
+        @click="goSys"
+      >
+      </div>
       <toggle-theme></toggle-theme>
     </div>
   </header>
@@ -35,6 +41,7 @@ import { reactive, toRefs, ref } from 'vue'
 import { routerPush } from '@/utils/func'
 import { useSysStore } from '@/store/sysConfig'
 import { storeToRefs } from 'pinia'
+import { getCookie } from '@/utils/cookie'
 
 const sysStore = useSysStore()
 const { sysConfig } = storeToRefs(sysStore)
@@ -46,6 +53,10 @@ getMenuList().then(res => {
 })
 const onClickMenu = (value:any) => {
   routerPush(value)
+}
+const goSys = () => {
+  const token = getCookie('ev-token')
+  window.open(`http://www.baidu.com?ev-token=${token}`, '_blank')
 }
 </script>
 <style scoped lang='scss'>
@@ -82,8 +93,15 @@ const onClickMenu = (value:any) => {
   .layout_header_sys_opt{
     display: flex;
     align-items: center;
-    width: 40px;
+    justify-content: space-around;
+    width: 120px;
     height: 100%;
+    .sys{
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--ev-active-color);
+    }
   }
 }
 </style>
