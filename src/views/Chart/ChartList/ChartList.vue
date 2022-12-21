@@ -54,6 +54,7 @@
             @click="onView(item)"
           />
           <el-button
+            v-copy="item.chartId"
             :icon="DocumentCopy"
             circle
             title="复制"
@@ -199,6 +200,7 @@ const onDelete = (chart:saveChart) => {
 }
 
 const onClone = (chart:saveChart) => {
+  console.log(navigator.clipboard)
   navigator.clipboard.writeText(chart.chartId).then((res) => {
     console.log(res)
     ElMessage.success('复制图表id成功')

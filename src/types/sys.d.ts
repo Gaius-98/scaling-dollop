@@ -29,7 +29,7 @@ declare interface sysDict {
   dictType:string,
   dictTypeChdesc:string,
   value:string|number,
-  label:string|number,
+  label:string,
   orderNum:number,
   description:string
 }
