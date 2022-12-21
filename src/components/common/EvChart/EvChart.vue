@@ -1,6 +1,7 @@
 <template>
   <div
     ref="evChart"
+    v-loading="loading"
     class="ev-chart"
   >
   </div>
@@ -11,8 +12,9 @@ import { init, EChartsType } from 'echarts'
 import { getChart } from '@/api/common'
 import { reactive, toRefs, ref, onMounted, watch } from 'vue'
 import axios from 'axios'
-import { json } from 'stream/consumers'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const props = defineProps({
   chartId: {
     type: String,
@@ -23,17 +25,33 @@ const props = defineProps({
     default: null,
   },
 })
+const loading = ref(true)
 const { chartId, option } = toRefs(props)
-const chartOption = reactive({})
+const chartOption = reactive<COMMON.obj>({})
+const req = reactive<COMMON.reqForm>({
+  url: '',
+  method: 'get',
+  params: {
+
+  },
+  data: {
+
+  },
+})
+const variable = reactive<COMMON.obj>({})
+const handleDatajs = ref('')
 if (chartId.value) {
+  loading.value = true
   getChart({ chartId: chartId.value })
   .then(res => {
     const { data } = res
-    const req = JSON.parse(data.reqOption)
+    Object.assign(req, data.reqOption)
+    Object.assign(variable, data.variable)
     axios({
       ...req,
     }).then(reqData => {
-      const option = JSON.parse(data.option)
+      const option = data.option
+      handleDatajs.value = data.handleDatajs
       eval(data.handleDatajs)
       Object.assign(chartOption, option)
       initEchart()
@@ -53,6 +71,7 @@ const initEchart = () => {
     evChartInstance = init(evChart.value)
     evChartInstance.setOption(chartOption)
   }
+  loading.value = false
 }
 const rsOb = new ResizeObserver((e => {
   if (timer.value) clearTimeout(timer.value)
@@ -74,6 +93,37 @@ watch(option, () => {
   initEchart()
 }, { deep: true })
 
+watch(route, () => {
+  const { query } = route
+  const variableNames:any[] = []
+  Object.keys(variable).forEach(key => {
+    variableNames.push({
+      realParamsName: key,
+      alias: variable[key] || key,
+    })
+  })
+  variableNames.forEach(params => {
+    if (query[params.alias]) {
+      if (req.method == 'get') {
+        req.params[params.realParamsName] = query[params.alias]
+      } else {
+        req.data[params.realParamsName] = query[params.alias]
+      }
+    }
+  })
+  handleVar()
+})
+const handleVar = () => {
+  loading.value = true
+  axios({
+    ...req,
+  }).then(reqData => {
+    const option = chartOption
+    eval(handleDatajs.value)
+    Object.assign(chartOption, option)
+    initEchart()
+  })
+}
 </script>
 <style scoped lang='scss'>
 .ev-chart{

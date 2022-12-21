@@ -43,4 +43,12 @@ declare namespace COMMON{
     paramsKey:string,
     paramsValue:string
   }
+  /**
+   * 变量设置
+   */
+  declare interface varTableData{
+    key:string,
+    varKey:string,
+    varValue?:string
+  }
 }

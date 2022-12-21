@@ -6,10 +6,11 @@ declare interface saveChart {
   chartId:string,
   chartName:string,
   chartType:string,
-  option:string,
+  option:COMMON.obj,
   img:string,
   time?:string|Date,
   creator?:string,
-  reqOption:string,
-  handleDatajs:string
+  reqOption:COMMON.obj,
+  handleDatajs:string,
+  variable:COMMON.obj
 }

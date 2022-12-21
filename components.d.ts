@@ -42,6 +42,7 @@ declare module '@vue/runtime-core' {
     EvMenuItem: typeof import('./src/components/common/EvMenu/components/EvMenuItem.vue')['default']
     EvReq: typeof import('./src/components/common/EvReq/EvReq.vue')['default']
     EvTitle: typeof import('./src/components/common/EvTitle/EvTitle.vue')['default']
+    EvVar: typeof import('./src/components/common/EvVar/EvVar.vue')['default']
     ReqTable: typeof import('./src/components/common/EvReq/components/ReqTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

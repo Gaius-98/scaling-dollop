@@ -1,5 +1,8 @@
 <template>
-  <div class="chart_config">
+  <div
+    v-loading.fullscreen="loading"
+    class="chart_config"
+  >
     <div
       class="chart_header"
     >
@@ -21,31 +24,38 @@
       </div>
     </div>
     <div
-      v-loading.fullscreen="loading"
       class="chart_container"
     >
       <div class="chart_option">
-        <div class="chart_option_attr">
-          <ev-title>
-            图表配置
-          </ev-title>
-          <ev-chart-attr
-            :level="0"
-            :form-template="formTemplate"
+        <el-tabs
+          v-model="activeName"
+        >
+          <el-tab-pane
+            label="图表配置"
+            name="attr"
           >
-          </ev-chart-attr>
-        </div>
-        <div class="chart_option_prew">
-          <ev-title>
-            配置明细
-          </ev-title>
-          <ev-code
-            v-model:code="jsonOption"
-            disabled
-            style="width:100%;height:100%"
+            <div class="chart_option_attr">
+              <ev-chart-attr
+                :level="0"
+                :form-template="formTemplate"
+              >
+              </ev-chart-attr>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane
+            label="配置明细"
+            name="json"
           >
-          </ev-code>
-        </div>
+            <div class="chart_option_json">
+              <ev-code
+                v-model:code="jsonOption"
+                disabled
+                style="width:100%;height:100%"
+              >
+              </ev-code>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
       </div>
       <div class="chart_req">
         <div class="chart_req_form">
@@ -53,7 +63,8 @@
             请求数据
           </ev-title>
           <ev-req
-            v-model:req-form="reqForm"
+            v-model:req-form="chartFormData.reqOption"
+            style="width:100%;height:calc(100% - 30px)"
             @get-req-data="onHandleData"
           >
           </ev-req>
@@ -65,10 +76,23 @@
           </ev-title>
           <ev-code
             v-model:code="reqDataJson"
-            style="width:100%;height:100%"
+            style="width:100%;height:calc(100% - 30px)"
             disabled
           >
           </ev-code>
+        </div>
+        <div class="chart_req_var">
+          <ev-title>
+            参数设置
+          </ev-title>
+          <div style="height:200px;overflow-y: auto;">
+            <ev-var
+              v-model:data="chartFormData.variable"
+              style="width:100%"
+              @update:data="(val:any)=>{chartFormData.variable = val}"
+            >
+            </ev-var>
+          </div>
         </div>
       </div>
       <div class="chart_handle">
@@ -77,13 +101,13 @@
             数据处理
             <template #opt>
               <el-button @click="onHandleDataToOption">
-                执行
+                生成图表
               </el-button>
             </template>
           </ev-title>
           <ev-code
-            v-model:code="handleStr"
-            style="width:100%;height:100%"
+            v-model:code="chartFormData.handleDatajs"
+            style="width:100%;height:calc(100% - 30px)"
           >
           </ev-code>
         </div>
@@ -92,7 +116,7 @@
             图表预览
           </ev-title>
           <ev-chart
-            style="width:100%;height:100%"
+            style="width:100%;height:calc(100% - 30px)"
             :option="option"
           >
           </ev-chart>
@@ -128,15 +152,28 @@ const props = defineProps({
 })
 const chartFormData = reactive<saveChart>({
   chartName: '',
-  option: '',
+  option: {},
   img: '',
   chartId: '',
   chartType: '',
   id: 0,
   time: '',
   creator: '',
-  reqOption: '',
-  handleDatajs: '',
+  reqOption: { url: 'http://jsonplaceholder.typicode.com/comments',
+    method: 'get',
+    params: {
+      postId: '1',
+    },
+    data: {
+
+    } },
+  handleDatajs: `
+  //--------------接口获取的数据---------------
+  console.log(reqData)
+  //---------------图表option-------------------
+  console.log(option)
+  `,
+  variable: {},
 })
 const loading = ref(true)
 const { opType, chartType, chartId } = toRefs(props)
@@ -165,11 +202,9 @@ if (opType.value == 'add') {
   .then(res => {
     const { data } = res
     Object.assign(chartFormData, data)
-    Object.assign(option, JSON.parse(data.option))
-    Object.assign(reqForm, JSON.parse(data.reqOption))
-    handleStr.value = data.handleDatajs
+    Object.assign(option, chartFormData.option)
     axios({
-      ...reqForm,
+      ...chartFormData.reqOption,
     }).then(res => {
       Object.assign(reqData, res)
       onHandleDataToOption()
@@ -182,9 +217,7 @@ if (opType.value == 'add') {
 }
 
 const onSave = () => {
-  chartFormData.option = jsonOption.value
-  chartFormData.reqOption = JSON.stringify(reqForm)
-  chartFormData.handleDatajs = handleStr.value
+  chartFormData.option = option
   let img
   if (document.querySelector('.ev-chart')) {
     img = echarts.getInstanceByDom(
@@ -212,15 +245,17 @@ const onSave = () => {
     })
   }
 }
- 
+
 provide('chartOpt', flatOption)
 watch(flatOption, () => {
   Object.assign(option, unflat(flatOption))
-  if (handleStr.value) {
+  if (chartFormData.handleDatajs) {
     onHandleDataToOption()
   }
   jsonOption.value = JSON.stringify(option, null, 4)
 })
+
+const activeName = ref('attr')
 
 const reqForm = reactive<COMMON.reqForm>(
   { url: 'http://jsonplaceholder.typicode.com/comments',
@@ -238,10 +273,11 @@ const onHandleData = (data:COMMON.obj) => {
   Object.assign(reqData, data)
   reqDataJson.value = JSON.stringify(data, null, 4)
 }
-const handleStr = ref('')
 const onHandleDataToOption = () => {
-  eval(handleStr.value)
+  eval(chartFormData.handleDatajs)
 }
+
+const variable = reactive({})
 </script>
 <style scoped lang='scss'>
 .chart_config{
@@ -258,23 +294,25 @@ const onHandleDataToOption = () => {
 }
 .chart_container{
   display: flex;
-  height: calc(100% - 60px);
+  height: calc(100vh - 142px);
   .chart_option{
+    box-sizing: border-box;
     width: 500px;
     height: 100%;
     display: flex;
+    overflow-y: auto;
     flex-direction: column;
     justify-content: space-around;
     margin:0 2px;
+    padding: 5px 10px;
     background: var(--ev-col-bg-color);
     .chart_option_attr{
-      width: 500px;
-      height: 600px;
+      height: 700px;
       overflow-y: auto;
-      margin-bottom: 2px;
     }
-    .chart_option_prew{
-      height:400px;
+    .chart_option_json{
+      height: 700px;
+      overflow-y: auto;
     }
   }
   .chart_req{
@@ -283,11 +321,13 @@ const onHandleDataToOption = () => {
     margin-right: 2px;
     background: var(--ev-col-bg-color);
     .chart_req_form{
-      height: 400px;
-      overflow: auto;
+      height: 300px;
     }
     .chart_req_data{
-      height: 600px;
+      height: 250px;
+    }
+    .chart_req_var{
+      height: calc(100% - 700px);
     }
   }
   
@@ -295,10 +335,10 @@ const onHandleDataToOption = () => {
     width: calc(100% - 1100px);
     background: var(--ev-col-bg-color);
     .chart_data_handle{
-      height: 600px;
+      height: 330px;
     }
     .chart_preview{
-      height: 400px;
+      height: calc(100% - 390px);
     }
   }
   

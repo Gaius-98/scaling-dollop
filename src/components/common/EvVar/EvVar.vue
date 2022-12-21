@@ -4,28 +4,28 @@
     :data="tableData"
   >
     <el-table-column
-      prop="paramsKey"
+      prop="varKey"
       label="参数名"
     >
       <template
         #default="scope"
       >
         <el-input
-          v-model="scope.row.paramsKey"
+          v-model="scope.row.varKey"
           @change="onHandle"
         >
         </el-input>
       </template>
     </el-table-column>
     <el-table-column
-      prop="paramsValue"
-      label="参数值"
+      prop="varValue"
+      label="参数别名"
     >
       <template
         #default="scope"
       >
         <el-input
-          v-model="scope.row.paramsValue"
+          v-model="scope.row.varValue"
           @change="onHandle"
         >
         </el-input>
@@ -68,12 +68,12 @@ const { data } = toRefs(props)
 // const tableData = ref<COMMON.reqTableData[]>([])
 const tableKey = ref(uuidv4())
 const tableData = computed(() => {
-  const table:COMMON.reqTableData[] = []
+  const table:COMMON.varTableData[] = []
   if (Object.keys(data.value).length == 0) {
     table.push({
       key: uuidv4(),
-      paramsKey: '',
-      paramsValue: '',
+      varKey: '',
+      varValue: '',
     })
   }
   for (const key in data.value) {
@@ -81,8 +81,8 @@ const tableData = computed(() => {
       const value = data.value[key]
       table.push({
         key: uuidv4(),
-        paramsKey: key,
-        paramsValue: value,
+        varKey: key,
+        varValue: value,
       })
     }
   }
@@ -92,7 +92,7 @@ const emits = defineEmits(['update:data'])
 const onHandle = () => {
   const obj:COMMON.obj = {}
   tableData.value.forEach((item => {
-    obj[item.paramsKey] = item.paramsValue
+    obj[item.varKey] = item.varValue
   }))
   emits('update:data', obj)
 }
@@ -100,8 +100,8 @@ const onHandle = () => {
 const onAdd = () => {
   tableData.value.unshift({
     key: uuidv4(),
-    paramsKey: '',
-    paramsValue: '',
+    varKey: '',
+    varValue: '',
   })
   tableKey.value = uuidv4()
 }

@@ -44,13 +44,5 @@ const api = {
     method: 'post',
     data,
   }),
-  /**
-   * 删除
-   */
-  delete: (data:chartId) => request({
-    url: '/chart/delete',
-    method: 'post',
-    data,
-  }),
 }
 export default api
