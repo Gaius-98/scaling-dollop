@@ -43,18 +43,27 @@
             type="primary"
             :icon="Edit"
             circle
+            title="编辑"
             @click="onEdit(item)"
           />
           <el-button
             type="success"
             :icon="View"
             circle
+            title="查看"
             @click="onView(item)"
+          />
+          <el-button
+            :icon="DocumentCopy"
+            circle
+            title="复制"
+            @click="onClone(item)"
           />
           <el-button
             type="danger"
             :icon="Delete"
             circle
+            title="删除"
             @click="onDelete(item)"
           />
         </div>
@@ -105,6 +114,7 @@ import {
   Delete,
   Edit,
   View,
+  DocumentCopy,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
@@ -185,6 +195,16 @@ const onDelete = (chart:saveChart) => {
   }).then(res => {
     ElMessage.success('删除成功')
     getList()
+  })
+}
+
+const onClone = (chart:saveChart) => {
+  navigator.clipboard.writeText(chart.chartId).then((res) => {
+    console.log(res)
+    ElMessage.success('复制图表id成功')
+  })
+  .catch(() => {
+    ElMessage.success('复制失败')
   })
 }
 </script>
