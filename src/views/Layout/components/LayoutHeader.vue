@@ -18,7 +18,8 @@
       :replace-fields="{
         value:'appId',
         label:'appName',
-        children:'children'
+        children:'children',
+        icon:'icon'
       }"
       @on-click-item="onClickMenu"
     >

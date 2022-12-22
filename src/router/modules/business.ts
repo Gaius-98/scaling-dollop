@@ -17,7 +17,7 @@ const business:RouteRecordRaw[] = [
         name: 'chart',
         component: () => import('@/views/Chart/ChartList/ChartList.vue'),
         meta: {
-          appId: '5a8235cd-d4d2-454d-8cab-1b06fad47283',
+          appId: '66401fee-1f89-4e52-8ee1-9927a4d05e43',
         },
       },
       {

@@ -11,7 +11,7 @@
         <i 
           v-if="replaceFields.icon && item[replaceFields.icon]" 
           class="iconfont" 
-          :class="item[replaceFields.icon]"
+          :class="'icon-'+item[replaceFields.icon]"
         ></i>
         <span>{{ item[replaceFields.label] }}</span>
       </template>
@@ -29,7 +29,7 @@
       <i 
         v-if="replaceFields.icon && item[replaceFields.icon]" 
         class="iconfont" 
-        :class="item[replaceFields.icon]"
+        :class="'icon-'+item[replaceFields.icon]"
       ></i>
       <span>{{ item[replaceFields.label] }}</span>
     </el-menu-item>
