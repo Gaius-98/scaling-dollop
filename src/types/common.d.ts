@@ -51,4 +51,15 @@ declare namespace COMMON{
     varKey:string,
     varValue?:string
   }
+  /**
+   * 分页响应
+   */
+  declare interface pageData<T>{
+    data:T,
+    pagination:{
+      pageNumber:number,
+      pageSize:number,
+      total:number
+    }
+  }
 }

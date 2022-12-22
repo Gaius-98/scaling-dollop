@@ -23,7 +23,10 @@
       </el-button>
     </div>
   </div>
-  <div class="chart-data-container">
+  <div
+    v-loading="loading"
+    class="chart-data-container"
+  >
     <div
       v-for="item in dataList"
       :key="item.id"
@@ -70,13 +73,23 @@
         </div>
       </div>
       <img
-        style="width:100%;height:calc(100% - 20px)"
+        style="width:100%;height:calc(100% - 40px)"
         :src="item.img"
         :alt="item.chartName"
       >
     </div>
   </div>
-  
+  <el-pagination
+    v-model:current-page="params.pageNumber"
+    v-model:page-size="params.pageSize"
+    background
+    layout="sizes, prev, pager, next"
+    :total="total"
+    style="width:90%;margin: 0 5%"
+    :page-sizes="[12, 24, 36, 60]"
+    @current-change="getList"
+    @size-change="getList"
+  />
   <el-dialog
     v-model="dialogShowAdd"
     title="新增可视化"
@@ -128,18 +141,22 @@ const dataList = ref<saveChart[]>([])
 const params = reactive({
   keyword: '',
   pageNumber: 1,
-  pageSize: 10,
+  pageSize: 12,
 })
-
+const total = ref(0)
+const loading = ref(true)
 const onSearch = () => {
   params.pageNumber = 1
   getList()
 }
 const getList = () => {
+  loading.value = true
   api.getChartList(params)
   .then(res => {
     const { data } = res
     dataList.value = data.data
+    total.value = data.pagination.total
+    loading.value = false
   })
 }
 getList()
@@ -224,16 +241,20 @@ const onClone = (chart:saveChart) => {
   }
 }
 .chart-data-container{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows: repeat(3,1fr);
+  grid-row-gap: 5px;
+  grid-column-gap: 5px;
+  place-items:center center;
   width: 100%;
-  height: 600px;
+  height: 760px;
+  margin-bottom: 10px;
+  overflow-y: auto;
   .chart{
     position: relative;
-    width: 400px;
+    width: 460px;
     height: 240px;
-    margin: 5px 10px;
     border-radius: 2px;
     border: 1px solid var(--ev-border);
     overflow: hidden;
@@ -261,7 +282,7 @@ const onClone = (chart:saveChart) => {
         position: absolute;
         display: flex;
         width: 100%;
-        height: calc(100% - 20px);
+        height: calc(100% - 40px);
         z-index: 99;
         background: var(--ev-tint-color);
         .btns{

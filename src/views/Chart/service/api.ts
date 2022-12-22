@@ -23,7 +23,7 @@ const api = {
   /**
      * 获取chart列表
      */
-  getChartList: (data:COMMON.params) => request<chartData>({
+  getChartList: (data:COMMON.params) => request<COMMON.pageData<saveChart[]>>({
     url: '/chart/list',
     method: 'post',
     data,
