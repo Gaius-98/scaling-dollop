@@ -12,9 +12,7 @@ import { init, EChartsType } from 'echarts'
 import { getChart } from '@/api/common'
 import { reactive, toRefs, ref, onMounted, watch } from 'vue'
 import axios from 'axios'
-import { useRoute } from 'vue-router'
 
-const route = useRoute()
 const props = defineProps({
   chartId: {
     type: String,
@@ -38,6 +36,7 @@ const req = reactive<COMMON.reqForm>({
 
   },
 })
+const oldParams = reactive<COMMON.obj>({})
 const variable = reactive<COMMON.obj>({})
 const handleDatajs = ref('')
 if (chartId.value) {
@@ -46,6 +45,11 @@ if (chartId.value) {
   .then(res => {
     const { data } = res
     Object.assign(req, data.reqOption)
+    if (req.method == 'get') {
+      Object.assign(oldParams, req.params)
+    } else {
+      Object.assign(oldParams, req.data)
+    }
     Object.assign(variable, data.variable)
     axios({
       ...req,
@@ -86,6 +90,9 @@ const rsOb = new ResizeObserver((e => {
 onMounted(() => {
   initEchart()
   rsOb.observe(evChart.value)
+  window.addEventListener('hashchange', () => {
+    handleUrl(window.location.href)
+  })
 })
 
 watch(option, () => {
@@ -93,26 +100,34 @@ watch(option, () => {
   initEchart()
 }, { deep: true })
 
-watch(route, () => {
-  const { query } = route
-  const variableNames:any[] = []
-  Object.keys(variable).forEach(key => {
-    variableNames.push({
-      realParamsName: key,
-      alias: variable[key] || key,
+const handleUrl = (url:string) => {
+  if (url.includes('?')) {
+    let urlStr = url.split('?')[1]
+    const urlSearchParams = new URLSearchParams(urlStr)
+    const query = Object.fromEntries(urlSearchParams.entries())
+    const variableNames:any[] = [] 
+    Object.keys(variable).forEach(key => {
+      variableNames.push({
+        realParamsName: key,
+        alias: variable[key] || key,
+      })
     })
-  })
-  variableNames.forEach(params => {
-    if (query[params.alias]) {
-      if (req.method == 'get') {
-        req.params[params.realParamsName] = query[params.alias]
-      } else {
-        req.data[params.realParamsName] = query[params.alias]
+    variableNames.forEach(params => {
+      if (query[params.alias]) {
+        if (req.method == 'get') {
+          req.params[params.realParamsName] = query[params.alias]
+        } else {
+          req.data[params.realParamsName] = query[params.alias]
+        }
       }
-    }
-  })
+    })
+  } else if (req.method == 'get') {
+    req.params = oldParams
+  } else {
+    req.data = oldParams
+  }
   handleVar()
-})
+}
 const handleVar = () => {
   loading.value = true
   axios({
