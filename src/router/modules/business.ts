@@ -13,6 +13,22 @@ const business:RouteRecordRaw[] = [
         component: () => import('@/views/Home/HomeView.vue'),
       },
       {
+        path: 'largeScreenList',
+        name: 'largeScreenList',
+        component: () => import('@/views/LargeScreen/LargeScreenList/LargeScreenList.vue'),
+        meta: {
+          appId: '55723eb3-8358-4e1b-82b0-cd715daf293a',
+        },
+      },
+      {
+        path: 'largeScreenConfig',
+        name: 'largeScreenConfig',
+        component: () => import('@/views/LargeScreen/LargeScreenConfig/LargeScreenConfig.vue'),
+        meta: {
+
+        },
+      },
+      {
         path: 'chart',
         name: 'chart',
         component: () => import('@/views/Chart/ChartList/ChartList.vue'),
@@ -29,6 +45,19 @@ const business:RouteRecordRaw[] = [
           opType: route.query.opType || route.params.opType,
           chartType: route.query.chartType || route.params.chartType,
         }),
+      },
+      {
+        path: 'formDesign',
+        name: 'formDesign',
+        component: () => import('@/views/Form/FormDesign/FormDesign.vue'),
+        props: route => ({
+          chartId: route.query.chartId || route.params.chartId,
+          opType: route.query.opType || route.params.opType,
+          chartType: route.query.chartType || route.params.chartType,
+        }),
+        meta: {
+          appId: '2af076bc-9bae-4909-b6d3-83d583441d8d',
+        },
       },
       {
         path: '404',
