@@ -52,6 +52,7 @@ const props = defineProps({
       children: 'children',
       label: 'label',
       key: 'key',
+      icon: 'icon',
     }),
   },
 })
