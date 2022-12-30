@@ -57,7 +57,7 @@ const onClickMenu = (value:any) => {
 }
 const goSys = () => {
   const token = getCookie('ev-token')
-  window.open(`http://www.baidu.com?ev-token=${token}`, '_blank')
+  window.open(`${sysConfig.value.sysManageUrl}?ev-token=${token}`, '_blank')
 }
 </script>
 <style scoped lang='scss'>
