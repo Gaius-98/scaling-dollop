@@ -2,7 +2,7 @@
   <el-form>
     <draggable
       v-model="list"
-      item-key="id"
+      item-key="compId"
       group="comp"
       class="drop_container"
       @change="getChange"
@@ -12,22 +12,39 @@
       >
         <div>
           <el-form-item
-            :prop="'field' + index"
-            :label="element.name"
+            :prop="element.field"
+            :label="element.form_config.label"
           >
-            <el-input v-if="element.comp == 'el-input'">
+            <el-input
+              v-if="element.comp == 'input'"
+              :key="element.compId"
+              v-model="formData[element.field]"
+              v-bind="element.prop"
+            >
             </el-input>
-            <el-select v-if="element.comp == 'el-select'">
+            <el-select
+              v-if="element.comp == 'select'"
+              v-bind="element.prop"
+              :key="element.compId"
+              v-model="formData[element.field]"
+            >
+              <el-option
+                v-for="item in element.prop.options"
+                :key="item.value"
+                :value="item.value"
+                :label="item.label"
+              >
+              </el-option>
             </el-select>
           </el-form-item>
           <el-row
-            v-if="element.comp == 'el-row'"
+            v-if="element.comp == 'row'"
             style="height:200px"
           >
             <el-col :span="12">
               <draggable
-                v-model="element.list"
-                item-key="id"
+                v-model="element.row.one"
+                item-key="compId"
                 group="comp"
                 style="height:200px"
                 @change="getChange"
@@ -51,8 +68,8 @@
             </el-col>
             <el-col :span="12">
               <draggable
-                v-model="element.list"
-                item-key="id"
+                v-model="element.row.two"
+                item-key="compId"
                 group="comp"
                 style="height:200px"
                 @change="getChange"
