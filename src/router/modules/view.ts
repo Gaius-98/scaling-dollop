@@ -14,6 +14,9 @@ const view:RouteRecordRaw[] = [
         props: route => ({
           chartId: route.query.chartId || route.params.chartId,
         }),
+        meta: {
+          noLogin: true,
+        },
       },
     ],
   },

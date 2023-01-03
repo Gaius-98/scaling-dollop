@@ -28,7 +28,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   let cookieToken = getCookie('ev-token')
-  if (!cookieToken && to.name !== 'login' && to.name !== 'register') {
+  if (!cookieToken && !to.meta.noLogin) {
     next({
       name: 'login',
     })

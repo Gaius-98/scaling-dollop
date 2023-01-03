@@ -8,7 +8,7 @@
       @change="getChange"
     >
       <template
-        #item="{element,index}"
+        #item="{element}"
       >
         <div>
           <el-form-item
@@ -37,61 +37,6 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-row
-            v-if="element.comp == 'row'"
-            style="height:200px"
-          >
-            <el-col :span="12">
-              <draggable
-                v-model="element.row.one"
-                item-key="compId"
-                group="comp"
-                style="height:200px"
-                @change="getChange"
-              >
-                <template
-                  #item="{element,index}"
-                >
-                  <div>
-                    <el-form-item
-                      :prop="'field' + index"
-                      :label="element.name"
-                    >
-                      <el-input v-if="element.comp == 'el-input'">
-                      </el-input>
-                      <el-select v-if="element.comp == 'el-select'">
-                      </el-select>
-                    </el-form-item>
-                  </div>
-                </template>
-              </draggable>
-            </el-col>
-            <el-col :span="12">
-              <draggable
-                v-model="element.row.two"
-                item-key="compId"
-                group="comp"
-                style="height:200px"
-                @change="getChange"
-              >
-                <template
-                  #item="{element,index}"
-                >
-                  <div>
-                    <el-form-item
-                      :prop="'field' + index"
-                      :label="element.name"
-                    >
-                      <el-input v-if="element.comp == 'el-input'">
-                      </el-input>
-                      <el-select v-if="element.comp == 'el-select'">
-                      </el-select>
-                    </el-form-item>
-                  </div>
-                </template>
-              </draggable>
-            </el-col>
-          </el-row>
         </div>
       </template>
     </draggable>
