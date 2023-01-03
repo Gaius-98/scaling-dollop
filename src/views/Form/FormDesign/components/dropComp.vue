@@ -11,7 +11,7 @@
       <div
         class="drop_container_item"
         :class="curFormItem.compId == element.compId ? 'drop_container_item-active' :''"
-        @click="onClickFormItem(element)"
+        @click.stop="onClickFormItem(element)"
       >
         <el-form-item
           v-if="element.type == 'component'"
@@ -107,7 +107,7 @@ const props = defineProps({
 })
 const store = useFormDesignStore()
 const { formData, curFormItem } = storeToRefs(store)
-const { onClickFormItem, onClickRemove } = store
+const { onClickFormItem } = store
 const emit = defineEmits(['update:list'])
 const compList = computed({
   get() {
@@ -117,7 +117,10 @@ const compList = computed({
     emit('update:list', value)
   },
 })
-
+const onClickRemove = (element:COMMON.obj) => {
+  const idx = compList.value.findIndex((formItem:any) => formItem.compId == element.compId)
+  compList.value.splice(idx, 1)
+}
 </script>
 <style scoped lang='scss'>
 .drop_container{

@@ -8,9 +8,6 @@ export const useFormDesignStore = defineStore('formDesignStore', () => {
   const onClickFormItem = (element:COMMON.obj) => {
     Object.assign(curFormItem, element)
   }
-  const onClickRemove = (element:COMMON.obj) => {
-    const idx = list.value.findIndex(formItem => formItem.compId == element.compId)
-    list.value.splice(idx, 1)
-  }
-  return { list, formData, curFormItem, onClickFormItem, onClickRemove }
+  
+  return { list, formData, curFormItem, onClickFormItem }
 })
