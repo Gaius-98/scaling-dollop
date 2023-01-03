@@ -1,66 +1,23 @@
 <template>
   <el-form>
-    <draggable
-      v-model="list"
-      item-key="compId"
-      group="comp"
-      class="drop_container"
-      @change="getChange"
+    <drop-comp
+      v-model:list="list"
+      style="height:600px;width: 800px;"
     >
-      <template
-        #item="{element}"
-      >
-        <div>
-          <el-form-item
-            :prop="element.field"
-            :label="element.form_config.label"
-          >
-            <el-input
-              v-if="element.comp == 'input'"
-              :key="element.compId"
-              v-model="formData[element.field]"
-              v-bind="element.prop"
-            >
-            </el-input>
-            <el-select
-              v-if="element.comp == 'select'"
-              v-bind="element.prop"
-              :key="element.compId"
-              v-model="formData[element.field]"
-            >
-              <el-option
-                v-for="item in element.prop.options"
-                :key="item.value"
-                :value="item.value"
-                :label="item.label"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </div>
-      </template>
-    </draggable>
+    </drop-comp>
   </el-form>
 </template>
 
 <script lang='ts' setup>
 import { reactive, toRefs, ref } from 'vue'
-import draggable from 'vuedraggable'
+import dropComp from './dropComp.vue'
+import { storeToRefs } from 'pinia'
+import { useFormDesignStore } from '@/store/formDesign'
 
-const list = ref([])
-const rowList = ref([])
-const rowList2 = ref([])
-const formData = reactive<COMMON.obj>({})
-const getChange = (val:any) => {
-  console.log(val)
-}
+const store = useFormDesignStore()
+const { list } = storeToRefs(store)
+
 </script>
 <style scoped lang='scss'>
-.drop_container{
-  width: 800px;
-  height: calc(100vh - 120px);
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  background-color: #f3f3f3;
-}
+
 </style>
