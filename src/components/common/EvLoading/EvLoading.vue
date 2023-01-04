@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script lang='ts' setup>
+<script lang='ts' setup name="EvLoading">
 import { reactive, toRefs, ref } from 'vue'
 
 </script>

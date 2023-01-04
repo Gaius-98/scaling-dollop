@@ -4,6 +4,7 @@
     item-key="compId"
     group="comp"
     class="drop_container"
+    @change="getChange"
   >
     <template
       #item="{element}"
@@ -15,13 +16,20 @@
       >
         <el-form-item
           v-if="element.type == 'component'"
-          :prop="element.field"
-          :label="element.form_config.label"
+          :prop="element.prop.field"
+          v-bind="element.form_config"
         >
           <el-input
             v-if="element.comp == 'input'"
             :key="element.compId"
-            v-model="formData[element.field]"
+            v-model="formData[element.prop.field]"
+            v-bind="element.prop"
+          >
+          </el-input>
+          <el-input
+            v-if="element.comp == 'textarea'"
+            :key="element.compId"
+            v-model="formData[element.prop.field]"
             v-bind="element.prop"
           >
           </el-input>
@@ -29,7 +37,7 @@
             v-if="element.comp == 'select'"
             v-bind="element.prop"
             :key="element.compId"
-            v-model="formData[element.field]"
+            v-model="formData[element.prop.field]"
           >
             <el-option
               v-for="item in element.prop.options"
@@ -43,14 +51,14 @@
             v-if="element.comp == 'color'"
             v-bind="element.prop"
             :key="element.compId"
-            v-model="formData[element.field]"
+            v-model="formData[element.prop.field]"
           >
           </el-color-picker>
           <el-checkbox-group
             v-if="element.comp == 'checkbox'"
             v-bind="element.prop"
             :key="element.compId"
-            v-model="formData[element.field]"
+            v-model="formData[element.prop.field]"
           >
             <el-checkbox
               v-for="item in element.prop.options"
@@ -64,16 +72,30 @@
             v-if="element.comp == 'date'"
             v-bind="element.prop"
             :key="element.compId"
-            v-model="formData[element.field]"
+            v-model="formData[element.prop.field]"
           >
           </el-date-picker>
+          <el-time-picker
+            v-if="element.comp == 'time'"
+            v-bind="element.prop"
+            :key="element.compId"
+            v-model="formData[element.prop.field]"
+          >
+          </el-time-picker>
           <el-input-number
             v-if="element.comp == 'number'"
             v-bind="element.prop"
             :key="element.compId"
-            v-model="formData[element.field]"
+            v-model="formData[element.prop.field]"
           >
           </el-input-number>
+          <el-switch
+            v-if="element.comp == 'switch'"
+            v-bind="element.prop"
+            :key="element.compId"
+            v-model="formData[element.prop.field]"
+          >
+          </el-switch>
         </el-form-item>
         <div v-if="element.type == 'container'">
           <drop-grid
@@ -120,6 +142,9 @@ const compList = computed({
 const onClickRemove = (element:COMMON.obj) => {
   const idx = compList.value.findIndex((formItem:any) => formItem.compId == element.compId)
   compList.value.splice(idx, 1)
+}
+const getChange = (val:any) => {
+  console.log(val, compList)
 }
 </script>
 <style scoped lang='scss'>

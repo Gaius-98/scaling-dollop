@@ -13,7 +13,7 @@
   </el-menu>
 </template>
 
-<script lang='ts' setup>
+<script lang='ts' setup name="EvMenu">
 import EvMenuItem from './components/EvMenuItem.vue'
 import { reactive, toRefs, ref, PropType } from 'vue'
 

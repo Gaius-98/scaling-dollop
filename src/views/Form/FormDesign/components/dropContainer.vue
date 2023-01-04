@@ -1,5 +1,5 @@
 <template>
-  <el-form>
+  <el-form v-bind="formProp">
     <drop-comp
       v-model:list="list"
       style="height:600px;width: 800px;"
@@ -15,7 +15,7 @@ import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 
 const store = useFormDesignStore()
-const { list } = storeToRefs(store)
+const { list, formProp } = storeToRefs(store)
 
 </script>
 <style scoped lang='scss'>

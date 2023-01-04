@@ -5,6 +5,8 @@
     <div class="form-design_container">
       <drag-comp-list />
       <drop-container />
+      <ev-form-attr />
+      <form-attr />
     </div>
   </div>
 </template>
@@ -12,6 +14,7 @@
 <script lang='ts' setup>
 import dropContainer from './components/dropContainer.vue'
 import dragCompList from './components/dragCompList.vue'
+import FormAttr from '@/components/EvFormAttr/components/FormAttr.vue'
 import { reactive, toRefs, ref } from 'vue'
 
 </script>

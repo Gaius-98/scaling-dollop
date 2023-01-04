@@ -62,4 +62,11 @@ declare namespace COMMON{
       total:number
     }
   }
+  /**
+   * 列表配置
+   */
+  declare interface columnConfig {
+    field:string,
+    label:string,
+  }
 }

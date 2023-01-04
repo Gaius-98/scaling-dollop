@@ -53,7 +53,7 @@
   </el-form>
 </template>
 
-<script lang='ts' setup>
+<script lang='ts' setup name="EvReq">
 import { toRefs, PropType } from 'vue'
 import axios from 'axios'
 import ReqTable from './components/ReqTable.vue'

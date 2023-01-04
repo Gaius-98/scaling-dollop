@@ -20,7 +20,7 @@ import compList from '@/assets/form/compList'
 
 const cloneNode = (node:any) => {
   node.compId = uuid()
-  node.field = 'field_' + uuid()
+  node.prop.field = 'field_' + uuid()
   return cloneDeep(node)
 }
 </script>
