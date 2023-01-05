@@ -80,7 +80,6 @@ const compList = [
     name: '取色器',
     type: 'component',
     prop: { // 配置项
-      placeholder: '输入提示',
       readonly: false,
       disabled: false,
       field: '3', // 字段名

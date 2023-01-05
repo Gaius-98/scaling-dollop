@@ -1,5 +1,6 @@
 import router from '@/router/index'
 import { cloneDeep } from 'lodash'
+import { formComp } from '@/assets/form/formSfc'
 /**
  * 对象扁平化
  * @params {object} 要扁平化的对象
@@ -128,10 +129,68 @@ export const routerPush = (id:string) => {
   }
 }
 /**
+ * 生成sfc
+ * @param {COMMON.obj} form 
+ * @returns {string}  formSfc
+ */
+export const createFormSfc = (formConfig:COMMON.obj) => {
+  let formItemStr = ''
+  let formDataSfc = ''
+  const deepFromSfc = (list:COMMON.obj[]) => {
+    list.forEach((item:COMMON.obj) => {
+      formItemStr += formComp[item.comp](item)
+      if (['select', 'checkbox'].includes(item.comp)) {
+        formDataSfc += formComp.createOptions(item)
+      } else if (item.comp == 'grid') {
+        item.prop.cols.forEach((child:COMMON.obj) => {
+          deepFromSfc(child.list)
+        })
+      }
+    })
+  }
+  deepFromSfc(formConfig.list)
+  const formSfc = `
+  <template>
+  <el-form
+    size="${formConfig.formProp.size}"
+    label-position="${formConfig.formProp.labelPosition}"
+    label-width="${formConfig.formProp.labelWidth}"
+    ref="formRef"
+    :model="formData"
+  >
+    ${formItemStr}
+  </el-form>
+</template>
+
+<script lang='ts' setup >
+import { reactive, toRefs, ref, PropType } from 'vue'
+import type { FormInstance } from 'element-plus'
+
+const formRef = ref<FormInstance>()
+const formData = reactive<COMMON.obj>({})
+const getFormData = () => formData
+
+${formDataSfc}
+
+const resetForm = () => {
+  if (!formRef.value) return
+  formRef.value.resetFields()
+}
+defineExpose({ getFormData, resetForm })
+</script>
+<style scoped lang='scss'>
+</style>
+  `
+  return formSfc
+}
+
+/**
  * 常用函数
  */
 const func = {
   flat,
   unflat,
+  routerPush,
+  createFormSfc,
 }
 export default func
