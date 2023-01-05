@@ -152,7 +152,6 @@ const getChange = (val:any) => {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  border: 1px solid #ccc;
   background-color: #f3f3f3;
   .drop_container_item{
     position: relative;

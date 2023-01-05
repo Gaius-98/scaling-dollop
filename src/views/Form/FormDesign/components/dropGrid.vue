@@ -1,9 +1,9 @@
 <template>
-  <el-row>
+  <el-row v-bind="$attrs">
     <el-col
       v-for="item in cols"
-      :key="item.id"
-      :span="item.span"
+      :key="item.key"
+      :span="Number(item.span)"
       class="col"
     >
       <drop-comp v-model:list="item.list">

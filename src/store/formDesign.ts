@@ -2,17 +2,32 @@ import { defineStore } from 'pinia'
 import { ref, reactive } from 'vue'
 
 export const useFormDesignStore = defineStore('formDesignStore', () => {
-  const list = ref<COMMON.obj[]>([])
   const formData = reactive<COMMON.obj>({})
   const curFormItem = reactive<COMMON.obj>({})
-  const formProp = reactive<COMMON.obj>({})
+  const saveForm = reactive<COMMON.obj>({
+    list: [],
+    formProp: {
+      size: 'default',
+      labelPosition: 'top',
+      labelWidth: 120,
+    },
+    name: '',
+  })
   const onClickFormItem = (element:COMMON.obj) => {
     Object.assign(curFormItem, element)
   }
   const init = () => {
-    list.value = []
+    Object.assign(saveForm, {
+      list: [],
+      formProp: {
+        size: 'default',
+        labelPosition: 'top',
+        labelWidth: 120,
+      },
+      name: '',
+    })
     Object.assign(formData, {})
     Object.assign(curFormItem, {})
   }
-  return { list, formData, curFormItem, formProp, onClickFormItem, init }
+  return { formData, curFormItem, saveForm, onClickFormItem, init }
 })

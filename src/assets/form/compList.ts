@@ -229,15 +229,16 @@ const compList = [
       cols: [
         {
           list: [],
-          id: uuid(),
+          key: uuid(),
           span: 12,
         },
         {
           list: [],
-          id: uuid(),
+          key: uuid(),
           span: 12,
         },
-      ], 
+      ],
+      gutter: 0,
       field: '', // 字段名 
     },
   },

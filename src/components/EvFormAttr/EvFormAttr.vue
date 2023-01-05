@@ -9,6 +9,7 @@
     <time-attr v-if="curFormItem.comp == 'time'" />
     <input-number-attr v-if="curFormItem.comp == 'number'" />
     <switch-attr v-if="curFormItem.comp == 'switch'" />
+    <grid-attr v-if="curFormItem.comp == 'grid'" />
   </el-form>
 </template>
 
@@ -25,6 +26,7 @@ import DateAttr from './components/DateAttr.vue'
 import TimeAttr from './components/TimeAttr.vue'
 import InputNumberAttr from './components/InputNumberAttr.vue'
 import SwitchAttr from './components/SwitchAttr.vue'
+import GridAttr from './components/GridAttr.vue'
 
 const store = useFormDesignStore()
 const { curFormItem } = storeToRefs(store)
