@@ -12,6 +12,7 @@ import { init, EChartsType } from 'echarts'
 import { getChart } from '@/api/common'
 import { reactive, toRefs, ref, onMounted, watch } from 'vue'
 import axios from 'axios'
+import { useRoute } from 'vue-router'
 
 const props = defineProps({
   chartId: {
@@ -24,6 +25,7 @@ const props = defineProps({
   },
 })
 const loading = ref(true)
+const route = useRoute()
 const { chartId, option } = toRefs(props)
 const chartOption = reactive<COMMON.obj>({})
 const req = reactive<COMMON.reqForm>({
@@ -91,7 +93,13 @@ onMounted(() => {
   initEchart()
   rsOb.observe(evChart.value)
   window.addEventListener('hashchange', () => {
-    handleUrl(window.location.href)
+    let url = window.location.href
+    if (url.includes('?')) {
+      let urlStr = url.split('?')[1]
+      const urlSearchParams = new URLSearchParams(urlStr)
+      const query = Object.fromEntries(urlSearchParams.entries())
+      handleUrl(query)
+    }
   })
 })
 
@@ -100,32 +108,28 @@ watch(option, () => {
   initEchart()
 }, { deep: true })
 
-const handleUrl = (url:string) => {
-  if (url.includes('?')) {
-    let urlStr = url.split('?')[1]
-    const urlSearchParams = new URLSearchParams(urlStr)
-    const query = Object.fromEntries(urlSearchParams.entries())
-    const variableNames:any[] = [] 
-    Object.keys(variable).forEach(key => {
-      variableNames.push({
-        realParamsName: key,
-        alias: variable[key] || key,
-      })
+watch(route, () => {
+  const { query } = route
+  handleUrl(query)
+}, { deep: true })
+
+const handleUrl = (query:COMMON.obj) => {
+  const variableNames:any[] = [] 
+  Object.keys(variable).forEach(key => {
+    variableNames.push({
+      realParamsName: key,
+      alias: variable[key] || key,
     })
-    variableNames.forEach(params => {
-      if (query[params.alias]) {
-        if (req.method == 'get') {
-          req.params[params.realParamsName] = query[params.alias]
-        } else {
-          req.data[params.realParamsName] = query[params.alias]
-        }
+  })
+  variableNames.forEach(params => {
+    if (query[params.alias]) {
+      if (req.method == 'get') {
+        req.params[params.realParamsName] = query[params.alias]
+      } else {
+        req.data[params.realParamsName] = query[params.alias]
       }
-    })
-  } else if (req.method == 'get') {
-    req.params = oldParams
-  } else {
-    req.data = oldParams
-  }
+    }
+  })
   handleVar()
 }
 const handleVar = () => {
