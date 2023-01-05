@@ -29,5 +29,8 @@ export const useFormDesignStore = defineStore('formDesignStore', () => {
     Object.assign(formData, {})
     Object.assign(curFormItem, {})
   }
-  return { formData, curFormItem, saveForm, onClickFormItem, init }
+  const setForm = (form:COMMON.obj) => {
+    Object.assign(saveForm, form)
+  }
+  return { formData, curFormItem, saveForm, onClickFormItem, init, setForm }
 })

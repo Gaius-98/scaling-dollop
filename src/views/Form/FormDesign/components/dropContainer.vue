@@ -1,11 +1,15 @@
 <template>
-  <el-form v-bind="saveForm.formProp">
-    <drop-comp
-      v-model:list="saveForm.list"
-      style="height:600px;width: 800px;"
+  <div class="container">
+    <el-form
+      v-bind="saveForm.formProp"
+      style="width:100%;height:100%"
     >
-    </drop-comp>
-  </el-form>
+      <drop-comp
+        v-model:list="saveForm.list"
+      >
+      </drop-comp>
+    </el-form>
+  </div>
 </template>
 
 <script lang='ts' setup>
@@ -19,5 +23,7 @@ const { saveForm } = storeToRefs(store)
 
 </script>
 <style scoped lang='scss'>
-
+.container{
+  flex: 1;
+}
 </style>

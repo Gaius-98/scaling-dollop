@@ -6,22 +6,24 @@
     <div class="form-design_container">
       <drag-comp-list />
       <drop-container />
-      <el-tabs
-        v-model="activeName"
-      >
-        <el-tab-pane
-          label="组件配置"
-          name="comp"
+      <div class="form-design_opt">
+        <el-tabs
+          v-model="activeName"
         >
-          <ev-form-attr />
-        </el-tab-pane>
-        <el-tab-pane
-          label="表单配置"
-          name="form"
-        >
-          <form-attr />
-        </el-tab-pane>
-      </el-tabs>
+          <el-tab-pane
+            label="组件配置"
+            name="comp"
+          >
+            <ev-form-attr />
+          </el-tab-pane>
+          <el-tab-pane
+            label="表单配置"
+            name="form"
+          >
+            <form-attr />
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -43,12 +45,22 @@ const activeName = ref('comp')
   .form-design_header{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 60px;
+    border: 2px solid var(--ev-border);
   }
   .form-design_container{
     display: flex;
     justify-content: flex-start;
+    margin-top: 5px;
+    height: calc(100vh - 150px);
+  }
+  .form-design_opt{
+    width: 380px;
+    overflow: auto;
+    padding: 5px;
+    border-left:2px solid var(--ev-border) ;
+    margin-left: 5px;
   }
 }
 </style>

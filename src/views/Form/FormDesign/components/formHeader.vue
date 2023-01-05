@@ -6,33 +6,37 @@
     <el-input v-model="saveForm.name">
     </el-input>
   </div>
-  <el-upload
-    v-model:file-list="file"
-    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-    :on-change="onUploadJson"
-    :limit="1"
-    :auto-upload="false"
-  >
-    <el-button type="primary">上传JSON</el-button>
-    <template #tip>
-      <div class="el-upload__tip">
-        json文件
-      </div>
-    </template>
-  </el-upload>
-  <el-button @click="onClickView">
-    预览
-  </el-button>
+  <div class="form_opt">
+    <el-button @click="onOpenJSon">
+      写入JSON
+    </el-button>
+
+    <el-button @click="onClickView">
+      预览
+    </el-button>
   
-  <el-button @click="onExportJson">
-    导出JSON
-  </el-button>
+    <el-button @click="onExportJson">
+      导出JSON
+    </el-button>
+  </div>
   <el-dialog
     v-model="dialogVisible"
     title="预览"
   >
     <ev-form :form-config="saveForm">
     </ev-form>
+  </el-dialog>
+  <el-dialog
+    v-model="dialogJson"
+    title="JSON配置"
+  >
+    <ev-code v-model:code="jsonForm">
+    </ev-code>
+    <template #footer> 
+      <el-button @click="onClickSubmitJson">
+        确认
+      </el-button>
+    </template>
   </el-dialog>
 </template>
 
@@ -44,6 +48,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
+const { setForm } = store
 const dialogVisible = ref(false)
 const onClickView = () => {
   dialogVisible.value = true
@@ -67,9 +72,15 @@ const onExportJson = () => {
   a.click()
   document.body.removeChild(a)
 }
-const file = reactive([])
-const onUploadJson = (uploadFile:any) => {
-  console.log(uploadFile.raw)
+const dialogJson = ref(false)
+const jsonForm = ref('')
+const onOpenJSon = () => {
+  dialogJson.value = true
+}
+const onClickSubmitJson = () => {
+  const form = JSON.parse(jsonForm.value)
+  setForm(form)
+  dialogJson.value = false
 }
 </script>
 <style scoped lang='scss'>

@@ -4,9 +4,10 @@
     item-key="comp"
     :group="{pull:'clone',put:false,name:'comp'}"
     :clone="cloneNode"
+    class="comp_container"
   >
     <template #item="{element}">
-      <div>{{ element.name }}</div>
+      <div class="comp">{{ element.name }}</div>
     </template>
   </draggable>
 </template>
@@ -25,4 +26,22 @@ const cloneNode = (node:any) => {
 }
 </script>
 <style scoped lang='scss'>
+.comp_container{
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 5px;
+  border-right:2px solid var(--ev-border) ;
+  margin-right: 5px;
+}
+.comp{
+  height: 20px;
+  line-height: 20px;
+  padding: 5px 10px;
+  color: var(--ev-active-color);
+  border: 1px solid var(--ev-border);
+}
 </style>
