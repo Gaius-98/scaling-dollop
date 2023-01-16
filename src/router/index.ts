@@ -17,7 +17,6 @@ const routes:Array<RouteRecordRaw> = [
     name: 'login',
     component: () => import('@/views/Login/LoginView.vue'),
   },
-  
   ...routersModules,
 ]
 

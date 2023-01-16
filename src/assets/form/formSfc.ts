@@ -156,22 +156,37 @@ export const formComp:COMMON.obj = {
     >
     </el-time-picker>
   </el-form-item>
-    `,      
+    `,    
+  grid: (element:COMMON.obj) => {
+    let col = ''
+    element.prop.cols.forEach((item:COMMON.obj) => {
+      item.list.forEach((com:COMMON.obj) => {
+        col += `
+        <el-col :span='${item.span}'>
+          ${formComp[com.comp](com)}
+        </el-col>`
+      })
+    })
+    const rowTemplate = `
+    <el-row :gutter='${element.prop.gutter}'>
+    ${col}
+    </el-row>`
+    return rowTemplate
+  },
   createOptions: (element:COMMON.obj) => {
     let optionsObj = ''
     element.prop.options.forEach((item:COMMON.obj) => {
       const objStr = `
       {
-        label:${item.label},
-        value:${item.value}
-      }
-      `
+        label:'${item.label}',
+        value:'${item.value}'
+      },`
       optionsObj += objStr
     })
    
     const optionSfc = `
-    const options_${element.prop.field} = reactive([${optionsObj}])
-    `
+    const options_${element.prop.field} = reactive([${optionsObj}])`
     return optionSfc
   },
+
 }
