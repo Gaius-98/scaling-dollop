@@ -115,9 +115,9 @@ export const formComp:COMMON.obj = {
       v-model="formData.${element.prop.field}"
       :readonly="${element.prop.readonly}"
       :disabled="${element.prop.disabled}"
-      :step="${element.prop.valueFormat}"
-      :min="${element.prop.format}"
-      :max="${element.prop.type}"
+      :step="${element.prop.step}"
+      :min="${element.prop.min}"
+      :max="${element.prop.max}"
       placeholder="${element.prop.placeholder}"
       controls-position="${element.prop.controlsPosition}"
     >
@@ -163,7 +163,7 @@ export const formComp:COMMON.obj = {
       item.list.forEach((com:COMMON.obj) => {
         col += `
         <el-col :span='${item.span}'>
-          ${formComp[com.comp](com)}
+            ${formComp[com.comp](com)}
         </el-col>`
       })
     })
@@ -177,15 +177,15 @@ export const formComp:COMMON.obj = {
     let optionsObj = ''
     element.prop.options.forEach((item:COMMON.obj) => {
       const objStr = `
-      {
-        label:'${item.label}',
-        value:'${item.value}'
-      },`
+  {
+    label:'${item.label}',
+    value:'${item.value}'
+  },`
       optionsObj += objStr
     })
    
     const optionSfc = `
-    const options_${element.prop.field} = reactive([${optionsObj}])`
+  const options_${element.prop.field} = reactive([${optionsObj}])`
     return optionSfc
   },
 

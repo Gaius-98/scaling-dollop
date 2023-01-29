@@ -158,35 +158,33 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
   deepFromSfc(formConfig.list)
   const formSfc = `
   <template>
-  <el-form
-    size="${formConfig.formProp.size}"
-    label-position="${formConfig.formProp.labelPosition}"
-    label-width="${formConfig.formProp.labelWidth}"
-    ref="formRef"
-    :model="formData"
-  >
-    ${formItemStr}
-  </el-form>
-</template>
+    <el-form
+      size="${formConfig.formProp.size}"
+      label-position="${formConfig.formProp.labelPosition}"
+      label-width="${formConfig.formProp.labelWidth}"
+      ref="formRef"
+      :model="formData"
+    >
+      ${formItemStr}
+    </el-form>
+  </template>
 
-<script lang='ts' setup >
-import { reactive, toRefs, ref, PropType } from 'vue'
-import type { FormInstance } from 'element-plus'
+  <script lang='ts' setup >
+  import { reactive, toRefs, ref, PropType } from 'vue'
+  import type { FormInstance } from 'element-plus'
 
-const formRef = ref<FormInstance>()
-const formData = reactive<COMMON.obj>({})
-const getFormData = () => formData
-
-${formDataSfc}
-
-const resetForm = () => {
-  if (!formRef.value) return
-  formRef.value.resetFields()
-}
-defineExpose({ getFormData, resetForm })
-</script>
-<style scoped lang='scss'>
-</style>
+  const formRef = ref<FormInstance>()
+  const formData = reactive<COMMON.obj>({})
+  const getFormData = () => formData
+  ${formDataSfc}
+  const resetForm = () => {
+    if (!formRef.value) return
+    formRef.value.resetFields()
+  }
+  defineExpose({ getFormData, resetForm })
+  </script>
+  <style scoped lang='scss'>
+  </style>
   `
   return formSfc
 }
