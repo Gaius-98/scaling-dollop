@@ -164,6 +164,9 @@ const chartFormData = reactive<saveChart>({
     params: {
       postId: '1',
     },
+    headers: {
+
+    },
     data: {
 
     } },
@@ -263,6 +266,9 @@ const reqForm = reactive<COMMON.reqForm>(
     params: {
       postId: '1',
     },
+    headers: {
+
+    },
     data: {
 
     } },
@@ -322,6 +328,7 @@ const variable = reactive({})
     background: var(--ev-col-bg-color);
     .chart_req_form{
       height: 300px;
+      overflow-y: auto;
     }
     .chart_req_data{
       height: 250px;

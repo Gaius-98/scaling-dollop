@@ -33,7 +33,8 @@ declare namespace COMMON{
     url:string,
     method:'get'|'post',
     params:obj,
-    data:obj
+    data:obj,
+    headers:obj
   }
   /**
    * 请求参数

@@ -28,6 +28,14 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item
+      label="headers"
+    >
+      <req-table
+        v-model:data="reqForm.headers"
+        @update:data="(val)=>{reqForm.headers = val}"
+      />
+    </el-form-item>
+    <el-form-item
       v-if="reqForm.method == 'get'"
       label="params参数"
     >
