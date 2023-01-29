@@ -37,6 +37,9 @@ const req = reactive<COMMON.reqForm>({
   data: {
 
   },
+  headers: {
+    
+  },
 })
 const oldParams = reactive<COMMON.obj>({})
 const variable = reactive<COMMON.obj>({})
