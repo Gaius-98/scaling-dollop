@@ -17,7 +17,7 @@ const business:RouteRecordRaw[] = [
         name: 'largeScreenList',
         component: () => import('@/views/LargeScreen/LargeScreenList/LargeScreenList.vue'),
         meta: {
-          appId: '55723eb3-8358-4e1b-82b0-cd715daf293a',
+          appId: '1e0349dd-9bfc-4fc6-a433-84fad5cd7551',
         },
       },
       {

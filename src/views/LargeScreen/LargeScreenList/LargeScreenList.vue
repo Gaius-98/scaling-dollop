@@ -1,6 +1,6 @@
 <template>
-  <div class="chart-header">
-    <div class="chart-opts">
+  <div class="screen-header">
+    <div class="screen-opts">
       <el-button
         type="primary"
         @click="onAdd"
@@ -35,7 +35,7 @@ const onAdd = () => {
 }
 </script>
 <style scoped lang='scss'>
-.chart-header{
+.screen-header{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,11 +43,11 @@ const onAdd = () => {
   margin: 5px 0 ;
   padding: 0 15px;
   border-bottom: 2px solid var(--ev-border);
-  .chart-search{
+  .screen-search{
       cursor: pointer;
   }
 }
-.chart-data-container{
+.screen-data-container{
   display: grid;
   grid-template-columns:repeat(4,1fr);
   grid-template-rows: repeat(3,1fr);
@@ -66,7 +66,7 @@ const onAdd = () => {
     border: 1px solid var(--ev-border);
     overflow: hidden;
     cursor: pointer;
-    .chart-title{
+    .screen-title{
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -75,17 +75,17 @@ const onAdd = () => {
       text-align: center;
       padding: 10px 5px;
       background-color: var(--ev-active-shallow-color);
-      .chart-title-name{
+      .screen-title-name{
         font-size: 16px;
       }
-      .chart-title-creator{
+      .screen-title-creator{
         justify-self: flex-end;
         color:var(--ev-active-color);
         font-size: 12px;
       }
     }
     &:hover{
-      .chart-opt-btns{
+      .screen-opt-btns{
         position: absolute;
         display: flex;
         width: 100%;
@@ -101,19 +101,19 @@ const onAdd = () => {
         }
       }
     }
-    .chart-opt-btns{
+    .screen-opt-btns{
       display: none;
     }
   }
 }
-.chart-container{
+.screen-container{
   display: flex;
   width: 100%;
   height: 500px;
   overflow-y: auto;
   flex-wrap: wrap;
   justify-content: flex-start;
-  .chart-item{
+  .screen-item{
     box-sizing: border-box;
     position: relative;
     padding: 10px;
@@ -123,14 +123,14 @@ const onAdd = () => {
     height: 220px;
     margin: 5px 10px;
     cursor: pointer;
-    .chart-item-title{
+    .screen-item-title{
       text-align: center;
       color:var(--ev-active-color);
       font-size: 18px;
       font-weight: 700;
       background: var(--ev-tint-color);
     }
-    .chart-item-img{
+    .screen-item-img{
       position:absolute;
       top:30px;
       left:0;
@@ -141,7 +141,7 @@ const onAdd = () => {
     &.selected{
       border: 2px solid var(--ev-active-color);
       background:var(--ev-active-shallow-color) ;
-      .chart-item-title{
+      .screen-item-title{
         color:var(--ev-text-color);
         background:var(--ev-active-shallow-color) ;
       }

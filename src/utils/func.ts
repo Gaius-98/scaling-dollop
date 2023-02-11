@@ -136,6 +136,8 @@ export const routerPush = (id:string) => {
 export const createFormSfc = (formConfig:COMMON.obj) => {
   let formItemStr = ''
   let formDataSfc = ''
+  let rules = ''
+  let ruleFnSfc = ''
   const deepFromSfc = (list:COMMON.obj[]) => {
     list.forEach((item:COMMON.obj) => {
       formItemStr += formComp[item.comp](item)
@@ -143,7 +145,9 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
   }
   const deepFormConfigList = (list:COMMON.obj[]) => {
     list.forEach((item:COMMON.obj) => {
-      if (item.comp !== 'grid') {
+      if (!['grid'].includes(item.comp)) {
+        rules += formComp.createRules(item)
+        ruleFnSfc += formComp.createRuleFunc(item)
         if (['select', 'checkbox'].includes(item.comp)) {
           formDataSfc += formComp.createOptions(item)
         }
@@ -164,6 +168,7 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
       label-width="${formConfig.formProp.labelWidth}"
       ref="formRef"
       :model="formData"
+      :rules="rules"
     >
       ${formItemStr}
     </el-form>
@@ -175,6 +180,8 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
 
   const formRef = ref<FormInstance>()
   const formData = reactive<COMMON.obj>({})
+  ${ruleFnSfc}
+  const rules = reactive<COMMON.obj>({${rules}})
   const getFormData = () => formData
   ${formDataSfc}
   const resetForm = () => {

@@ -49,6 +49,14 @@
   </el-form-item>
   <el-form-item
     v-if="curFormItem.type == 'component'"
+    prop="form_config.rules.regular"
+    label="校验正则表达式"
+  >
+    <el-input v-model="curFormItem.form_config.rules.regular">
+    </el-input>
+  </el-form-item>
+  <el-form-item
+    v-if="curFormItem.type == 'component'"
     prop="form_config.rules.trigger"
     label="触发方式"
   >
