@@ -60,7 +60,6 @@ const tableData = computed({
     return props.data
   },
   set(value:any) {
-    console.log()
     emit('update:data', value)
   },
 })
