@@ -68,7 +68,7 @@
   <el-form-item
     v-if="curFormItem.type == 'component'"
     prop="form_config.rules.message"
-    label="提示信息"
+    label="校验提示信息"
   >
     <el-input v-model="curFormItem.form_config.rules.message">
     </el-input>

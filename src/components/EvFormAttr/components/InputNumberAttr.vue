@@ -1,5 +1,12 @@
 <template>
   <el-form-item
+    prop="prop.placeholder"
+    label="占位提示"
+  >
+    <el-input v-model="curFormItem.prop.placeholder">
+    </el-input>
+  </el-form-item>
+  <el-form-item
     prop="prop.step"
     label="步长"
   >

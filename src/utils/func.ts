@@ -144,19 +144,21 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
     })
   }
   const deepFormConfigList = (list:COMMON.obj[]) => {
-    list.forEach((item:COMMON.obj) => {
-      if (!['grid'].includes(item.comp)) {
-        rules += formComp.createRules(item)
-        ruleFnSfc += formComp.createRuleFunc(item)
-        if (['select', 'checkbox'].includes(item.comp)) {
-          formDataSfc += formComp.createOptions(item)
+    if (list instanceof Array) {
+      list.forEach((item:COMMON.obj) => {
+        if (!['grid'].includes(item.comp)) {
+          rules += formComp.createRules(item)
+          ruleFnSfc += formComp.createRuleFunc(item)
+          if (['select', 'checkbox'].includes(item.comp)) {
+            formDataSfc += formComp.createOptions(item)
+          }
+        } else {
+          item.prop.cols.forEach((item:COMMON.obj) => {
+            deepFormConfigList(item.list)
+          })
         }
-      } else {
-        item.prop.cols.forEach((item:COMMON.obj) => {
-          deepFormConfigList(item.list)
-        })
-      }
-    })
+      })
+    }
   }
   deepFormConfigList(formConfig.list)
   deepFromSfc(formConfig.list)

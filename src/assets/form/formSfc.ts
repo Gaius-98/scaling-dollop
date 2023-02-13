@@ -160,12 +160,16 @@ export const formComp:COMMON.obj = {
   grid: (element:COMMON.obj) => {
     let col = ''
     element.prop.cols.forEach((item:COMMON.obj) => {
-      item.list.forEach((com:COMMON.obj) => {
-        col += `
-        <el-col :span='${item.span}'>
-            ${formComp[com.comp](com)}
-        </el-col>`
-      })
+      if (item.list instanceof Array) {
+        item.list.forEach((com:COMMON.obj) => {
+          col += `
+          <el-col :span='${item.span}'>
+              ${formComp[com.comp](com)}
+          </el-col>`
+        })
+      } else {
+        col += ''
+      }
     })
     const rowTemplate = `
     <el-row :gutter='${element.prop.gutter}'>
@@ -190,7 +194,7 @@ export const formComp:COMMON.obj = {
   },
   createRuleFunc: (element:COMMON.obj) => {
     const { prop: { field }, form_config: { rules: { required, regular, message }, label } } = element
-    if (required) {
+    if (required && regular) {
       const fnSfc = `
     const check_${field} = (rule: any, value: any, callback: any) =>{
       if(!value){
@@ -204,13 +208,14 @@ export const formComp:COMMON.obj = {
     ` 
       return fnSfc
     }
+    return ''
   },
   createRules: (element:COMMON.obj) => {
     if (element.form_config.rules.required) {
       const ruleListSfc = `${element.prop.field}:[{
         required:true,
         trigger:'${element.form_config.rules.trigger}',
-        validator:check_${element.prop.field}
+        ${ element.form_config.rules.regular ? 'validator:check_' + element.prop.field : ''}
       }],`
       return ruleListSfc
     }

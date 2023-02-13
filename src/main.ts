@@ -7,6 +7,7 @@ import 'element-plus/es/components/message/style/css'
 import 'normalize.css'
 import '@/assets/iconfont/iconfont.css'
 import '@/styles/theme.css'
+import '@/styles/common/layout.css'
 
 createApp(App).use(createPinia()).use(autoImport).use(router)
 .mount('#app')

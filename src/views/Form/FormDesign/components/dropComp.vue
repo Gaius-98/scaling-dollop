@@ -125,6 +125,7 @@ const props = defineProps({
   list: {
     type: Array as PropType<COMMON.obj[]>,
     required: true,
+    default: () => [],
   },
 })
 const store = useFormDesignStore()
