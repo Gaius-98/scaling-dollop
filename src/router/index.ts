@@ -25,13 +25,17 @@ const router = createRouter({
   routes,
 })
 
-// router.beforeEach((to, from, next) => {
-//   let cookieToken = getCookie('ev-token')
-//   if (!cookieToken && !to.meta.noLogin) {
-//     next({
-//       name: 'login',
-//     })
-//   } else next()
-// })
+router.beforeEach((to, from, next) => {
+  let cookieToken = getCookie('ev-token')
+  if (to.path == '/login') {
+    next()
+  }
+  if (cookieToken) {
+    next()
+  }
+  next({
+    name: 'login',
+  })
+})
 
 export default router
