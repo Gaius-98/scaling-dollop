@@ -13,6 +13,7 @@ import { getChart } from '@/api/common'
 import { reactive, toRefs, ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   chartId: {
@@ -61,9 +62,16 @@ if (chartId.value) {
     }).then(reqData => {
       const option = data.option
       handleDatajs.value = data.handleDatajs
-      eval(data.handleDatajs)
+      try {
+        eval(data.handleDatajs)
+      } catch (error) {
+        console.log(error)
+      }
       Object.assign(chartOption, option)
       initEchart()
+    }).catch((err) => {
+      ElMessage.error(err)
+      loading.value = false
     })
   })
 } else {

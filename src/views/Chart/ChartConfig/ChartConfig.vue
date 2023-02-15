@@ -215,6 +215,9 @@ if (opType.value == 'add') {
       Object.assign(formTemplate, formatDefaultOption(template, option))
       Object.assign(flatOption, flat(option))
       loading.value = false
+    }).catch(() => {
+      ElMessage.error(err)
+      loading.value = false
     })
   })
 }
@@ -280,7 +283,11 @@ const onHandleData = (data:COMMON.obj) => {
   reqDataJson.value = JSON.stringify(data, null, 4)
 }
 const onHandleDataToOption = () => {
-  eval(chartFormData.handleDatajs)
+  try {
+    eval(chartFormData.handleDatajs)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const variable = reactive({})
