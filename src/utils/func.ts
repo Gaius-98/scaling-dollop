@@ -179,11 +179,13 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
   <script lang='ts' setup >
   import { reactive, toRefs, ref, PropType } from 'vue'
   import type { FormInstance } from 'element-plus'
-
+  interface obj {
+    [key:string]:any
+  }
   const formRef = ref<FormInstance>()
-  const formData = reactive<COMMON.obj>({})
+  const formData = reactive<obj>({})
   ${ruleFnSfc}
-  const rules = reactive<COMMON.obj>({${rules}})
+  const rules = reactive<obj>({${rules}})
   const getFormData = () => formData
   ${formDataSfc}
   const resetForm = () => {
