@@ -215,7 +215,7 @@ if (opType.value == 'add') {
       Object.assign(formTemplate, formatDefaultOption(template, option))
       Object.assign(flatOption, flat(option))
       loading.value = false
-    }).catch(() => {
+    }).catch((err) => {
       ElMessage.error(err)
       loading.value = false
     })
