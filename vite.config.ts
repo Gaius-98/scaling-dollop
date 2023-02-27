@@ -5,10 +5,13 @@ import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import topLevelAwait from 'vite-plugin-top-level-await'
+import md from 'vite-plugin-md'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      include: [/\.vue$/, /\.md$/], // <--
+    }),
     VueSetupExtend(),
     Components({
       resolvers: [
@@ -22,6 +25,9 @@ export default defineConfig({
       promiseExportName: '__tla',
       // The function to generate import names of top-level await promise in each chunk module
       promiseImportName: i => `__tla_${i}`,
+    }),
+    md({
+      builders: [],
     }),
   ],
   resolve: {

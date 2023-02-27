@@ -8,6 +8,7 @@ import 'normalize.css'
 import '@/assets/iconfont/iconfont.css'
 import '@/styles/theme.css'
 import '@/styles/common/layout.css'
+import 'github-markdown-css'
 
 createApp(App).use(createPinia()).use(autoImport).use(router)
 .mount('#app')
