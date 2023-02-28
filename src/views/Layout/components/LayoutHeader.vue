@@ -1,6 +1,9 @@
 <template>
   <header class="layout_header">
-    <div class="layout_header_sys">
+    <div
+      class="layout_header_sys"
+      @click="onClickMenu('home')"
+    >
       <div class="layout_header_sys_logo">
         <img
           :src="sysConfig.sysLogo"

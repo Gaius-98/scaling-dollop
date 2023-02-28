@@ -11,6 +11,9 @@ const business:RouteRecordRaw[] = [
         path: 'home',
         name: 'home',
         component: () => import('@/views/Home/HomeView.vue'),
+        meta: {
+          appId: 'home',
+        },
       },
       {
         path: 'largeScreenList',

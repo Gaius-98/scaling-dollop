@@ -9,6 +9,9 @@ import '@/assets/iconfont/iconfont.css'
 import '@/styles/theme.css'
 import '@/styles/common/layout.css'
 import 'github-markdown-css'
+import dragResizeV3 from 'ray-drag-resize-v3'
+import 'ray-drag-resize-v3/lib/style.css'
 
 createApp(App).use(createPinia()).use(autoImport).use(router)
+.use(dragResizeV3)
 .mount('#app')
