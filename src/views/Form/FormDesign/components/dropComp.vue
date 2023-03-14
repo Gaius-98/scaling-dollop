@@ -4,7 +4,6 @@
     item-key="compId"
     group="comp"
     class="drop_container"
-    @change="getChange"
   >
     <template
       #item="{element}"
@@ -144,9 +143,7 @@ const onClickRemove = (element:COMMON.obj) => {
   const idx = compList.value.findIndex((formItem:any) => formItem.compId == element.compId)
   compList.value.splice(idx, 1)
 }
-const getChange = (val:any) => {
-  console.log(val, compList)
-}
+
 </script>
 <style scoped lang='scss'>
 .drop_container{

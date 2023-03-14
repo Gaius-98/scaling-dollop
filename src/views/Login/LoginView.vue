@@ -197,7 +197,6 @@ const onLogin = () => {
         loginApi.loginByPwd(params)
         .then(res => {
           const { data } = res
-          console.log(data)
           setCookie('ev-token', data.token)
           router.push({
             name: 'home',

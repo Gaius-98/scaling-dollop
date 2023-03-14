@@ -61,7 +61,12 @@
             :icon="DocumentCopy"
             circle
             title="复制"
-            @click="onClone(item)"
+          />
+          <el-button
+            v-copy="getViewUrl(item.chartId)"
+            :icon="Share"
+            circle
+            title="分享"
           />
           <el-button
             type="danger"
@@ -129,9 +134,14 @@ import {
   Edit,
   View,
   DocumentCopy,
+  Share,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { useSysStore } from '@/store/sysConfig'
+import { getCookie } from '@/utils/cookie'
 
+const store = useSysStore()
+const { sysConfig } = store
 const router = useRouter()
 const dialogShowAdd = ref(false)
 const list = reactive<sysDict[]>([
@@ -177,6 +187,9 @@ const onAdd = () => {
   Object.assign(isSelect, {})
   dialogShowAdd.value = true
 }
+const getViewUrl = (chartId:string) => `
+${sysConfig?.evUrl || 'http://1.117.70.174/'}#/view/chartView/${chartId}
+?ev-token=${getCookie('ev-token')}`
 const onConfirm = () => {
   dialogShowAdd.value = false
   const url = router.resolve({
@@ -216,16 +229,6 @@ const onDelete = (chart:saveChart) => {
   })
 }
 
-const onClone = (chart:saveChart) => {
-  console.log(navigator.clipboard)
-  navigator.clipboard.writeText(chart.chartId).then((res) => {
-    console.log(res)
-    ElMessage.success('复制图表id成功')
-  })
-  .catch(() => {
-    ElMessage.success('复制失败')
-  })
-}
 </script>
 <style scoped lang='scss'>
 .chart-header{
