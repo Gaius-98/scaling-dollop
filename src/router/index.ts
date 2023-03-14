@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { getCookie } from '@/utils/cookie'
+import { getCookie, setCookie } from '@/utils/cookie'
 
 const modules = import.meta.glob('./modules/*.ts', { eager: true })
 const routersModules = []
@@ -26,16 +26,18 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let cookieToken = getCookie('ev-token')
-  if (to.path == '/login') {
-    next()
+  const evToken = to.params['ev-token'] || to.query['ev-token']
+  if (evToken) {
+    setCookie('ev-token', evToken as string)
   }
-  if (cookieToken) {
+  let token = getCookie('ev-token')
+  if (token) {
     next()
+  } else {
+    next({
+      name: 'login',
+    })
   }
-  next({
-    name: 'login',
-  })
 })
 
 export default router
