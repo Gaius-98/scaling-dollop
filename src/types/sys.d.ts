@@ -18,7 +18,8 @@ declare interface sysMenu {
   orderNum:number,
   pid:string,
   description:string,
-  children:any[]|sysMenu[]
+  children?:sysMenu[],
+  icon:string,
 }
 
 /**

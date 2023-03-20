@@ -3,7 +3,7 @@ import Layout from '@/views/Layout/LayoutView.vue'
 
 const business:RouteRecordRaw[] = [
   {
-    path: '/business',
+    path: '/',
     name: 'business',
     component: Layout,
     children: [
@@ -35,9 +35,6 @@ const business:RouteRecordRaw[] = [
         path: 'chart',
         name: 'chart',
         component: () => import('@/views/Chart/ChartList/ChartList.vue'),
-        meta: {
-          appId: '66401fee-1f89-4e52-8ee1-9927a4d05e43',
-        },
       },
       {
         path: 'chartConfig',
@@ -48,16 +45,14 @@ const business:RouteRecordRaw[] = [
           opType: route.query.opType || route.params.opType,
           chartType: route.query.chartType || route.params.chartType,
         }),
+        meta: {
+          appId: '66401fee-1f89-4e52-8ee1-9927a4d05e43',
+        },
       },
       {
         path: 'formDesign',
         name: 'formDesign',
         component: () => import('@/views/Form/FormDesign/FormDesign.vue'),
-        props: route => ({
-          chartId: route.query.chartId || route.params.chartId,
-          opType: route.query.opType || route.params.opType,
-          chartType: route.query.chartType || route.params.chartType,
-        }),
         meta: {
           appId: '2af076bc-9bae-4909-b6d3-83d583441d8d',
         },

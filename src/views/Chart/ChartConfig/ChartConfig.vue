@@ -17,9 +17,9 @@
       <div class="op">
         <el-button
           type="primary"
-          @click="onSave"
+          @click="onExport"
         >
-          保存
+          导出配置
         </el-button>
       </div>
     </div>
@@ -135,6 +135,7 @@ import { flat, unflat } from '@/utils/func'
 import EvChartAttr from '@/components/EvChartAttr/EvChartAttr.vue'
 import * as echarts from 'echarts'
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   opType: {
@@ -251,7 +252,25 @@ const onSave = () => {
     })
   }
 }
-
+const onExport = () => {
+  const a = document.createElement('a')
+  // 构造一个blob对象来处理数据
+  const json = JSON.stringify(option, null, 4)
+  const blob = new Blob([json])
+  // 拿到用户上传的文件名
+  let fileName = (chartFormData.chartName || 'chart_' + uuidv4()) + '.json'
+  fileName = decodeURI(encodeURI(fileName))
+  // URL.createObjectURL()会产生一个url字符串，可以像使用普通 URL 那样使用它，比如用在 img.src 上
+  a.href = URL.createObjectURL(blob)
+  // a标签里有download属性可以自定义文件名
+  a.setAttribute(
+    'download',
+    fileName,
+  )
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
 provide('chartOpt', flatOption)
 watch(flatOption, () => {
   Object.assign(option, unflat(flatOption))

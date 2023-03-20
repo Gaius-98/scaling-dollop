@@ -10,12 +10,7 @@ for (const path in modules) {
 const routes:Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/business/home',
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/Login/LoginView.vue'),
+    redirect: '/home',
   },
   ...routersModules,
 ]
@@ -23,21 +18,6 @@ const routes:Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-})
-
-router.beforeEach((to, from, next) => {
-  const evToken = to.params['ev-token'] || to.query['ev-token']
-  if (evToken) {
-    setCookie('ev-token', evToken as string)
-  }
-  let token = getCookie('ev-token')
-  if (token) {
-    next()
-  } else {
-    next({
-      name: 'login',
-    })
-  }
 })
 
 export default router

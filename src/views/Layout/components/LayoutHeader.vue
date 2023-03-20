@@ -6,12 +6,12 @@
     >
       <div class="layout_header_sys_logo">
         <img
-          :src="sysConfig.sysLogo"
+          src="@/assets/images/ev-logo.jpg"
           alt=""
         >
       </div>
       <div class="layout_header_sys_title">
-        {{ sysConfig.sysName }}
+        易视
       </div>
     </div>
     <ev-menu
@@ -31,7 +31,6 @@
       <div
         class="iconfont icon-peizhi sys"
         title="后台管理"
-        @click="goSys"
       >
       </div>
       <toggle-theme></toggle-theme>
@@ -40,28 +39,16 @@
 </template>
 
 <script lang='ts' setup>
-import { getMenuList } from '@/api/common'
 import { reactive, toRefs, ref } from 'vue'
 import { routerPush } from '@/utils/func'
-import { useSysStore } from '@/store/sysConfig'
-import { storeToRefs } from 'pinia'
-import { getCookie } from '@/utils/cookie'
+import data from '@/assets/menu/menu'
 
-const sysStore = useSysStore()
-const { sysConfig } = storeToRefs(sysStore)
-const menuList = ref<sysMenu[]>()
+const menuList = ref<sysMenu[]>(data)
 
-getMenuList().then(res => {
-  const { data } = res
-  menuList.value = data
-})
 const onClickMenu = (value:any) => {
   routerPush(value)
 }
-const goSys = () => {
-  const token = getCookie('ev-token')
-  window.open(`${sysConfig.value.sysManageUrl}?token=${token}`, '_blank')
-}
+
 </script>
 <style scoped lang='scss'>
 .layout_header{
