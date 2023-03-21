@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { cloneDeep } from 'lodash'
 
 /**
    *  将formTemplate处理为可配置的格式
@@ -41,7 +41,7 @@ export const formatSeries = (tabsTemplate:COMMON.obj, data:COMMON.obj, key:strin
     return cur
   }
   const templates = curData.map((item:COMMON.obj, idx:number) => {
-    const data = _.cloneDeep(tabsTemplate.children)
+    const data = cloneDeep(tabsTemplate.children)
     return deepTransFormTabs(data, idx, `${tabsTemplate.model}[${idx}]`)
   })
   tabsTemplate.children = templates
