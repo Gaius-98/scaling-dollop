@@ -1,6 +1,7 @@
 import router from '@/router/index'
 import { cloneDeep } from 'lodash'
 import { formComp } from '@/assets/form/formSfc'
+import { v4 as uuidv4 } from 'uuid'
 /**
  * 对象扁平化
  * @params {object} 要扁平化的对象
@@ -121,6 +122,9 @@ export const routerPush = (id:string) => {
   if (cur) {
     router.push({
       name: cur.name,
+      query: {
+        appId: id,
+      },
     })
   } else {
     router.push({
@@ -199,7 +203,28 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
   `
   return formSfc
 }
-
+/**
+ * 
+ * @param content string -- 文件内容
+ * @param fileName string --文件名称
+ * @param fileType string --文件类型  文件后缀名
+ */
+export const exportFile = (content:string, fileName?:string, fileType = 'json') => {
+  const a = document.createElement('a')
+  // 构造一个blob对象来处理数据
+  const blob = new Blob([content])
+  fileName = `${decodeURI(encodeURI(fileName || uuidv4()))}.${fileType}`
+  // URL.createObjectURL()会产生一个url字符串，可以像使用普通 URL 那样使用它，比如用在 img.src 上
+  a.href = URL.createObjectURL(blob)
+  // a标签里有download属性可以自定义文件名
+  a.setAttribute(
+    'download',
+    fileName,
+  )
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
 /**
  * 常用函数
  */
@@ -208,5 +233,6 @@ const func = {
   unflat,
   routerPush,
   createFormSfc,
+  exportFile,
 }
 export default func

@@ -17,9 +17,15 @@
       <div class="op">
         <el-button
           type="primary"
-          @click="onExport"
+          @click="onExport('chart')"
         >
-          导出配置
+          导出chart配置
+        </el-button>
+        <el-button
+          type="primary"
+          @click="onExport('component')"
+        >
+          导出组件可用配置
         </el-button>
       </div>
     </div>
@@ -131,11 +137,10 @@ import { ElMessage } from 'element-plus'
 import { reactive, toRefs, ref, provide, watch } from 'vue'
 import api from '../service/api'
 import { formatDefaultOption } from '../utils/format'
-import { flat, unflat } from '@/utils/func'
+import { flat, unflat, exportFile } from '@/utils/func'
 import EvChartAttr from '@/components/EvChartAttr/EvChartAttr.vue'
 import * as echarts from 'echarts'
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   opType: {
@@ -223,53 +228,15 @@ if (opType.value == 'add') {
   })
 }
 
-const onSave = () => {
-  chartFormData.option = option
-  let img
-  if (document.querySelector('.ev-chart')) {
-    img = echarts.getInstanceByDom(
-          document.querySelector('.ev-chart') as HTMLElement,
-    )?.getDataURL({ type: 'png' })
-  }
-  chartFormData.img = img || ''
-  if (opType.value == 'add') {
+const onExport = (type:'chart'|'component') => {
+  if (type == 'chart') {
+    exportFile(JSON.stringify(option, null, 4), chartFormData.chartName)
+  } else {
+    chartFormData.option = option
     delete (chartFormData.id)
     delete (chartFormData.time)
-    api.save(chartFormData)
-    .then(res => {
-      const { code } = res
-      if (code == 0) {
-        ElMessage.success('保存成功')
-      } 
-    })
-  } else {
-    api.update(chartFormData)
-    .then(res => {
-      const { code } = res
-      if (code == 0) {
-        ElMessage.success('保存成功')
-      }
-    })
+    exportFile(JSON.stringify(chartFormData, null, 4), chartFormData.chartName)
   }
-}
-const onExport = () => {
-  const a = document.createElement('a')
-  // 构造一个blob对象来处理数据
-  const json = JSON.stringify(option, null, 4)
-  const blob = new Blob([json])
-  // 拿到用户上传的文件名
-  let fileName = (chartFormData.chartName || 'chart_' + uuidv4()) + '.json'
-  fileName = decodeURI(encodeURI(fileName))
-  // URL.createObjectURL()会产生一个url字符串，可以像使用普通 URL 那样使用它，比如用在 img.src 上
-  a.href = URL.createObjectURL(blob)
-  // a标签里有download属性可以自定义文件名
-  a.setAttribute(
-    'download',
-    fileName,
-  )
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
 }
 provide('chartOpt', flatOption)
 watch(flatOption, () => {
@@ -282,19 +249,6 @@ watch(flatOption, () => {
 
 const activeName = ref('attr')
 
-const reqForm = reactive<COMMON.reqForm>(
-  { url: 'http://jsonplaceholder.typicode.com/comments',
-    method: 'get',
-    params: {
-      postId: '1',
-    },
-    headers: {
-
-    },
-    data: {
-
-    } },
-)
 const reqDataJson = ref('')
 const reqData = reactive<COMMON.obj>({})
 const onHandleData = (data:COMMON.obj) => {
@@ -309,7 +263,6 @@ const onHandleDataToOption = () => {
   }
 }
 
-const variable = reactive({})
 </script>
 <style scoped lang='scss'>
 .chart_config{

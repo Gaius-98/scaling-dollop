@@ -47,8 +47,7 @@
 import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
-import { v4 as uuidv4 } from 'uuid'
-import { createFormSfc } from '@/utils/func'
+import { createFormSfc, exportFile } from '@/utils/func'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
@@ -58,42 +57,10 @@ const onClickView = () => {
   dialogVisible.value = true
 }
 const onExportJson = () => {
-  const a = document.createElement('a')
-  // 构造一个blob对象来处理数据
-  const json = JSON.stringify(saveForm.value, null, 4)
-  const blob = new Blob([json])
-  // 拿到用户上传的文件名
-  let fileName = (saveForm.value.name || 'form_' + uuidv4()) + '.json'
-  fileName = decodeURI(encodeURI(fileName))
-  // URL.createObjectURL()会产生一个url字符串，可以像使用普通 URL 那样使用它，比如用在 img.src 上
-  a.href = URL.createObjectURL(blob)
-  // a标签里有download属性可以自定义文件名
-  a.setAttribute(
-    'download',
-    fileName,
-  )
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
+  exportFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
 }
 const onExportVue = () => {
-  const a = document.createElement('a')
-  // 构造一个blob对象来处理数据
-  const vue = createFormSfc(saveForm.value)
-  const blob = new Blob([vue])
-  // 拿到用户上传的文件名
-  let fileName = (saveForm.value.name || 'form_' + uuidv4()) + '.vue'
-  fileName = decodeURI(encodeURI(fileName))
-  // URL.createObjectURL()会产生一个url字符串，可以像使用普通 URL 那样使用它，比如用在 img.src 上
-  a.href = URL.createObjectURL(blob)
-  // a标签里有download属性可以自定义文件名
-  a.setAttribute(
-    'download',
-    fileName,
-  )
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
+  exportFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
 }
 const dialogJson = ref(false)
 const jsonForm = ref('')
