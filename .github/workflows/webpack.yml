@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x,16.x,18.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -31,4 +31,6 @@ jobs:
       with:
         publish_branch: gh-pages 
         publist_dir: ./dist 
-        
+        github_token: ${{ secrets.GAIUS_TOKEN }}
+        user_name: Gaius-98
+        user_email: 2388838628@qq.com
