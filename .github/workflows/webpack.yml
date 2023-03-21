@@ -30,7 +30,11 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3 # 一个自动发布github pages的action
       with:
         publish_branch: gh-pages 
-        publist_dir: ./dist 
-        github_token: ${{ secrets.GAIUS_TOKEN }}
+        publish_dir: ./dist 
+        github_key: ${{ secrets.GITHUB_TOKEN }}
         user_name: Gaius-98
         user_email: 2388838628@qq.com
+        allow_empty_commit: true # 允许空提交
+        # 获取代码提交时的commit message，作为发布gh-pages分支的信息
+        commit_message: ${{ github.event.head_commit.message }}
+        full_commit_message: ${{ github.event.head_commit.message }}
