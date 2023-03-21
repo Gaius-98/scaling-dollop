@@ -2,7 +2,7 @@ name: NodeJS with Webpack
 
 on:
   push:
-    branches: [ "pages" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [14.x,16.x,18.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -26,3 +26,11 @@ jobs:
       run: |
         npm install
         npm run build
+    - name: Depoly
+      uses: peaceiris/actions-gh-pages@v3 # 一个自动发布github pages的action
+      with:
+        target_branch: gh-pages 
+        build_dir: dist 
+      env:
+       GITHUB_TOKEN: ${{secrets.gaius-token}}
+        
