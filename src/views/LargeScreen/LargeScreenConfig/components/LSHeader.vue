@@ -5,7 +5,7 @@
 </template>
 
 <script lang='ts' setup>
-import autoHeader from './header.vue'
+import autoHeader from './AutoHeader.vue'
 import { reactive, toRefs, ref } from 'vue'
 
 </script>

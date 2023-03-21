@@ -17,4 +17,13 @@ export default [
     icon: '',
     description: '', 
   },
+  { id: 65,
+    appName: '大屏设计',
+    appId: '1e0349dd-9bfc-4fc6-a433-84fad5cd7551', 
+    appType: 'app', 
+    orderNum: 300,
+    pid: '',
+    icon: '',
+    description: '', 
+  },
 ] as sysMenu[]
