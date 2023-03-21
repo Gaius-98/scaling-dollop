@@ -150,7 +150,7 @@ const onClickRemove = (element:COMMON.obj) => {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  background-color: #f3f3f3;
+  background-color: var(--ev-col-bg-color);
   .drop_container_item{
     position: relative;
     border: 1px solid var(--ev-active-shallow-color);

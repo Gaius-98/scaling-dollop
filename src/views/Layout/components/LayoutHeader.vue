@@ -28,11 +28,6 @@
     >
     </ev-menu>
     <div class="layout_header_sys_opt">
-      <div
-        class="iconfont icon-peizhi sys"
-        title="后台管理"
-      >
-      </div>
       <toggle-theme></toggle-theme>
     </div>
   </header>
@@ -46,6 +41,7 @@ import data from '@/assets/menu/menu'
 const menuList = ref<sysMenu[]>(data)
 
 const onClickMenu = (value:any) => {
+  console.log(value)
   routerPush(value)
 }
 

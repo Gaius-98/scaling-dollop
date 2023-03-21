@@ -2,7 +2,11 @@
   <main class="layout_container">
     <Suspense>
       <template #default>
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <transition name="fade">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </template>
       <template #fallback>
         <div v-loading="true">
