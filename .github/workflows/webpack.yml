@@ -31,7 +31,7 @@ jobs:
       with:
         publish_branch: gh-pages 
         publish_dir: ./dist 
-        github_key: ${{ secrets.GAIUS_TOKEN }}
+        github_token: ${{ secrets.GAIUS_TOKEN }}
         user_name: Gaius-98
         user_email: 2388838628@qq.com
         allow_empty_commit: true # 允许空提交
