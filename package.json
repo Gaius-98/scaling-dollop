@@ -9,6 +9,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
+  "homepage": "https://gaius-98.github.io/scaling-dollop/",
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.1",
     "@codemirror/theme-one-dark": "^6.1.0",
