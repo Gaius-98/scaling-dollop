@@ -1,0 +1,1 @@
+const e={legend:{show:!0,icon:"circle"},tooltip:{trigger:"item"},series:[{type:"pie",radius:[0,"50%"],center:["50%","50%"],data:[{value:648,name:"\u7C7B\u76EE\u4E00"},{value:735,name:"\u7C7B\u76EE\u4E8C"},{value:580,name:"\u7C7B\u76EE\u4E09"}],labelLine:{show:!0,length:10,length2:20},label:{width:60,fontSize:12},itemStyle:{borderColor:"#fff"}}]};export{e as default};

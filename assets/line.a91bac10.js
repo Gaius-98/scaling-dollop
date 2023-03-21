@@ -1,0 +1,1 @@
+const e={xAxis:[{type:"category",position:"bottom"}],yAxis:{type:"value"},legend:{},series:[{name:"\u7C7B\u76EE\u4E00",data:[150,12,224,218,135,147,260],type:"line"},{name:"\u7C7B\u76EE\u4E8C",data:[110,21,120,318,165,177,160],type:"line"}]};export{e as default};

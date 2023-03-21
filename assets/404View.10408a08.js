@@ -1,0 +1,1 @@
+import{d as s,o as l,c as r,__tla as _}from"./index.25c7b428.js";let e,n=Promise.all([(()=>{try{return _}catch{}})()]).then(async()=>{let t,a;t="/assets/bg.87516382.png",a={src:t,alt:""},e=s({__name:"404View",setup(c){return(o,m)=>(l(),r("img",a))}})});export{n as __tla,e as default};
