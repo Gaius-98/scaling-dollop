@@ -215,6 +215,7 @@ export const formComp:COMMON.obj = {
       const ruleListSfc = `${element.prop.field}:[{
         required:true,
         trigger:'${element.form_config.rules.trigger}',
+        message:'${element.form_config.rules.message}',
         ${ element.form_config.rules.regular ? 'validator:check_' + element.prop.field : ''}
       }],`
       return ruleListSfc

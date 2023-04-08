@@ -8,7 +8,7 @@
     :rules="rules"
   >
     <el-row :gutter="0">
-      <el-col :span="6">
+      <el-col :span="12">
         <el-form-item
           prop="name"
           label="大屏名称"
@@ -27,16 +27,16 @@
       <el-col :span="6">
         <el-form-item
           prop="width"
-          label="宽(px)"
+          label="宽度(px)"
         >
           <el-input-number
             v-model="formData.width"
             :readonly="false"
             :disabled="false"
-            :step="10"
+            :step="1"
             :min="0"
-            :max="1920"
-            placeholder="输入提示"
+            :max="3000"
+            placeholder="请输入大屏宽度"
             controls-position="right"
           >
           </el-input-number>
@@ -45,15 +45,15 @@
       <el-col :span="6">
         <el-form-item
           prop="height"
-          label="高(px)"
+          label="高度(px)"
         >
           <el-input-number
             v-model="formData.height"
             :readonly="false"
             :disabled="false"
-            :step="10"
+            :step="1"
             :min="0"
-            :max="1080"
+            :max="3000"
             placeholder="输入提示"
             controls-position="right"
           >
@@ -68,22 +68,28 @@
 import { reactive, toRefs, ref, PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
 
+  interface obj {
+    [key:string]:any
+  }
 const formRef = ref<FormInstance>()
-const formData = reactive<COMMON.obj>({})
+const formData = reactive<obj>({})
   
-const rules = reactive<COMMON.obj>({ name: [{
+const rules = reactive<obj>({ name: [{
   required: true,
   trigger: 'blur',
+  message: '请输入大屏名称',
         
 }],
 width: [{
   required: true,
-  trigger: 'change',
+  trigger: 'blur',
+  message: '请输入正确的大屏宽度',
         
 }],
 height: [{
   required: true,
-  trigger: 'change',
+  trigger: 'blur',
+  message: '请输入正确的大屏高度',
         
 }] })
 const getFormData = () => formData
