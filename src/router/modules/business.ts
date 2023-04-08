@@ -16,22 +16,6 @@ const business:RouteRecordRaw[] = [
         },
       },
       {
-        path: 'largeScreenList',
-        name: 'largeScreenList',
-        component: () => import('@/views/LargeScreen/LargeScreenList/LargeScreenList.vue'),
-        meta: {
-         
-        },
-      },
-      {
-        path: 'largeScreenConfig',
-        name: 'largeScreenConfig',
-        component: () => import('@/views/LargeScreen/LargeScreenConfig/LargeScreenConfig.vue'),
-        meta: {
-          appId: '1e0349dd-9bfc-4fc6-a433-84fad5cd7551',
-        },
-      },
-      {
         path: 'chart',
         name: 'chart',
         component: () => import('@/views/Chart/ChartList/ChartList.vue'),
