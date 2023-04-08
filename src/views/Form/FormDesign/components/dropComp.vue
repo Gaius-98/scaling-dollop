@@ -102,6 +102,11 @@
             v-bind="element.prop"
           >
           </drop-grid>
+          <drop-card 
+            v-if="element.comp == 'card'"
+            v-bind="element.prop"
+          >
+          </drop-card>
         </div>
         <div
           class="drop_container_item_opt iconfont icon-a-shanchulajitong"
@@ -119,6 +124,7 @@ import draggable from 'vuedraggable'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 import dropGrid from './dropGrid.vue'
+import dropCard from './dropCard.vue'
 
 const props = defineProps({
   list: {

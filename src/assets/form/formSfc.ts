@@ -177,6 +177,21 @@ export const formComp:COMMON.obj = {
     </el-row>`
     return rowTemplate
   },
+  card(element:COMMON.obj) {
+    const { header, card: { list } } = element.prop
+    let formStr = ''
+    list.forEach((com:COMMON.obj) => {
+      formStr += `
+      ${formComp[com.comp](com)}
+      `
+    })
+    const cardTemplate = `
+    <el-card header='${header}'>
+      ${formStr}
+    </el-card>
+    `
+    return cardTemplate
+  },
   createOptions: (element:COMMON.obj) => {
     let optionsObj = ''
     element.prop.options.forEach((item:COMMON.obj) => {

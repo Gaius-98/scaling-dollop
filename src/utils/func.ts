@@ -150,16 +150,18 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
   const deepFormConfigList = (list:COMMON.obj[]) => {
     if (list instanceof Array) {
       list.forEach((item:COMMON.obj) => {
-        if (!['grid'].includes(item.comp)) {
+        if (item.type != 'container') {
           rules += formComp.createRules(item)
           ruleFnSfc += formComp.createRuleFunc(item)
           if (['select', 'checkbox'].includes(item.comp)) {
             formDataSfc += formComp.createOptions(item)
           }
-        } else {
+        } else if (item.comp == 'grid') {
           item.prop.cols.forEach((item:COMMON.obj) => {
             deepFormConfigList(item.list)
           })
+        } else if (item.comp == 'card') {
+          deepFormConfigList(item.prop.card.list) 
         }
       })
     }

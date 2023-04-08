@@ -223,7 +223,7 @@ const compList = [
     comp: 'grid', // 组件
     compId: '', // 随机uuid
     name: '栅格',
-    type: 'container',
+    type: 'container', // 容器
     prop: { // 配置项
       cols: [
         {
@@ -239,6 +239,20 @@ const compList = [
       ],
       gutter: 0,
       field: '', // 字段名 
+    },
+  },
+  {
+    
+    comp: 'card', // 组件
+    compId: '', // 随机uuid
+    name: '卡片容器',
+    type: 'container', // 容器
+    prop: { // 配置项
+      card: {
+        list: [],
+      },
+      field: '', // 字段名 
+      header: '卡片容器标题',
     },
   },
 ]

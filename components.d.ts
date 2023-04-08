@@ -7,10 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CardAttr: typeof import('./src/components/EvFormAttr/components/CardAttr.vue')['default']
     CheckBoxAttr: typeof import('./src/components/EvFormAttr/components/CheckBoxAttr.vue')['default']
     CommonAttr: typeof import('./src/components/EvFormAttr/components/CommonAttr.vue')['default']
     DateAttr: typeof import('./src/components/EvFormAttr/components/DateAttr.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
     ElCol: typeof import('element-plus/es')['ElCol']

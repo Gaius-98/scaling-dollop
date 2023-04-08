@@ -10,11 +10,11 @@
     <input-number-attr v-if="curFormItem.comp == 'number'" />
     <switch-attr v-if="curFormItem.comp == 'switch'" />
     <grid-attr v-if="curFormItem.comp == 'grid'" />
+    <card-attr v-if="curFormItem.comp == 'card'" />
   </el-form>
 </template>
 
 <script lang='ts' setup name="EvFormAttr">
-import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 import CommonAttr from '@/components/EvFormAttr/components/CommonAttr.vue'
@@ -27,6 +27,7 @@ import TimeAttr from './components/TimeAttr.vue'
 import InputNumberAttr from './components/InputNumberAttr.vue'
 import SwitchAttr from './components/SwitchAttr.vue'
 import GridAttr from './components/GridAttr.vue'
+import CardAttr from './components/CardAttr.vue'
 
 const store = useFormDesignStore()
 const { curFormItem } = storeToRefs(store)
