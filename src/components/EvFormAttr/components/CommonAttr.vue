@@ -4,7 +4,10 @@
     prop="prop.field"
     label="字段名"
   >
-    <el-input v-model="curFormItem.prop.field">
+    <el-input
+      v-model="curFormItem.prop.field"
+      clearable
+    >
     </el-input>
   </el-form-item>
   <el-form-item
