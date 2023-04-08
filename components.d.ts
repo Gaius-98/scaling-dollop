@@ -56,6 +56,7 @@ declare module '@vue/runtime-core' {
     EvTitle: typeof import('./src/components/common/EvTitle/EvTitle.vue')['default']
     EvVar: typeof import('./src/components/common/EvVar/EvVar.vue')['default']
     FormAttr: typeof import('./src/components/EvFormAttr/components/FormAttr.vue')['default']
+    FormCard: typeof import('./src/components/common/EvForm/components/FormCard.vue')['default']
     FormComp: typeof import('./src/components/common/EvForm/components/FormComp.vue')['default']
     FormGrid: typeof import('./src/components/common/EvForm/components/FormGrid.vue')['default']
     GridAttr: typeof import('./src/components/EvFormAttr/components/GridAttr.vue')['default']

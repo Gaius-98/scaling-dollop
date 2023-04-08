@@ -93,6 +93,12 @@
         :data="formData"
       >
       </form-grid>
+      <form-card
+        v-if="element.comp == 'card'"
+        v-bind="element.prop"
+        :data="formData"
+      >
+      </form-card>
     </div>
   </template>
 </template>

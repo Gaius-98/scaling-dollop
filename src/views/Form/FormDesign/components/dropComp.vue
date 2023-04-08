@@ -128,7 +128,7 @@ import dropCard from './dropCard.vue'
 
 const props = defineProps({
   list: {
-    type: Array as PropType<COMMON.obj[]>,
+    type: Array as PropType<formComp[]>,
     required: true,
     default: () => [],
   },

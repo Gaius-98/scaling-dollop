@@ -42,8 +42,8 @@ import { v4 as uuid } from 'uuid'
 import { cloneDeep } from 'lodash'
 import list from '@/assets/form/compList'
 
-const compList = ref([])
-const containerList = ref([])
+const compList = ref<formComp[]>([])
+const containerList = ref<formComp[]>([])
 list.forEach(item => {
   if (item.type == 'component') {
     compList.value.push(item)
