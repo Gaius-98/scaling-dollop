@@ -253,6 +253,7 @@ const compList = [
       },
       field: '', // 字段名 
       header: '卡片容器标题',
+      shadow: 'always',
     },
   },
 ]

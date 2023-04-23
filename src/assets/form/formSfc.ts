@@ -159,7 +159,8 @@ export const formComp:COMMON.obj = {
     `,    
   grid: (element:COMMON.obj) => {
     let col = ''
-    element.prop.cols.forEach((item:COMMON.obj) => {
+    const { prop: { cols, gutter } } = element
+    cols.forEach((item:COMMON.obj) => {
       if (item.list instanceof Array) {
         item.list.forEach((com:COMMON.obj) => {
           col += `
@@ -172,13 +173,13 @@ export const formComp:COMMON.obj = {
       }
     })
     const rowTemplate = `
-    <el-row :gutter='${element.prop.gutter}'>
+    <el-row :gutter='${gutter}'>
     ${col}
     </el-row>`
     return rowTemplate
   },
   card(element:COMMON.obj) {
-    const { header, card: { list } } = element.prop
+    const { header, card: { list }, shadow } = element.prop
     let formStr = ''
     list.forEach((com:COMMON.obj) => {
       formStr += `
@@ -186,7 +187,7 @@ export const formComp:COMMON.obj = {
       `
     })
     const cardTemplate = `
-    <el-card header='${header}'>
+    <el-card header='${header}' shadow='${shadow}'>
       ${formStr}
     </el-card>
     `
@@ -194,44 +195,48 @@ export const formComp:COMMON.obj = {
   },
   createOptions: (element:COMMON.obj) => {
     let optionsObj = ''
-    element.prop.options.forEach((item:COMMON.obj) => {
+    const { prop: { options, field } } = element
+    options.forEach((item:COMMON.obj) => {
       const objStr = `
-  {
-    label:'${item.label}',
-    value:'${item.value}'
-  },`
+        {
+          label:'${item.label}',
+          value:'${item.value}'
+        },
+      `
       optionsObj += objStr
     })
    
     const optionSfc = `
-  const options_${element.prop.field} = reactive([${optionsObj}])`
+      const options_${field} = reactive([${optionsObj}])
+    `
     return optionSfc
   },
   createRuleFunc: (element:COMMON.obj) => {
     const { prop: { field }, form_config: { rules: { required, regular, message }, label } } = element
     if (required && regular) {
       const fnSfc = `
-    const check_${field} = (rule: any, value: any, callback: any) =>{
-      if(!value){
-        callback(new Error('请填写${label}(${field})'))
-      }else if(!/${regular}/.test(value)) {
-        callback(new Error('${message}'))
-      }else {
-        callback()
-      }
-    }
-    ` 
+        const check_${field} = (rule: any, value: any, callback: any) =>{
+          if(!value){
+            callback(new Error('请填写${label}(${field})'))
+          }else if(!/${regular}/.test(value)) {
+            callback(new Error('${message}'))
+          }else {
+            callback()
+          }
+        }
+      ` 
       return fnSfc
     }
     return ''
   },
   createRules: (element:COMMON.obj) => {
-    if (element.form_config.rules.required) {
-      const ruleListSfc = `${element.prop.field}:[{
+    const { prop: { field }, form_config: { rules: { required, regular, message, trigger } } } = element
+    if (required) {
+      const ruleListSfc = `${field}:[{
         required:true,
-        trigger:'${element.form_config.rules.trigger}',
-        message:'${element.form_config.rules.message}',
-        ${ element.form_config.rules.regular ? 'validator:check_' + element.prop.field : ''}
+        trigger:'${trigger}',
+        message:'${message}',
+        ${ regular ? 'validator:check_' + field : ''}
       }],`
       return ruleListSfc
     }
