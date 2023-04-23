@@ -4,42 +4,44 @@
       表单组件
     </div>
     <div class="com-list">
-      <draggable
-        v-model="compList"
-        item-key="comp"
-        :group="{pull:'clone',put:false,name:'comp'}"
-        :clone="cloneNode"
-        class="comp_list_container"
-      >
-        <template #item="{element}">
-          <div class="comp">{{ element.name }}</div>
-        </template>
-      </draggable>
+      <div class="container-list">
+        <div class="comp_list_container">
+          <div
+            v-for="item in compList"
+            :key="item.compId"
+            class="comp"
+            draggable="true"
+            :data-comp="JSON.stringify(item)"
+            @dragstart="onDrag" 
+          >
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
     </div>
     <div class="title">
       容器组件
     </div>
     <div class="container-list">
-      <draggable
-        v-model="containerList"
-        item-key="comp"
-        :group="{pull:'clone',put:false,name:'comp'}"
-        :clone="cloneNode"
-        class="comp_list_container"
-      >
-        <template #item="{element}">
-          <div class="comp">{{ element.name }}</div>
-        </template>
-      </draggable>
+      <div class="comp_list_container">
+        <div
+          v-for="item in containerList"
+          :key="item.compId"
+          class="comp"
+          draggable="true"
+          :data-comp="JSON.stringify(item)"
+          @dragstart="onDrag" 
+        >
+          {{ item.name }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref } from 'vue'
-import draggable from 'vuedraggable'
+import { ref } from 'vue'
 import { v4 as uuid } from 'uuid'
-import { cloneDeep } from 'lodash'
 import list from '@/assets/form/compList'
 
 const compList = ref<formComp[]>([])
@@ -51,10 +53,14 @@ list.forEach(item => {
     containerList.value.push(item)
   }
 })
-const cloneNode = (node:any) => {
-  node.compId = uuid()
-  node.prop.field = 'field' 
-  return cloneDeep(node)
+const onDrag = (ev:DragEvent) => {
+  if (ev && ev.dataTransfer && ev.target) {
+    let e = ev.target as HTMLElement
+    let comp = JSON.parse(e.dataset.comp as string)
+    comp.compId = uuid()
+    comp.prop.field = 'field'
+    ev.dataTransfer.setData('comp', JSON.stringify(comp))
+  }
 }
 </script>
 <style scoped lang='scss'>
@@ -78,7 +84,7 @@ const cloneNode = (node:any) => {
     border: 1px solid var(--ev-border);
     margin-right: 5px;
     margin-bottom: 5px;
-    cursor: move;
+    // cursor: move;
   }
 }
 

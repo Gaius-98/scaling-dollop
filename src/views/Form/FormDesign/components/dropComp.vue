@@ -4,6 +4,8 @@
     item-key="compId"
     group="comp"
     class="drop_container"
+    @drop.prevent.stop="dropComp"
+    @dragover.prevent="()=>{}"
   >
     <template
       #item="{element}"
@@ -149,6 +151,13 @@ const onClickRemove = (element:COMMON.obj) => {
   const idx = compList.value.findIndex((formItem:any) => formItem.compId == element.compId)
   compList.value.splice(idx, 1)
 }
+const dropComp = (ev:DragEvent) => {
+  if (ev && ev.dataTransfer) {
+    const compJson = ev.dataTransfer.getData('comp')
+    let comp = JSON.parse(compJson)
+    compList.value.push(comp)
+  }
+}
 
 </script>
 <style scoped lang='scss'>
@@ -159,7 +168,8 @@ const onClickRemove = (element:COMMON.obj) => {
   background-color: var(--ev-col-bg-color);
   .drop_container_item{
     position: relative;
-    border: 1px solid var(--ev-active-shallow-color);
+    border: 1px dashed var(--ev-active-shallow-color);
+    padding: 0 10px;
     .drop_container_item_opt{
       display: none;
       position: absolute;
