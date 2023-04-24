@@ -46,6 +46,14 @@ const business:RouteRecordRaw[] = [
         name: '404',
         component: () => import('@/views/404/404View.vue'),
       },
+      {
+        path: 'tableDesign',
+        name: 'tableDesign',
+        component: () => import('@/views/Table/TableDesign/TableDesign.vue'),
+        meta: {
+          appId: '1e0349dd-9bfc-4fc6-a433-84fad5cd7551',
+        },
+      },
     ],
   },
 ]
