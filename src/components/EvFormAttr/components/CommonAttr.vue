@@ -1,6 +1,6 @@
 <template>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="prop.field"
     label="字段名"
   >
@@ -21,7 +21,7 @@
     </el-input>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="form_config.label"
     label="标签文本"
   >
@@ -29,21 +29,21 @@
     </el-input>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="prop.readonly"
     label="只读"
   >
     <el-switch v-model="curFormItem.prop.readonly"></el-switch>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="prop.disabled"
     label="禁用"
   >
     <el-switch v-model="curFormItem.prop.disabled"></el-switch>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="form_config.rules.required"
     label="必填"
   >
@@ -51,7 +51,7 @@
     </el-switch>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="form_config.rules.regular"
     label="校验正则表达式"
   >
@@ -59,7 +59,7 @@
     </el-input>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="form_config.rules.trigger"
     label="触发方式"
   >
@@ -69,7 +69,7 @@
     </el-radio-group>
   </el-form-item>
   <el-form-item
-    v-if="curFormItem.type == 'component'"
+    v-if="curFormItem.type == 'component' && curFormItem.comp !='button'"
     prop="form_config.rules.message"
     label="校验提示信息"
   >

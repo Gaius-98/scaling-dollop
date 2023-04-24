@@ -85,6 +85,14 @@
         v-model="formData[element.prop.field]"
       >
       </el-switch>
+      <el-button
+        v-if="element.comp == 'button'"
+        v-bind="element.prop"
+        :key="element.compId"
+        @click="clickEvents[element.prop.field](formData)"
+      >
+        {{ element.prop.name }}
+      </el-button>
     </el-form-item>
     <div v-if="element.type == 'container'">
       <form-grid
@@ -125,6 +133,12 @@ const formData = computed({
   set(value:any) {
     emit('update:data', value)
   },
+})
+const clickEvents = reactive<COMMON.obj>({})
+list.value.forEach(item => {
+  if (item.comp == 'button' && item.prop.clickEvent) {
+    clickEvents[item.prop.field] = new Function('formData', item.prop.clickEvent)
+  }
 })
 </script>
 <style scoped lang='scss'>

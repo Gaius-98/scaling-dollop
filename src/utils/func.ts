@@ -151,10 +151,14 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
     if (list instanceof Array) {
       list.forEach((item:COMMON.obj) => {
         if (item.type != 'container') {
-          rules += formComp.createRules(item)
-          ruleFnSfc += formComp.createRuleFunc(item)
+          if (item.comp != 'button') {
+            rules += formComp.createRules(item)
+            ruleFnSfc += formComp.createRuleFunc(item)
+          }
           if (['select', 'checkbox'].includes(item.comp)) {
             formDataSfc += formComp.createOptions(item)
+          } else if (['button'].includes(item.comp)) {
+            formDataSfc += formComp.createFunction(item)
           }
         } else if (item.comp == 'grid') {
           item.prop.cols.forEach((item:COMMON.obj) => {

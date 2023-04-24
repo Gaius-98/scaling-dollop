@@ -219,6 +219,26 @@ const compList = [
     },
   },
   {
+   
+    comp: 'button', // 组件
+    compId: '7', // 随机uuid
+    name: '按钮',
+    type: 'component',
+    prop: { // 配置项
+      round: false,
+      link: false,
+      bg: false,
+      text: false,
+      plain: false,
+      disabled: false,
+      field: '6', // 字段名
+      name: '按钮',
+      size: 'default',
+      type: 'info',
+      clickEvent: '',
+    },
+  },
+  {
     
     comp: 'grid', // 组件
     compId: '', // 随机uuid

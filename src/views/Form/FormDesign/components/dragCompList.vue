@@ -58,7 +58,7 @@ const onDrag = (ev:DragEvent) => {
     let e = ev.target as HTMLElement
     let comp = JSON.parse(e.dataset.comp as string)
     comp.compId = uuid()
-    comp.prop.field = 'field'
+    comp.prop.field = `field${(Math.random() * 10000).toFixed(0)}`
     ev.dataTransfer.setData('comp', JSON.stringify(comp))
   }
 }

@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ButtonAttr: typeof import('./src/components/EvFormAttr/components/ButtonAttr.vue')['default']
     CardAttr: typeof import('./src/components/EvFormAttr/components/CardAttr.vue')['default']
     CheckBoxAttr: typeof import('./src/components/EvFormAttr/components/CheckBoxAttr.vue')['default']
     CommonAttr: typeof import('./src/components/EvFormAttr/components/CommonAttr.vue')['default']

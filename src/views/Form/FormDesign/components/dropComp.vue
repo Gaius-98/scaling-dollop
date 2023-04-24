@@ -97,6 +97,13 @@
             v-model="formData[element.prop.field]"
           >
           </el-switch>
+          <el-button
+            v-if="element.comp == 'button'"
+            v-bind="element.prop"
+            :key="element.compId"
+          >
+            {{ element.prop.name }}
+          </el-button>
         </el-form-item>
         <div v-if="element.type == 'container'">
           <drop-grid

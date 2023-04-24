@@ -1,3 +1,5 @@
+import { getUpperCase } from 'gaius-utils'
+
 export const formComp:COMMON.obj = {
   input: (element:COMMON.obj) => `
   <el-form-item
@@ -156,7 +158,24 @@ export const formComp:COMMON.obj = {
     >
     </el-time-picker>
   </el-form-item>
-    `,    
+    `,   
+  button: (element:COMMON.obj) => `
+  <el-form-item>
+    <el-button
+    :round="${element.prop.round}"
+    :link="${element.prop.link}"
+    :bg="${element.prop.bg}"
+    :text="${element.prop.text}"
+    :plain="${element.prop.plain}"
+    :disabled="${element.prop.disabled}"
+    :size="${element.prop.size}"
+    :type="${element.prop.type}"
+    @click="onClick${getUpperCase(element.prop.field)}"
+    >
+    ${element.prop.name}
+    </el-button>
+  </el-form-item>
+  `, 
   grid: (element:COMMON.obj) => {
     let col = ''
     const { prop: { cols, gutter } } = element
@@ -241,5 +260,15 @@ export const formComp:COMMON.obj = {
       return ruleListSfc
     }
     return ''
+  },
+  createFunction: (element:COMMON.obj) => {
+    const { prop: { field, clickEvent } } = element
+    if (clickEvent) {
+      return `
+      const onClick${getUpperCase(field)} = () =>{
+        ${clickEvent}
+      }
+      `
+    }
   },
 }

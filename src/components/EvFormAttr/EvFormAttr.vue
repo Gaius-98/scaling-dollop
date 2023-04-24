@@ -9,6 +9,7 @@
     <time-attr v-if="curFormItem.comp == 'time'" />
     <input-number-attr v-if="curFormItem.comp == 'number'" />
     <switch-attr v-if="curFormItem.comp == 'switch'" />
+    <button-attr v-if="curFormItem.comp == 'button'" />
     <grid-attr v-if="curFormItem.comp == 'grid'" />
     <card-attr v-if="curFormItem.comp == 'card'" />
   </el-form>
@@ -28,6 +29,7 @@ import InputNumberAttr from './components/InputNumberAttr.vue'
 import SwitchAttr from './components/SwitchAttr.vue'
 import GridAttr from './components/GridAttr.vue'
 import CardAttr from './components/CardAttr.vue'
+import ButtonAttr from './components/ButtonAttr.vue'
 
 const store = useFormDesignStore()
 const { curFormItem } = storeToRefs(store)
