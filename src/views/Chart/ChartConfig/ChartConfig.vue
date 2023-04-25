@@ -137,7 +137,7 @@ import { ElMessage } from 'element-plus'
 import { reactive, toRefs, ref, provide, watch } from 'vue'
 import api from '../service/api'
 import { formatDefaultOption } from '../utils/format'
-import { flat, unflat, exportFile } from '@/utils/func'
+import { flat, unflat, downloadFile } from '@/utils/func'
 import EvChartAttr from '@/components/EvChartAttr/EvChartAttr.vue'
 import * as echarts from 'echarts'
 import axios from 'axios'
@@ -230,12 +230,12 @@ if (opType.value == 'add') {
 
 const onExport = (type:'chart'|'component') => {
   if (type == 'chart') {
-    exportFile(JSON.stringify(option, null, 4), chartFormData.chartName)
+    downloadFile(JSON.stringify(option, null, 4), chartFormData.chartName)
   } else {
     chartFormData.option = option
     delete (chartFormData.id)
     delete (chartFormData.time)
-    exportFile(JSON.stringify(chartFormData, null, 4), chartFormData.chartName)
+    downloadFile(JSON.stringify(chartFormData, null, 4), chartFormData.chartName)
   }
 }
 provide('chartOpt', flatOption)

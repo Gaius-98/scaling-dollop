@@ -55,6 +55,7 @@ declare module '@vue/runtime-core' {
     EvMenuItem: typeof import('./src/components/common/EvMenu/components/EvMenuItem.vue')['default']
     EvOptTable: typeof import('./src/components/common/EvOptTable/EvOptTable.vue')['default']
     EvReq: typeof import('./src/components/common/EvReq/EvReq.vue')['default']
+    EvTable: typeof import('./src/components/common/EvTable/EvTable.vue')['default']
     EvTitle: typeof import('./src/components/common/EvTitle/EvTitle.vue')['default']
     EvVar: typeof import('./src/components/common/EvVar/EvVar.vue')['default']
     FormAttr: typeof import('./src/components/EvFormAttr/components/FormAttr.vue')['default']

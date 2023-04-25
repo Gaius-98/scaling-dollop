@@ -7,13 +7,21 @@
     >
       字段
     </el-tag>
+    <el-button @click="downloadTable">
+      导出vue文件
+    </el-button>
   </div>
 </template>
 
 <script lang='ts' setup>
 import { reactive, toRefs, ref } from 'vue'
 import { v4 as uuid } from 'uuid'
+import { createTable, downloadFile } from '@/utils/func'
+import { storeToRefs } from 'pinia'
+import { useTableDesignStore } from '@/store/tableDesign'
 
+const store = useTableDesignStore()
+const { tableConfig } = storeToRefs(store)
 const column = reactive<columnConfig>({
   props: {
     field: '',
@@ -24,6 +32,10 @@ const column = reactive<columnConfig>({
     sortable: false,
     showOverflowTooltip: false,
     align: 'left',
+    slot: {
+      enable: false,
+      content: '',
+    },
   },
   key: '1',
 })
@@ -35,6 +47,10 @@ const onDragColumn = (ev:DragEvent) => {
     column.props.field = `field${(Math.random() * 10000).toFixed(0)}`
     ev.dataTransfer.setData('column', JSON.stringify(column))
   }
+}
+const downloadTable = () => {
+  const str = createTable(tableConfig.value)
+  downloadFile(str, uuid(), 'vue')
 }
 </script>
 <style scoped lang='scss'>

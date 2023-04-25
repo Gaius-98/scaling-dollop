@@ -47,7 +47,7 @@
 import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
-import { createFormSfc, exportFile } from '@/utils/func'
+import { createFormSfc, downloadFile } from '@/utils/func'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
@@ -57,10 +57,10 @@ const onClickView = () => {
   dialogVisible.value = true
 }
 const onExportJson = () => {
-  exportFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
+  downloadFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
 }
 const onExportVue = () => {
-  exportFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
+  downloadFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
 }
 const dialogJson = ref(false)
 const jsonForm = ref('')

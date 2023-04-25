@@ -11,6 +11,7 @@
   },
   "homepage": "https://gaius-98.github.io/scaling-dollop/",
   "dependencies": {
+    "@codemirror/lang-html": "^6.4.3",
     "@codemirror/lang-javascript": "^6.1.1",
     "@codemirror/theme-one-dark": "^6.1.0",
     "axios": "^1.2.0",

@@ -3,6 +3,7 @@
     <draggable
       v-model="columnList"
       item-key="key"
+      group="column"
       class="table-drag-container"
       @drop.prevent.stop="dropColumn"
       @dragover.prevent="()=>{}"
@@ -18,8 +19,6 @@
           <div class="table-drag-column-header">
             {{ element.props.label }}({{ element.props.field }})
           </div>
-          <div class="table-drag-column-data">
-          </div>
           <div
             class="table-column-delete iconfont icon-a-shanchulajitong"
             @click="onClickRemove(element)"
@@ -28,6 +27,20 @@
         </div>
       </template>
     </draggable>
+    <div class="table-view">
+      <div
+        class="table-view-header"
+      >
+        预览
+      </div>
+      <div class="table-view-container">
+        <ev-table
+          :table-config="tableConfig"
+          :data="mockData"
+        >
+        </ev-table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,7 +57,7 @@ const props = withDefaults(defineProps<Props>(), {
   list: () => [],
 })
 const store = useTableDesignStore()
-const { curColumn } = storeToRefs(store)
+const { curColumn, tableConfig, mockData } = storeToRefs(store)
 const { onClickColumn } = store
 const emit = defineEmits(['update:list'])
 const columnList = computed({
@@ -69,18 +82,20 @@ const onClickRemove = (column:columnConfig) => {
 </script>
 <style scoped lang='scss'>
 .table-container{
- flex: 1;
+  width: 1500px;
   height: 800px;
   padding: 10px;
   
   .table-drag-container{
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 150px;
     background: var(--ev-col-bg-color);
+    overflow-x: auto;
+    padding: 20px;
     .table-drag-column{
       position: relative;
-      height: 100%;
+      height: 40px;
       padding: 0 12px;
       border: 1px solid #ebeef5;
       cursor: pointer;

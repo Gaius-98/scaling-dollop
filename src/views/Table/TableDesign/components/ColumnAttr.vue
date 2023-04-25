@@ -129,6 +129,25 @@
         </el-option>
       </el-select>
     </el-form-item>
+    <el-form-item
+      prop="curColumn.props.slot.enable"
+      label="开启自定义内容"
+    >
+      <el-switch v-model="curColumn.props.slot.enable">
+      </el-switch>
+    </el-form-item>
+    <el-form-item
+      v-if="curColumn.props.slot.enable"
+      prop="curColumn.props.slot.content"
+      label="插槽"
+    >
+      <ev-code
+        v-model="curColumn.props.slot.content" 
+        style="width:380px;height:200px;"
+        type="html"
+      >
+      </ev-code>
+    </el-form-item>
   </div>
 </template>
 
