@@ -41,7 +41,7 @@ export const useTableDesignStore = defineStore('tableDesignStore', () => {
   })
   const mockData = computed(() => {
     const { column } = tableConfig
-    let obj = {}
+    let obj:COMMON.obj = {}
     column.forEach(e => {
       obj[e.props.field] = uuid()
     })

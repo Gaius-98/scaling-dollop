@@ -40,5 +40,6 @@ declare interface tableOvConfig{
 
 declare interface tableConfig{
   column:columnConfig[]|[],
-  table:tableOvConfig
+  table:tableOvConfig,
+  name?:string
 }

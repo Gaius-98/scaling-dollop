@@ -22,6 +22,8 @@ import { reactive, toRefs, ref } from 'vue'
 const props = defineProps({
   code: {
     type: String,
+    require: true,
+    default: '',
   },
   type: {
     type: String,
@@ -35,6 +37,7 @@ const findType = () => {
   } if (type.value == 'html') {
     return html()
   }
+  return javascript()
 }
 const extensions = [oneDark, findType()]
 const emit = defineEmits(['change', 'update:code'])
