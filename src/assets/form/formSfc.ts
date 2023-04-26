@@ -212,6 +212,26 @@ export const formComp:COMMON.obj = {
     `
     return cardTemplate
   },
+  collapse(element:COMMON.obj) {
+    const { title, collapse: { list } } = element.prop
+    let formStr = ''
+    list.forEach((com:COMMON.obj) => {
+      formStr += `
+      ${formComp[com.comp](com)}
+      `
+    })
+    const cardTemplate = `
+    <el-collapse>
+      <el-collapse-item 
+      title="${title}"
+      name="${title}"
+      >
+      ${formStr}
+      </el-collapse-item>
+    </el-collapse>
+    `
+    return cardTemplate
+  },
   createOptions: (element:COMMON.obj) => {
     let optionsObj = ''
     const { prop: { options, field } } = element

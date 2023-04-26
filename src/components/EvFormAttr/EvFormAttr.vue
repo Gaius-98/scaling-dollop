@@ -12,6 +12,7 @@
     <button-attr v-if="curFormItem.comp == 'button'" />
     <grid-attr v-if="curFormItem.comp == 'grid'" />
     <card-attr v-if="curFormItem.comp == 'card'" />
+    <collapse-attr v-if="curFormItem.comp == 'collapse'"></collapse-attr>
   </el-form>
 </template>
 
@@ -30,6 +31,7 @@ import SwitchAttr from './components/SwitchAttr.vue'
 import GridAttr from './components/GridAttr.vue'
 import CardAttr from './components/CardAttr.vue'
 import ButtonAttr from './components/ButtonAttr.vue'
+import CollapseAttr from './components/CollapseAttr.vue'
 
 const store = useFormDesignStore()
 const { curFormItem } = storeToRefs(store)

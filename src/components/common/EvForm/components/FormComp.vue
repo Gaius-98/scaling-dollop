@@ -107,6 +107,12 @@
         :data="formData"
       >
       </form-card>
+      <form-collapse
+        v-if="element.comp == 'collapse'"
+        v-bind="element.prop"
+        :data="formData"
+      >
+      </form-collapse>
     </div>
   </template>
 </template>

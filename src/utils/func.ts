@@ -166,6 +166,8 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
           })
         } else if (item.comp == 'card') {
           deepFormConfigList(item.prop.card.list) 
+        } else if (item.comp == 'collapse') {
+          deepFormConfigList(item.prop.collapse.list) 
         }
       })
     }

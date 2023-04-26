@@ -276,5 +276,19 @@ const compList = [
       shadow: 'always',
     },
   },
+  {
+    
+    comp: 'collapse', // 组件
+    compId: '', // 随机uuid
+    name: '折叠面板',
+    type: 'container', // 容器
+    prop: { // 配置项
+      collapse: {
+        list: [],
+      },
+      field: '', // 字段名 
+      title: '折叠面板标题',
+    },
+  },
 ]
 export default compList

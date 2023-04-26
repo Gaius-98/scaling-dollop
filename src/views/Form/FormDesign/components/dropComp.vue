@@ -116,6 +116,11 @@
             v-bind="element.prop"
           >
           </drop-card>
+          <drop-collapse
+            v-if="element.comp == 'collapse'"
+            v-bind="element.prop"
+          >
+          </drop-collapse>
         </div>
         <div
           class="drop_container_item_opt iconfont icon-a-shanchulajitong"
@@ -134,6 +139,7 @@ import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 import dropGrid from './dropGrid.vue'
 import dropCard from './dropCard.vue'
+import dropCollapse from './dropCollapse.vue'
 
 const props = defineProps({
   list: {
