@@ -73,12 +73,13 @@ declare interface formComp {
     shadow?: string,
     title?: string,
   },
+  type:'component'|'container',
   form_config?:{
-    label:string,
-    rules:{
-      required:boolean,
-      message: string,
-      trigger: string,
+    label?:string,
+    rules?:{
+      required?:boolean,
+      message?: string,
+      trigger?: string,
     }
   }
 }
