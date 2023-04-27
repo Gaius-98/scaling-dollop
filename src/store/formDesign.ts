@@ -3,8 +3,10 @@ import { ref, reactive } from 'vue'
 
 export const useFormDesignStore = defineStore('formDesignStore', () => {
   const formData = reactive<COMMON.obj>({})
-  const curFormItem = reactive<COMMON.obj>({})
-  const saveForm = reactive<COMMON.obj>({
+  const curFormItem = reactive<formComp|COMMON.obj>({
+
+  })
+  const saveForm = reactive<formConfig>({
     list: [],
     formProp: {
       size: 'default',
@@ -29,7 +31,7 @@ export const useFormDesignStore = defineStore('formDesignStore', () => {
     Object.assign(formData, {})
     Object.assign(curFormItem, {})
   }
-  const setForm = (form:COMMON.obj) => {
+  const setForm = (form:formConfig) => {
     Object.assign(saveForm, form)
   }
   return { formData, curFormItem, saveForm, onClickFormItem, init, setForm }

@@ -10,11 +10,9 @@
     <el-button @click="onOpenJSon">
       写入JSON
     </el-button>
-
     <el-button @click="onClickView">
       预览
     </el-button>
-  
     <el-button @click="onExportJson">
       导出JSON
     </el-button>
@@ -49,26 +47,29 @@ import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 import { createFormSfc, downloadFile } from '@/utils/func'
 
-const store = useFormDesignStore()
-const { saveForm } = storeToRefs(store)
-const { setForm } = store
 const dialogVisible = ref(false)
 const onClickView = () => {
   dialogVisible.value = true
 }
+
+const store = useFormDesignStore()
+const { saveForm } = storeToRefs(store)
 const onExportJson = () => {
   downloadFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
 }
 const onExportVue = () => {
   downloadFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
 }
+
 const dialogJson = ref(false)
-const jsonForm = ref('')
 const onOpenJSon = () => {
   dialogJson.value = true
 }
+
+const jsonForm = ref('')
+const { setForm } = store
 const onClickSubmitJson = () => {
-  const form = JSON.parse(jsonForm.value)
+  const form = JSON.parse(jsonForm.value) as formConfig
   setForm(form)
   dialogJson.value = false
 }

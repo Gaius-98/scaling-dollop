@@ -33,7 +33,7 @@ import dropContainer from './components/dropContainer.vue'
 import dragCompList from './components/dragCompList.vue'
 import FormAttr from '@/components/EvFormAttr/components/FormAttr.vue'
 import formHeader from '@/views/Form/FormDesign/components/formHeader.vue'
-import { reactive, toRefs, ref } from 'vue'
+import { ref } from 'vue'
 
 const activeName = ref('comp')
 </script>

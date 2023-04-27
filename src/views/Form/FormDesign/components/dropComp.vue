@@ -152,7 +152,7 @@ const store = useFormDesignStore()
 const { formData, curFormItem } = storeToRefs(store)
 const { onClickFormItem } = store
 const emit = defineEmits(['update:list'])
-const compList = computed({
+const compList = computed<formComp[]>({
   get() {
     return props.list
   },
@@ -160,14 +160,14 @@ const compList = computed({
     emit('update:list', value)
   },
 })
-const onClickRemove = (element:COMMON.obj) => {
-  const idx = compList.value.findIndex((formItem:any) => formItem.compId == element.compId)
+const onClickRemove = (element:formComp) => {
+  const idx = compList.value.findIndex((formItem) => formItem.compId == element.compId)
   compList.value.splice(idx, 1)
 }
 const dropComp = (ev:DragEvent) => {
   if (ev && ev.dataTransfer) {
-    const compJson = ev.dataTransfer.getData('comp')
-    let comp = JSON.parse(compJson)
+    const compJson = ev.dataTransfer.getData('comp') 
+    let comp = JSON.parse(compJson) as formComp
     compList.value.push(comp)
   }
 }
