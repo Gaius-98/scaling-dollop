@@ -1,7 +1,7 @@
 <template>
   <div class="table-container">
     <draggable
-      v-model="columnList"
+      :list="columnList"
       item-key="key"
       group="column"
       class="table-drag-container"

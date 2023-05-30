@@ -168,8 +168,8 @@ export const formComp:COMMON.obj = {
     :text="${element.prop.text}"
     :plain="${element.prop.plain}"
     :disabled="${element.prop.disabled}"
-    :size="${element.prop.size}"
-    :type="${element.prop.type}"
+    size="${element.prop.size}"
+    type="${element.prop.type}"
     @click="onClick${getUpperCase(element.prop.field)}"
     >
     ${element.prop.name}
@@ -290,5 +290,64 @@ export const formComp:COMMON.obj = {
       }
       `
     }
+  },
+  createRulesV2: (element:COMMON.obj) => {
+    const { prop: { field }, form_config: { rules: { required, regular, message, trigger } } } = element
+    if (required) {
+      const ruleListSfc = `${field}:[{
+        required:true,
+        trigger:'${trigger}',
+        message:'${message}',
+        ${ regular ? 'validator:this.check_' + field : ''}
+      }],`
+      return ruleListSfc
+    }
+    return ''
+  },
+  createFunctionV2: (element:COMMON.obj) => {
+    const { prop: { field, clickEvent } } = element
+    if (clickEvent) {
+      return `
+      onClick${getUpperCase(field)}(){
+        ${clickEvent}
+      },
+      `
+    }
+  },
+  createRuleFuncV2: (element:COMMON.obj) => {
+    const { prop: { field }, form_config: { rules: { required, regular, message }, label } } = element
+    if (required && regular) {
+      const fnSfc = `
+        check_${field}(rule, value, callback){
+          if(!value){
+            callback(new Error('请填写${label}(${field})'))
+          }else if(!/${regular}/.test(value)) {
+            callback(new Error('${message}'))
+          }else {
+            callback()
+          }
+        },
+      ` 
+      return fnSfc
+    }
+    return ''
+  },
+  createOptionsV2: (element:COMMON.obj) => {
+    let optionsObj = ''
+    const { prop: { options, field } } = element
+    options.forEach((item:COMMON.obj) => {
+      const objStr = `
+        {
+          label:'${item.label}',
+          value:'${item.value}'
+        },
+      `
+      optionsObj += objStr
+    })
+   
+    const optionSfc = `
+      options_${field}: [${optionsObj}],
+    `
+    return optionSfc
   },
 }

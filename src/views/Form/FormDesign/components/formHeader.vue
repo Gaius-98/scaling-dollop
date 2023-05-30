@@ -16,8 +16,11 @@
     <el-button @click="onExportJson">
       导出JSON
     </el-button>
-    <el-button @click="onExportVue">
-      导出VUE文件
+    <el-button @click="onExportVue(3)">
+      导出VUE文件(vue3)
+    </el-button>
+    <el-button @click="onExportVue(2)">
+      导出VUE文件(vue2)
     </el-button>
   </div>
   <el-dialog
@@ -45,7 +48,7 @@
 import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
-import { createFormSfc, downloadFile } from '@/utils/func'
+import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
 
 const dialogVisible = ref(false)
 const onClickView = () => {
@@ -57,8 +60,12 @@ const { saveForm } = storeToRefs(store)
 const onExportJson = () => {
   downloadFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
 }
-const onExportVue = () => {
-  downloadFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
+const onExportVue = (version:number) => {
+  if (version == 2) {
+    downloadFile(createFormSfcV2(saveForm.value), saveForm.value.name, 'vue')
+  } else {
+    downloadFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
+  }
 }
 
 const dialogJson = ref(false)

@@ -213,6 +213,96 @@ export const createFormSfc = (formConfig:COMMON.obj) => {
 }
 /**
  * 
+ * @param formConfig 
+ */
+export const createFormSfcV2 = (formConfig:COMMON.obj) => {
+  let formItemStr = ''
+  let formDataSfc = ''
+  let rules = ''
+  let ruleFnSfc = ''
+  let funSfc = ''
+  const deepFromSfc = (list:COMMON.obj[]) => {
+    list.forEach((item:COMMON.obj) => {
+      formItemStr += formComp[item.comp](item)
+    })
+  }
+  const deepFormConfigList = (list:COMMON.obj[]) => {
+    if (list instanceof Array) {
+      list.forEach((item:COMMON.obj) => {
+        if (item.type != 'container') {
+          if (item.comp != 'button') {
+            rules += formComp.createRulesV2(item)
+            funSfc += formComp.createRuleFuncV2(item)
+          }
+          if (['select', 'checkbox'].includes(item.comp)) {
+            formDataSfc += formComp.createOptionsV2(item)
+          } else if (['button'].includes(item.comp)) {
+            funSfc += formComp.createFunctionV2(item)
+          }
+        } else if (item.comp == 'grid') {
+          item.prop.cols.forEach((item:COMMON.obj) => {
+            deepFormConfigList(item.list)
+          })
+        } else if (item.comp == 'card') {
+          deepFormConfigList(item.prop.card.list) 
+        } else if (item.comp == 'collapse') {
+          deepFormConfigList(item.prop.collapse.list) 
+        }
+      })
+    }
+  }
+  deepFormConfigList(formConfig.list)
+  deepFromSfc(formConfig.list)
+  const formSfc = `
+  <template>
+    <el-form
+      size="${formConfig.formProp.size}"
+      label-position="${formConfig.formProp.labelPosition}"
+      label-width="${formConfig.formProp.labelWidth}"
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+    >
+      ${formItemStr}
+    </el-form>
+  </template>
+
+  <script>
+  export default {
+		      
+    components: {},
+    data() {
+      return {
+       formData:{},
+       ${rules ? `rules:{${rules}}` : ''},
+       ${formDataSfc ? `${formDataSfc}` : ''}
+      }
+    },
+    computed: {},
+    watch: {},
+    methods: {
+      getFormData(){
+        return this.formData
+      },
+      resetForm(){
+        if(!this.$refs.formRef) return 
+        this.$refs.formRef.resetFields()
+      },
+      ${funSfc ? `${funSfc}` : ''}
+    },
+    created() {
+    },
+    mounted() {
+    },
+  }
+  </script>
+  <style scoped lang='scss'>
+  </style>
+  `
+  return formSfc
+}
+/**
+ * 
  * @param content string -- 文件内容
  * @param fileName string --文件名称
  * @param fileType string --文件类型  文件后缀名
