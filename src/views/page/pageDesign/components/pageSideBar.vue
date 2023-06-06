@@ -1,4 +1,7 @@
 <template>
+  <div>
+    pageSideBar
+  </div>
 </template>
 
 <script lang='ts' setup name="pageSideBar">

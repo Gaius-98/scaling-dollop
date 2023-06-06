@@ -1,10 +1,10 @@
 <template>
   <div class="page-design">
-    <page-header>
-    </page-header>
+    <!-- <page-header>
+    </page-header> -->
     <div class="page-container">
-      <page-side-bar>
-      </page-side-bar>
+      <!-- <page-side-bar>
+      </page-side-bar> -->
       <div class="page-wrap">
       </div>
     </div>
@@ -12,8 +12,8 @@
 </template>
 
 <script lang='ts' setup>
-import pageHeader from '@/views/page/pageDesign/components/pageHeader'
-import pageSideBar from '@/views/page/pageDesign/components/pageSideBar'
+// import pageHeader from '@/views/page/pageDesign/components/pageHeader'
+// import pageSideBar from '@/views/page/pageDesign/components/pageSideBar'
 import { reactive, toRefs, ref } from 'vue'
 
 </script>
