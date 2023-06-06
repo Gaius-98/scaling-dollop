@@ -219,7 +219,6 @@ export const createFormSfcV2 = (formConfig:COMMON.obj) => {
   let formItemStr = ''
   let formDataSfc = ''
   let rules = ''
-  let ruleFnSfc = ''
   let funSfc = ''
   const deepFromSfc = (list:COMMON.obj[]) => {
     list.forEach((item:COMMON.obj) => {
@@ -274,7 +273,7 @@ export const createFormSfcV2 = (formConfig:COMMON.obj) => {
     data() {
       return {
        formData:{},
-       ${rules ? `rules:{${rules}}` : ''},
+       ${rules ? `rules:{${rules}},` : ''}
        ${formDataSfc ? `${formDataSfc}` : ''}
       }
     },
