@@ -47,7 +47,7 @@ export const formComp:COMMON.obj = {
       :clearable="${element.prop.clearable}"
     >
       <el-option 
-      v-for="item in options_${element.prop.field}"
+      v-for="item in options${getUpperCase(element.prop.field)}"
       :key="item.value"
       :value="item.value"
       :label="item.label"
@@ -68,7 +68,7 @@ export const formComp:COMMON.obj = {
       :disabled="${element.prop.disabled}"
     >
       <el-checkbox 
-      v-for="item in options_${element.prop.field}"
+      v-for="item in options${getUpperCase(element.prop.field)}"
       :key="item.value"
       :value="item.value"
       :label="item.label"
@@ -246,7 +246,7 @@ export const formComp:COMMON.obj = {
     })
    
     const optionSfc = `
-      const options_${field} = reactive([${optionsObj}])
+      const options${getUpperCase(field)} = reactive([${optionsObj}])
     `
     return optionSfc
   },
@@ -346,7 +346,7 @@ export const formComp:COMMON.obj = {
     })
    
     const optionSfc = `
-      options_${field}: [${optionsObj}],
+      options${getUpperCase(field)}: [${optionsObj}],
     `
     return optionSfc
   },

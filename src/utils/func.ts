@@ -273,7 +273,7 @@ export const createFormSfcV2 = (formConfig:COMMON.obj) => {
     data() {
       return {
        formData:{},
-       ${rules ? `rules:{${rules}},` : 'rules:{}'}
+       ${rules ? `rules:{${rules}},` : 'rules:{},'}
        ${formDataSfc ? `${formDataSfc}` : ''}
       }
     },
