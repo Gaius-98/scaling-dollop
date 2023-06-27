@@ -6,12 +6,12 @@
     >
       <div class="layout_header_sys_logo">
         <img
-          src="@/assets/images/ev-logo.jpg"
+          src="@/assets/images/logo.jpg"
           alt=""
         >
       </div>
       <div class="layout_header_sys_title">
-        易视
+        gaius-form
       </div>
     </div>
     <ev-menu
