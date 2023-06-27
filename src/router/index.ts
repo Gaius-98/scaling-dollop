@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { getCookie, setCookie } from '@/utils/cookie'
 
 const modules = import.meta.glob('./modules/*.ts', { eager: true })
 const routersModules = []

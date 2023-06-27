@@ -1,6 +1,7 @@
 <template>
   <main class="layout_container">
-    <Suspense>
+    <router-view></router-view>
+    <!-- <Suspense>
       <template #default>
         <router-view v-slot="{ Component }">
           <transition name="fade">
@@ -12,7 +13,7 @@
         <div v-loading="true">
         </div>
       </template>
-    </Suspense>
+    </Suspense> -->
   </main>
 </template>
 

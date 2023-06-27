@@ -16,24 +16,6 @@ const business:RouteRecordRaw[] = [
         },
       },
       {
-        path: 'chart',
-        name: 'chart',
-        component: () => import('@/views/Chart/ChartList/ChartList.vue'),
-      },
-      {
-        path: 'chartConfig',
-        name: 'chartConfig',
-        component: () => import('@/views/Chart/ChartConfig/ChartConfig.vue'),
-        props: route => ({
-          chartId: route.query.chartId || route.params.chartId,
-          opType: route.query.opType || route.params.opType,
-          chartType: route.query.chartType || route.params.chartType,
-        }),
-        meta: {
-          appId: '66401fee-1f89-4e52-8ee1-9927a4d05e43',
-        },
-      },
-      {
         path: 'formDesign',
         name: 'formDesign',
         component: () => import('@/views/Form/FormDesign/FormDesign.vue'),
@@ -45,14 +27,6 @@ const business:RouteRecordRaw[] = [
         path: '404',
         name: '404',
         component: () => import('@/views/404/404View.vue'),
-      },
-      {
-        path: 'tableDesign',
-        name: 'tableDesign',
-        component: () => import('@/views/Table/TableDesign/TableDesign.vue'),
-        meta: {
-          appId: '1e0349dd-9bfc-4fc6-a433-84fad5cd7551',
-        },
       },
     ],
   },
