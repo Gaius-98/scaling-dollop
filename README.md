@@ -8,6 +8,6 @@
 2. [风格指南](./docs/风格指南.md)
 3. [项目插件](./docs/项目插件.md)
 ### demo
-  [地址](https://gaius-98.github.io/scaling-dollop/)
+  [github地址](https://gaius-98.github.io/gaius-form/)
 ### 注
 如有使用问题或者建议，请联系我邮箱地址:(2388838628@qq.com)。

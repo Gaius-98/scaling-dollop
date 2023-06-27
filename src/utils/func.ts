@@ -322,101 +322,7 @@ export const downloadFile = (content:string, fileName?:string, fileType = 'json'
   a.click()
   document.body.removeChild(a)
 }
-/**
- * 
- * @param tableConfig 
- * @returns string
- */
-export const createTable = (tableConfig:tableConfig) => {
-  let columns = ''
-  const { column, table } = tableConfig
-  
-  const createColumn = (column:columnConfig) => `
-    <el-table-column
-      key="${column.key}"
-      prop="${column.props.field}"
-      label="${column.props.label}"
-      width="${column.props.width}"
-      min-width="${column.props.minWidth}"
-      fixed="${column.props.fixed}"
-      :sortable="${column.props.sortable}"
-      :show-overflow-tooltip="${column.props.showOverflowTooltip}"
-      align="${column.props.align}"
-    >
-      ${
-        column.props.slot.enable ? `
-        <template
-          #default="scope"
-        >
-          <div 
-          >
-            ${column.props.slot.content}
-          </div>
-        </template>
-        ` : ''
-      }
-    </el-table-column>
-    
-    `
-  column.forEach(e => {
-    columns += createColumn(e)
-  })
-  const tableSfc = `
-  <template>
-    <el-table
-      ref="table"
-      :data="data"
-      style="width:100%"
-      :height="${table.height}"
-      ${table.maxHeight ? `:max-height="${table.maxHeight}"` : ''}
-      ${table.stripe ? `:stripe="${table.stripe}"` : ''}
-      ${table.border ? `:border="${table.border}"` : ''}
-      ${table.fit ? `:fit="${table.fit}"` : ''}
-      size="${table.size}"
-      :show-header="${table.showHeader}"
-      :highlight-current-row="${table.highlightCurrentRow}"
-    >
-      ${columns}
-      ${
-        table.opt.show ? ` 
-        <el-table-column
-        fixed="${table.opt.fixed}"
-        width="${table.opt.width}"
-        label="${table.opt.label}"
-      >
-        ${
-          table.opt.slot.enable ? `
-          <template #default="scope">
-            <div
-            >
-            ${table.opt.slot.content}
-            </div>
-          </template>
-          ` : ''
-        }
-        ` : ''
-      }
-    </el-table>
-  </template>
 
-  <script lang='ts' setup >
-  import { reactive, toRefs, ref, PropType } from 'vue'
-  interface obj {
-    [key:string]:any
-  }
-  interface Props {
-    data:obj[],
-  }
-  const props = withDefaults(defineProps<Props>(), {
-    data: () => [],
-  })
-  const table = ref()
-  </script>
-  <style scoped lang='scss'>
-  </style>
-  `
-  return tableSfc
-}
 /**
  * 常用函数
  */
@@ -426,6 +332,5 @@ const func = {
   routerPush,
   createFormSfc,
   downloadFile,
-  createTable,
 }
 export default func
