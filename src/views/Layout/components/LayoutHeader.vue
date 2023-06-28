@@ -41,7 +41,6 @@ import data from '@/assets/menu/menu'
 const menuList = ref<sysMenu[]>(data)
 
 const onClickMenu = (value:any) => {
-  console.log(value)
   routerPush(value)
 }
 
@@ -53,7 +52,7 @@ const onClickMenu = (value:any) => {
   height: 80px;
   .layout_header_sys{
     display: flex;
-    width: 120px;
+    width: 240px;
     height: 100%;
     justify-content: space-around;
     align-items: center;
@@ -61,6 +60,8 @@ const onClickMenu = (value:any) => {
     .layout_header_sys_logo{
       width: 40px;
       height: 40px;
+      overflow: hidden;
+      border-radius: 50% 50%;
       img{
         width: 100%;
         height: 100%;
