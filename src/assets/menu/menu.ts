@@ -8,4 +8,13 @@ export default [
     icon: '',
     description: '', 
   },
+  { id: 441,
+    appName: '页面设计',
+    appId: 'test', 
+    appType: 'app', 
+    orderNum: 200,
+    pid: '',
+    icon: '',
+    description: '', 
+  },
 ] as sysMenu[]
