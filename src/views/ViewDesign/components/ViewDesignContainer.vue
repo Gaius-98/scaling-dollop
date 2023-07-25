@@ -1,39 +1,123 @@
 <template>
-  <div class="view-design-container">
-    <gu-drag-resize
-      v-for="item in arr"
-      :key="item.nodeKey"
-      minh="10"
-      minw="10"
-      :node-key="item.nodeKey"
-      @on-drag-resize="dragResizeAfter"
+  <div
+    ref="container"
+    class="view-design-container"
+  >
+    <div
+      class="container"
+      :style="getContainerStyle()"
+      @dragover="allowDrop"
+      @drop="dropComponent"
     >
-      {{ item.name }}
-    </gu-drag-resize>
+      <gu-drag-resize
+        v-for="item in viewData.componentData"
+        :key="item.id"
+        minh="20"
+        minw="20"
+        :node-key="item.id"
+        v-bind="item.positionSize"
+        :class="item.id == curCompData.id ? 'active' :''"
+        class="drag"
+        @on-drag-resize="dragResizeAfter"
+        @click="onClickComp(item)"
+      >
+        <component
+          :is="item.name"
+          v-bind="item.props"
+        >
+          {{ item.name == 'el-text' ? item.props.value :'' }}
+        </component>
+      </gu-drag-resize>
+    </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, toRefs, ref, watch } from 'vue'
 import { GuDragResize } from 'gaius-utils'
+import { storeToRefs } from 'pinia'
+import { useViewStore } from '@/store/viewDesign'
+import { v1 as uuid } from 'uuid'
 
-const arr = ref([
-  {
-    nodeKey: '1',
-    name: '123',
-  },
-  {
-    nodeKey: '2',
-    name: '34',
-  },
-])
-const dragResizeAfter = (data) => {
-  console.log(data)
+const WIDTH = 1320
+const HEIGHT = 770
+interface dragResizeInfo {
+  nodeKey:string,
+  height:string,
+  width:string,
+  top:string,
+  left:string
+}
+const store = useViewStore()
+const { viewData, curCompData } = storeToRefs(store)
+const { onClickComp, setSnapshot, setComp, addComp } = store
+const container = ref()
+const getContainerStyle = () => {
+  const { width, height } = viewData.value
+  if (container.value) {
+    console.log(container.value.offsetWidth, container.value.offsetHeight, (container.value.offsetHeight - 40) / height)
+    return {
+      width: width + 'px',
+      height: height + 'px',
+      transform: `scale(${(container.value.offsetWidth - 40) / width},${(container.value.offsetHeight - 40) / height})`,
+      'transform-origin': '0 0 ',
+    }
+  }
+  return {
+    width: '100%',
+    height: '100%',
+  }
+}
+const dragResizeAfter = (data:dragResizeInfo) => {
+  const { nodeKey, left, top, width, height } = data
+  setComp({
+    id: nodeKey,
+    positionSize: {
+      left: parseFloat(left),
+      top: parseFloat(top),
+      width: parseFloat(width),
+      height: parseFloat(height),
+    },
+  })
+  setSnapshot()
+}
+const allowDrop = (ev:any) => {
+  ev.preventDefault()
+}
+const dropComponent = (ev:any) => {
+  ev.preventDefault()
+  let data = JSON.parse(ev.dataTransfer.getData('componentData')) as viewComponent
+  data.id = uuid()
+  data.positionSize = {
+    width: 100,
+    height: 100,
+    top: ev.offsetY,
+    left: ev.offsetX,
+  }
+  addComp(data)
 }
 </script>
 <style scoped lang='scss'>
 .view-design-container{
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
+    padding: 20px;
+    background: var(--ev-box-shadow-color);
+    .container{
+      background: var(--ev-text-color);
+      :deep(.drag-resize .drag-resize-container){
+        overflow: hidden;
+      }
+      .drag{
+        border: 1px solid transparent;
+        padding: 0;
+      }
+      .active{
+        border: 1px dashed #ccc;
+        background: #77ddb24d;
+      }
+    }
+   
 }
 </style>

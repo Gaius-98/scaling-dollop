@@ -1,0 +1,50 @@
+<template>
+  <div class="view-preview">
+    <div
+      v-for="item in data.componentData"
+      :key="item.id"
+      :style="getStyle(item)"
+      class="box"
+    >
+      <component
+        :is="item.name"
+        v-bind="item.props"
+      >
+        {{ item.name == 'el-text' ? item.props.value :'' }}
+      </component>
+    </div>
+  </div>
+</template>
+
+<script lang='ts' setup>
+import { reactive, toRefs, ref, PropType, StyleValue } from 'vue'
+
+const props = defineProps({
+  data: {
+    type: Object as PropType<viewData>,
+    required: true,
+  },
+})
+const { data } = toRefs(props)
+
+const getStyle = (data:viewComponent):StyleValue => {
+  const { positionSize: { left, top, width, height } } = data
+  return {
+    position: 'absolute',
+    left: `${left}px`,
+    top: `${top}px`,
+    width: `${width}px`,
+    height: `${height}px`,
+  }
+}
+</script>
+<style scoped lang='scss'>
+.view-preview{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    .box{
+        overflow: hidden;
+    }
+}
+</style>

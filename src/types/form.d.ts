@@ -1,3 +1,6 @@
+/**
+ * 表单组件类别
+ */
 declare enum comp {
   'number',
   'input',
@@ -12,18 +15,25 @@ declare enum comp {
   'card',
   'collapse'
 }
-
+/**
+ * 表单尺寸
+ */
 declare enum size{
   'default',
   'large',
   'small'
 }
+/**
+ * 表单文本位置
+ */
 declare enum labelPosition{
   'left',
   'right',
   'top'
 }
- 
+/**
+ * 每个form组件对应的配置
+ */ 
 declare interface formComp {
   comp:keyof typeof comp,
   compId:string,
@@ -83,7 +93,9 @@ declare interface formComp {
     }
   }
 }
-
+/**
+ * 整个form表单对应的配置
+ */
 declare interface formConfig{
   list: formComp[]|any[],
   formProp: {
