@@ -5,7 +5,7 @@
       :key="item.id"
       class="material"
       draggable="true"
-      :component="item"
+      :data-component="JSON.stringify(item)"
       @dragstart="onDrag"
     >
       {{ item.label }}
@@ -18,9 +18,8 @@ import componentData from '@/assets/view/viewComponent'
 import { reactive, toRefs, ref } from 'vue'
 
 const onDrag = (ev:any) => {
-  console.log(ev)
   if (ev && ev.target && ev.dataTransfer) {
-    ev.dataTransfer.setData('componentData', JSON.stringify(ev.target.__vnode.props.component))
+    ev.dataTransfer.setData('componentData', ev.target.getAttribute('data-component'))
   }
 }
 </script>
