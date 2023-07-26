@@ -23,6 +23,7 @@ export const useViewStore = defineStore('viewStore', () => {
     label: '',
     props: {},
     id: '',
+    type: '',
     positionSize: {
       top: 0,
       left: 0,

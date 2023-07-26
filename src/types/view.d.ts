@@ -49,6 +49,10 @@ declare interface viewComponent {
      */
     id:string,
     /**
+     * 组件类别
+     */
+    type:string,
+    /**
      * 位置及尺寸信息
      */
     positionSize:{
@@ -57,4 +61,23 @@ declare interface viewComponent {
         width:number,
         height:number
     },
+}
+
+enum cfgComp {
+    collapse='collapse',
+    number='number',
+    input='input',
+    select='select',
+    textarea='textarea'
+}
+/**
+ * 配置面板结构
+ */
+declare interface viewCompCfg {
+    label:string,
+    ui:{
+        type:keyof typeof cfgComp,
+        field:string,
+        children?:viewCompCfg[]
+    }
 }

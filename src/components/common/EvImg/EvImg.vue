@@ -15,7 +15,7 @@ enum fit{
     none='none',
     scaleDown='scale-down'
 }
- interface Props {
+interface Props {
     src:string,
     fit?: keyof typeof fit,
     alt?:string

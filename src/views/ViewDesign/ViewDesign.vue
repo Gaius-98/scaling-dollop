@@ -25,6 +25,8 @@
         </view-design-container>
       </div>
       <div class="material-option">
+        <view-template>
+        </view-template>
       </div>
     </div>
   </main>
@@ -38,6 +40,9 @@ import { useViewStore } from '@/store/viewDesign'
 import { Dialog } from 'gaius-utils'
 import ViewPreview from './components/ViewPreview.vue'
 import { storeToRefs } from 'pinia'
+import ViewCfg from '@/views/ViewDesign/components/ViewCfg.vue'
+import ViewTemplate from './components/ViewTemplate.vue'
+import commonTemplate from '@/assets/view/viewCfgTemplates/cfgCommonTemplate'
 
 const store = useViewStore()
 const { undo, redo } = store
