@@ -3,12 +3,19 @@
     <li
       v-for="item in componentData"
       :key="item.id"
-      class="material"
+      class="material f-ca"
       draggable="true"
       :data-component="JSON.stringify(item)"
       @dragstart="onDrag"
     >
-      {{ item.label }}
+      <div
+        class="iconfont"
+        :class="item.icon"
+      >
+      </div>
+      <div class="label">
+        {{ item.label }}
+      </div>
     </li> 
   </ul>
 </template>
@@ -32,9 +39,17 @@ const onDrag = (ev:any) => {
     grid-gap: 20px;
     list-style: none;
     .material{
-        height: 150px;
-        color: var(--ev-text-color);
-        background: var(--ev-active-shallow-color);
+        align-items: center;
+        height: 120px;
+        box-shadow: 2px 2px 6px var(--ev-box-shadow-color);
+        .iconfont{
+          color:var(--ev-active-color);
+          font-size: 30px;
+        }
+        .label{
+          color:var(--ev-active-color);
+          font-size: 20px;
+        }
     }
 }
 </style>

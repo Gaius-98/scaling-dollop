@@ -17,6 +17,8 @@
 </template>
 
 <script lang='ts' setup>
+import EvImg from '@/components/common/EvImg/EvImg.vue'
+import EvText from '@/components/common/EvText/EvText.vue'
 import { reactive, toRefs, ref, PropType, StyleValue } from 'vue'
 
 const props = defineProps({

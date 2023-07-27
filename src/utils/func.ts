@@ -2,6 +2,7 @@ import router from '@/router/index'
 import { cloneDeep } from 'lodash'
 import { formComp } from '@/assets/form/formSfc'
 import { v4 as uuidv4 } from 'uuid'
+import { getUpperCase } from 'gaius-utils'
 /**
  * 对象扁平化
  * @params {object} 要扁平化的对象
@@ -323,6 +324,29 @@ export const downloadFile = (content:string, fileName?:string, fileType = 'json'
   document.body.removeChild(a)
 }
 
+/**
+ * 将对象转化为css变量
+ * @param {*} obj 
+ * @example { input:{ color :'#fff'} } =>  { --inputColor:'#fff' }
+ * @returns obj
+ */
+export const transformCssVar = (obj:COMMON.obj) => {
+  const result = {} as COMMON.obj
+
+  function traverse(obj:COMMON.obj, path = '') {
+    for (const key in obj) {
+      const newPath = path ? `${path}${getUpperCase(key)}` : `--${key}`
+      if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+        traverse(obj[key], newPath)
+      } else {
+        result[newPath] = obj[key]
+      }
+    }
+  }
+
+  traverse(obj)
+  return result
+}
 /**
  * 常用函数
  */

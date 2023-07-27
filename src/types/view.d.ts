@@ -68,7 +68,9 @@ enum cfgComp {
     number='number',
     input='input',
     select='select',
-    textarea='textarea'
+    textarea='textarea',
+    switch='switch',
+    color='color'
 }
 /**
  * 配置面板结构
@@ -78,6 +80,7 @@ declare interface viewCompCfg {
     ui:{
         type:keyof typeof cfgComp,
         field:string,
+        props?:COMMON.obj,
         children?:viewCompCfg[]
     }
 }
