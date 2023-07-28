@@ -4,10 +4,12 @@ const template:viewCompCfg[] = [
     ui: {
       type: 'collapse',
       field: '',
+      props: {},
       children: [
         {
           label: '图片地址',
           ui: {
+            props: {},
             type: 'input',
             field: 'props.src',
           },
@@ -16,6 +18,7 @@ const template:viewCompCfg[] = [
           label: '文本描述',
           ui: {
             type: 'input',
+            props: {},
             field: 'props.alt',
           },
         },

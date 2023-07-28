@@ -4,17 +4,20 @@ const template:viewCompCfg[] = [
     ui: {
       type: 'collapse',
       field: '',
+      props: {},
       children: [
         {
           label: '文本内容',
           ui: {
             type: 'input',
+            props: {},
             field: 'props.value',
           },
         },
         {
           label: '超链接',
           ui: {
+            props: {},
             type: 'collapse',
             field: '',
             children: [
@@ -22,6 +25,7 @@ const template:viewCompCfg[] = [
                 label: '启用超链接',
                 ui: {
                   type: 'switch',
+                  props: {},
                   field: 'props.openUrl',
                 },
               },
@@ -29,6 +33,7 @@ const template:viewCompCfg[] = [
                 label: '超链接地址',
                 ui: {
                   type: 'input',
+                  props: {},
                   field: 'props.url',
                 },
               },
@@ -97,11 +102,13 @@ const template:viewCompCfg[] = [
           label: '悬浮样式',
           ui: {
             type: 'collapse',
+            props: {},
             field: '',
             children: [
               {
                 label: '字体大小',
                 ui: {
+                  props: {},
                   type: 'number',
                   field: 'props.styleConfig.hover.fontSize',
                 },
@@ -109,6 +116,7 @@ const template:viewCompCfg[] = [
               {
                 label: '字体颜色',
                 ui: {
+                  props: {},
                   type: 'color',
                   field: 'props.styleConfig.hover.color',
                 },
@@ -116,6 +124,7 @@ const template:viewCompCfg[] = [
               {
                 label: '背景颜色',
                 ui: {
+                  props: {},
                   type: 'color',
                   field: 'props.styleConfig.hover.backgroundColor',
                 },

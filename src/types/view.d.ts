@@ -80,7 +80,7 @@ declare interface viewCompCfg {
     ui:{
         type:keyof typeof cfgComp,
         field:string,
-        props?:COMMON.obj,
+        props:COMMON.obj,
         children?:viewCompCfg[]
     }
 }

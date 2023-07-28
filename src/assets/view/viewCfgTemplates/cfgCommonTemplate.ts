@@ -4,12 +4,14 @@ const commonTemplate:viewCompCfg[] = [
     ui: {
       type: 'collapse',
       field: '',
+      props: {},
       children: [
         {
           label: '距顶部高度',
           ui: {
             type: 'number',
             field: 'positionSize.top',
+            props: {},
           },
         }, 
         {
@@ -17,6 +19,7 @@ const commonTemplate:viewCompCfg[] = [
           ui: {
             type: 'number',
             field: 'positionSize.left',
+            props: {},
           },
         },
         {
@@ -24,6 +27,7 @@ const commonTemplate:viewCompCfg[] = [
           ui: {
             type: 'number',
             field: 'positionSize.width',
+            props: {},
           },
         },
         {
@@ -31,6 +35,7 @@ const commonTemplate:viewCompCfg[] = [
           ui: {
             type: 'number',
             field: 'positionSize.height',
+            props: {},
           },
         },
       ],
