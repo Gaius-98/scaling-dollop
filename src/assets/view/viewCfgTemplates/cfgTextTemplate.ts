@@ -67,16 +67,19 @@ const template:viewCompCfg[] = [
     ui: {
       type: 'collapse',
       field: '',
+      props: {},
       children: [
         {
           label: '默认样式',
           ui: {
             type: 'collapse',
             field: '',
+            props: {},
             children: [
               {
                 label: '字体大小',
                 ui: {
+                  props: {},
                   type: 'number',
                   field: 'props.styleConfig.default.fontSize',
                 },
@@ -84,6 +87,7 @@ const template:viewCompCfg[] = [
               {
                 label: '字体颜色',
                 ui: {
+                  props: {},
                   type: 'color',
                   field: 'props.styleConfig.default.color',
                 },
@@ -91,6 +95,7 @@ const template:viewCompCfg[] = [
               {
                 label: '背景颜色',
                 ui: {
+                  props: {},
                   type: 'color',
                   field: 'props.styleConfig.default.backgroundColor',
                 },
