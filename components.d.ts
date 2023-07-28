@@ -42,6 +42,7 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
+    EvChart: typeof import('./src/components/common/EvChart/EvChart.vue')['default']
     EvCode: typeof import('./src/components/common/EvCode/EvCode.vue')['default']
     EvForm: typeof import('./src/components/common/EvForm/EvForm.vue')['default']
     EvFormAttr: typeof import('./src/components/EvFormAttr/EvFormAttr.vue')['default']

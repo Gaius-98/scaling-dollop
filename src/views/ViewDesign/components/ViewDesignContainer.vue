@@ -25,7 +25,6 @@
           :is="item.name"
           v-bind="item.props"
         >
-          {{ item.name == 'el-text' ? item.props.value :'' }}
         </component>
       </gu-drag-resize>
     </div>

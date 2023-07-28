@@ -79,6 +79,16 @@
       >
       </el-color-picker>
     </el-form-item>
+    <el-form-item 
+      v-if="item.ui.type == 'code'"
+      :label="item.label"
+    >
+      <ev-code
+        :code="deepGetValue(item.ui.field)"
+        @change="deepSetValue($event,item.ui.field)"
+      >
+      </ev-code>
+    </el-form-item>
   </div>
 </template>
 

@@ -70,7 +70,8 @@ enum cfgComp {
     select='select',
     textarea='textarea',
     switch='switch',
-    color='color'
+    color='color',
+    code='code'
 }
 /**
  * 配置面板结构
