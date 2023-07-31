@@ -74,6 +74,7 @@ const preview = () => {
           width: 250px;
           height: 100%;
           padding:  0 10px;
+          overflow: auto;
         }
     }
 }

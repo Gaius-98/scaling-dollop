@@ -58,7 +58,44 @@ export default [
   },
   {
     name: 'ev-chart',
-    id: '3',
+    id: '4',
+    type: 'chartBar',
+    label: '折线图组件',
+    icon: 'icon-keshihuatubiao-3',
+    props: {
+      option: {
+        xAxis: {
+          type: 'category',
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            type: 'line',
+          },
+          {
+            type: 'line',
+          },
+          {
+            type: 'line',
+          },
+        ],
+        dataset: {
+          source: [
+            ['product', '2015', '2016', '2017'],
+            ['Matcha Latte', 43.3, 85.8, 93.7],
+            ['Milk Tea', 83.1, 73.4, 55.1],
+            ['Cheese Cocoa', 86.4, 65.2, 82.5],
+            ['Walnut Brownie', 72.4, 53.9, 39.1],
+          ],
+        },
+      },
+    },
+  },
+  {
+    name: 'ev-chart',
+    id: '5',
     type: 'chartPie',
     label: '饼图组件',
     icon: 'icon-keshihuatubiao-10',

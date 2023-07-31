@@ -2,7 +2,7 @@ import gridTemplate from './cfgChartCommonTemplate/cfgChartGridTemplate'
 import legendTemplate from './cfgChartCommonTemplate/cfgChartLegendTemplate'
 import titleTemplate from './cfgChartCommonTemplate/cfgChartTitleTemplate'
 
-const barTemplate:viewCompCfg[] = [
+const lineTemplate:viewCompCfg[] = [
   {
     label: '图表配置',
     ui: {
@@ -16,7 +16,7 @@ const barTemplate:viewCompCfg[] = [
             type: 'code',
             field: 'props.option.dataset.source',
             props: {},
-            
+              
           },
         },
         ...titleTemplate,
@@ -131,4 +131,4 @@ const barTemplate:viewCompCfg[] = [
     },
   },
 ]
-export default barTemplate
+export default lineTemplate

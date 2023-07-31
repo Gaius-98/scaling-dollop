@@ -1,11 +1,27 @@
+import gridTemplate from './cfgChartCommonTemplate/cfgChartGridTemplate'
+import legendTemplate from './cfgChartCommonTemplate/cfgChartLegendTemplate'
+import titleTemplate from './cfgChartCommonTemplate/cfgChartTitleTemplate'
+
 const pieTemplate:viewCompCfg[] = [
   {
-    label: 'echart配置',
+    label: '图表配置',
     ui: {
       type: 'collapse',
       field: '',
       props: {},
       children: [
+        {
+          label: '数据源',
+          ui: {
+            type: 'code',
+            field: 'props.option.series.0.data',
+            props: {
+            },
+          },
+        },
+        ...titleTemplate,
+        ...gridTemplate,
+        ...legendTemplate,
         {
           label: '系列',
           ui: {
@@ -13,15 +29,7 @@ const pieTemplate:viewCompCfg[] = [
             field: '',
             props: {},
             children: [
-              {
-                label: '数据源',
-                ui: {
-                  type: 'code',
-                  field: 'props.option.series.0.data',
-                  props: {
-                  },
-                },
-              },
+              
               {
                 label: '类型',
                 ui: {

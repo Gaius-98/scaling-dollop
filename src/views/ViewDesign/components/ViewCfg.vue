@@ -10,7 +10,6 @@
       <el-collapse-item
         :title="item.label"
         :name="item.label"
-        style="padding-left: 10px;"
       >
         <view-cfg :template="item.ui.children">
         </view-cfg>
