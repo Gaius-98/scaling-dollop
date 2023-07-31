@@ -31,6 +31,7 @@ const business:RouteRecordRaw[] = [
           appId: 'test',
         },
       },
+
       {
         path: '404',
         name: '404',

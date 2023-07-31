@@ -37,31 +37,20 @@ import ViewDesignContainer from './components/ViewDesignContainer.vue'
 import ViewMaterial from './components/ViewMaterial.vue'
 import { reactive, toRefs, ref } from 'vue'
 import { useViewStore } from '@/store/viewDesign'
-import { Dialog } from 'gaius-utils'
-import ViewPreview from './components/ViewPreview.vue'
 import { storeToRefs } from 'pinia'
-import ViewCfg from '@/views/ViewDesign/components/ViewCfg.vue'
+
 import ViewTemplate from './components/ViewTemplate.vue'
-import commonTemplate from '@/assets/view/viewCfgTemplates/cfgCommonTemplate'
+
+import { useRouter } from 'vue-router'
 
 const store = useViewStore()
+const router = useRouter()
 const { undo, redo } = store
 const { viewData, curCompData } = storeToRefs(store)
-const dialog = new Dialog({
-  title: '预览',
-  size: 'large',
-  content: ViewPreview,
-  cb: (e:any) => {
-    dialog.destroyed()
-    console.log(e)
-  },
-  footer: false,
-  componentProps: {
-    data: viewData,
-  },
-})
 const preview = () => {
-  dialog.create()
+  router.push({
+    name: 'viewPre',
+  })
 }
 </script>
 <style scoped lang='scss'>

@@ -1,7 +1,7 @@
 <template>
   <div class="view-preview">
     <div
-      v-for="item in data.componentData"
+      v-for="item in viewData.componentData"
       :key="item.id"
       :style="getStyle(item)"
       class="box"
@@ -17,18 +17,12 @@
 </template>
 
 <script lang='ts' setup>
-import EvImg from '@/components/common/EvImg/EvImg.vue'
-import EvText from '@/components/common/EvText/EvText.vue'
 import { reactive, toRefs, ref, PropType, StyleValue } from 'vue'
+import { useViewStore } from '@/store/viewDesign'
+import { storeToRefs } from 'pinia'
 
-const props = defineProps({
-  data: {
-    type: Object as PropType<viewData>,
-    required: true,
-  },
-})
-const { data } = toRefs(props)
-
+const store = useViewStore()
+const { viewData } = storeToRefs(store)
 const getStyle = (data:viewComponent):StyleValue => {
   const { positionSize: { left, top, width, height } } = data
   return {
