@@ -7,6 +7,15 @@ const commonTemplate:viewCompCfg[] = [
       props: {},
       children: [
         {
+          label: '数据源',
+          ui: {
+            type: 'code',
+            field: 'props.option.dataset.source',
+            props: {},
+            
+          },
+        },
+        {
           label: 'X轴配置',
           ui: {
             type: 'collapse',
@@ -92,6 +101,37 @@ const commonTemplate:viewCompCfg[] = [
                 ui: {
                   type: 'select',
                   field: 'props.option.series.0.type',
+                  props: {
+                    options: [
+                      {
+                        label: '柱状',
+                        value: 'bar',
+                      },
+                      {
+                        label: '折线',
+                        value: 'line',
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        },
+        {
+          label: '系列',
+          ui: {
+            field: 'props.option.series',
+            type: 'tab',
+            props: {
+              tabTitle: '系列',
+            },
+            children: [
+              {
+                label: '类型',
+                ui: {
+                  type: 'select',
+                  field: 'type',
                   props: {
                     options: [
                       {

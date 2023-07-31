@@ -71,7 +71,9 @@ enum cfgComp {
     textarea='textarea',
     switch='switch',
     color='color',
-    code='code'
+    code='code',
+    slider='slider',
+    tab='tab'
 }
 /**
  * 配置面板结构

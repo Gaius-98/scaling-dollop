@@ -16,6 +16,27 @@
         </view-cfg>
       </el-collapse-item>
     </el-collapse>
+    <el-tabs
+      v-if="item.ui.type =='tab'"
+      type="card"
+      editable
+      :style="{
+        '--el-tabs-header-height':'32px'
+      }"
+      @edit="(tagName:string,action:string)=>{
+        handleTabsEdit(tagName,action,item.ui.field)
+      }"
+    >
+      <el-tab-pane
+        v-for="(tab,idx) in deepGetValue(item.ui.field)"
+        :key="idx"
+        :label="item.ui.props.tabTitle + (idx+1)"
+        :name="item.ui.props.tabTitle + (idx+1)"
+      >
+        <view-cfg :template="getTabTemplate(item.ui.children,item.ui.field,idx)">
+        </view-cfg>
+      </el-tab-pane>
+    </el-tabs>
     <el-form-item
       v-if="item.ui.type == 'input'"
       :label="item.label"
@@ -83,11 +104,29 @@
       v-if="item.ui.type == 'code'"
       :label="item.label"
     >
-      <ev-code
-        :code="deepGetValue(item.ui.field)"
-        @change="deepSetValue($event,item.ui.field)"
+      <div style="width: 100%;height: 200px;">
+        <ev-code
+          style="width: 100%;height: 100%;"
+          :code="deepGetCodeValue(item.ui.field)"
+          @change="deepSetCodeValue($event,item.ui.field)"
+        >
+        </ev-code>
+      </div>
+    </el-form-item>
+    <el-form-item 
+      v-if="item.ui.type == 'slider'"
+      :label="item.label"
+    >
+      <el-slider
+        range
+        :model-value="deepGetValue(item.ui.field)"
+        :min="0"
+        :max="200"
+        :step="10"
+        show-stops
+        @input="deepSetValue($event,item.ui.field)"
       >
-      </ev-code>
+      </el-slider>
     </el-form-item>
   </div>
 </template>
@@ -97,6 +136,7 @@ import commonTemplate from '@/assets/view/viewCfgTemplates/cfgCommonTemplate'
 import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
+import { cloneDeep } from 'lodash'
 
 interface Props{
     template:viewCompCfg[]
@@ -128,6 +168,37 @@ const deepSetValue = (val:any, field:string) => {
     return p[c]
   }, curCompData.value as any)
 }
+const deepGetCodeValue = (field:string) => {
+  let value = deepGetValue(field)
+  return JSON.stringify(value, null, 4)
+}
+const deepSetCodeValue = (val:any, field:string) => {
+  let value = JSON.parse(val)
+  deepSetValue(value, field)
+}
+const getTabTemplate = (children:viewCompCfg[]|undefined, field:string, idx:number) => {
+  if (children) {
+    children = cloneDeep(children).map(e => {
+      e.ui.field = `${field}.${idx}.${e.ui.field}`
+      return e
+    })
+  }
+
+  return children
+}
+const handleTabsEdit = (tag:string, action:string, field:string) => {
+  if (action == 'remove') {
+    let val = cloneDeep(deepGetValue(field))
+    val.splice(tag.replace(/[^\d]/g, ''), 1)
+    deepSetValue(val, field)
+  } else {
+    let val = cloneDeep(deepGetValue(field))
+    val.push({
+
+    })
+    deepSetValue(val, field)
+  }
+}
 </script>
 <style scoped lang='scss'>
 .view-cfg{
@@ -140,6 +211,9 @@ const deepSetValue = (val:any, field:string) => {
     .el-collapse-item__content{
       padding: 5px 0;
     }
+  }
+  :deep(.el-tabs__item){
+    padding: 0 15px;
   }
 }
 </style>
