@@ -1,5 +1,8 @@
 <template>
-  <div class="view-preview">
+  <div
+    class="view-preview"
+    :style="getContainerStyle"
+  >
     <div
       v-for="item in viewData.componentData"
       :key="item.id"
@@ -33,6 +36,10 @@ const getStyle = (data:viewComponent):StyleValue => {
     height: `${height}px`,
   }
 }
+const getContainerStyle = ():StyleValue => ({
+  width: `${viewData.value.width}px`,
+  height: `${viewData.value.height}px`,
+})
 </script>
 <style scoped lang='scss'>
 .view-preview{

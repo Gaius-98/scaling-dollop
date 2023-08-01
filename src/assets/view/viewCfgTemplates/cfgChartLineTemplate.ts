@@ -99,29 +99,67 @@ const lineTemplate:viewCompCfg[] = [
         {
           label: '系列',
           ui: {
-            field: 'props.option.series',
-            type: 'tab',
-            props: {
-              tabTitle: '系列',
-            },
+            type: 'collapse',
+            field: '',
+            props: {},
             children: [
               {
-                label: '类型',
+                label: '系列',
                 ui: {
-                  type: 'select',
-                  field: 'type',
+                  field: 'props.option.series',
+                  type: 'tab',
                   props: {
-                    options: [
-                      {
-                        label: '柱状',
-                        value: 'bar',
-                      },
-                      {
-                        label: '折线',
-                        value: 'line',
-                      },
-                    ],
+                    tabTitle: '系列',
                   },
+                  children: [
+                    {
+                      label: '类型',
+                      ui: {
+                        type: 'select',
+                        field: 'type',
+                        props: {
+                          options: [
+                            {
+                              label: '柱状',
+                              value: 'bar',
+                            },
+                            {
+                              label: '折线',
+                              value: 'line',
+                            },
+                            {
+                              label: '散点',
+                              value: 'scatter',
+                            },
+                          ],
+                        },
+                      },
+                    },
+                    {
+                      label: '堆叠属性名',
+                      ui: {
+                        field: 'stack',
+                        type: 'input',
+                        props: {},
+                      },
+                    },
+                    {
+                      label: '连接空数据',
+                      ui: {
+                        field: 'connectNulls',
+                        type: 'switch',
+                        props: {},
+                      },
+                    },
+                    {
+                      label: '是否平滑曲线',
+                      ui: {
+                        field: 'smooth',
+                        type: 'switch',
+                        props: {},
+                      },
+                    },
+                  ],
                 },
               },
             ],

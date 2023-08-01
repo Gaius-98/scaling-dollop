@@ -1,6 +1,6 @@
 <template>
   <el-form
-    label-width="80px"
+    label-width="90px"
     size="small"
   >
     <view-cfg :template="template"></view-cfg>

@@ -99,34 +99,72 @@ const barTemplate:viewCompCfg[] = [
         {
           label: '系列',
           ui: {
-            field: 'props.option.series',
-            type: 'tab',
-            props: {
-              tabTitle: '系列',
-            },
+            type: 'collapse',
+            field: '',
+            props: {},
             children: [
               {
-                label: '类型',
+                label: '系列',
                 ui: {
-                  type: 'select',
-                  field: 'type',
+                  field: 'props.option.series',
+                  type: 'tab',
                   props: {
-                    options: [
-                      {
-                        label: '柱状',
-                        value: 'bar',
-                      },
-                      {
-                        label: '折线',
-                        value: 'line',
-                      },
-                    ],
+                    tabTitle: '系列',
                   },
+                  children: [
+                    {
+                      label: '类型',
+                      ui: {
+                        type: 'select',
+                        field: 'type',
+                        props: {
+                          options: [
+                            {
+                              label: '柱状',
+                              value: 'bar',
+                            },
+                            {
+                              label: '折线',
+                              value: 'line',
+                            },
+                            {
+                              label: '散点',
+                              value: 'scatter',
+                            },
+                          ],
+                        },
+                      },
+                    },
+                    {
+                      label: '显示柱状背景',
+                      ui: {
+                        field: 'showBackground',
+                        type: 'switch',
+                        props: {},
+                      },
+                    },
+                    {
+                      label: '柱状背景颜色',
+                      ui: {
+                        field: 'backgroundStyle.color',
+                        type: 'color',
+                        props: {},
+                      },
+                    },
+                    {
+                      label: '堆叠属性名',
+                      ui: {
+                        field: 'stack',
+                        type: 'input',
+                        props: {},
+                      },
+                    },
+                  ],
                 },
-              },
-            ],
+              }],
           },
         },
+
       ],
     },
   },

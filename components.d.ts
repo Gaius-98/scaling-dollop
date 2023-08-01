@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     CommonAttr: typeof import('./src/components/EvFormAttr/components/CommonAttr.vue')['default']
     DateAttr: typeof import('./src/components/EvFormAttr/components/DateAttr.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']

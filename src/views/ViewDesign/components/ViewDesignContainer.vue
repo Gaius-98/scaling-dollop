@@ -38,8 +38,6 @@ import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
 import { v1 as uuid } from 'uuid'
 
-const WIDTH = 1320
-const HEIGHT = 770
 interface dragResizeInfo {
   nodeKey:string,
   height:string,
@@ -54,7 +52,6 @@ const container = ref()
 const getContainerStyle = () => {
   const { width, height } = viewData.value
   if (container.value) {
-    console.log(container.value.offsetWidth, container.value.offsetHeight, (container.value.offsetHeight - 40) / height)
     return {
       width: width + 'px',
       height: height + 'px',

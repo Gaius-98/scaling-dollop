@@ -53,6 +53,25 @@ const pieTemplate:viewCompCfg[] = [
                   props: {},
                 },
               },
+              {
+                label: '南丁格尔图',
+                ui: {
+                  type: 'select',
+                  field: 'props.option.series.0.roseType',
+                  props: {
+                    options: [
+                      {
+                        label: '半径',
+                        value: 'radius',
+                      },
+                      {
+                        label: '面积  ',
+                        value: 'area',
+                      },
+                    ],
+                  },
+                },
+              },
             ],
           },
         },

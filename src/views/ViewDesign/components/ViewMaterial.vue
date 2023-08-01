@@ -1,23 +1,28 @@
 <template>
-  <ul class="material-container">
-    <li
-      v-for="item in componentData"
-      :key="item.id"
-      class="material f-ca"
-      draggable="true"
-      :data-component="JSON.stringify(item)"
-      @dragstart="onDrag"
-    >
-      <div
-        class="iconfont"
-        :class="item.icon"
+  <div>
+    <ev-title>
+      组件
+    </ev-title>
+    <ul class="material-container">
+      <li
+        v-for="item in componentData"
+        :key="item.id"
+        class="material f-ca"
+        draggable="true"
+        :data-component="JSON.stringify(item)"
+        @dragstart="onDrag"
       >
-      </div>
-      <div class="label">
-        {{ item.label }}
-      </div>
-    </li> 
-  </ul>
+        <div
+          class="iconfont"
+          :class="item.icon"
+        >
+        </div>
+        <div class="label">
+          {{ item.label }}
+        </div>
+      </li> 
+    </ul>
+  </div>
 </template>
 
 <script lang='ts' setup>
@@ -40,15 +45,17 @@ const onDrag = (ev:any) => {
     list-style: none;
     .material{
         align-items: center;
-        height: 120px;
+        height: 90px;
         box-shadow: 2px 2px 6px var(--ev-box-shadow-color);
+        padding:10px;
+        cursor: move;
         .iconfont{
           color:var(--ev-active-color);
           font-size: 30px;
         }
         .label{
           color:var(--ev-active-color);
-          font-size: 20px;
+          font-size: 18px;
         }
     }
 }
