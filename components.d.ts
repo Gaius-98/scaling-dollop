@@ -48,6 +48,7 @@ declare module '@vue/runtime-core' {
     EvCode: typeof import('./src/components/common/EvCode/EvCode.vue')['default']
     EvForm: typeof import('./src/components/common/EvForm/EvForm.vue')['default']
     EvFormAttr: typeof import('./src/components/EvFormAttr/EvFormAttr.vue')['default']
+    EvIframe: typeof import('./src/components/common/EvIframe/EvIframe.vue')['default']
     EvImg: typeof import('./src/components/common/EvImg/EvImg.vue')['default']
     EvLoading: typeof import('./src/components/common/EvLoading/EvLoading.vue')['default']
     EvMenu: typeof import('./src/components/common/EvMenu/EvMenu.vue')['default']

@@ -6,7 +6,7 @@ export default [
     label: '文本组件',
     icon: 'icon-text',
     props: {
-      value: '123',
+      value: '文本内容',
     },
   },
   {
@@ -130,6 +130,16 @@ export default [
           },
         ],
       },
+    },
+  },
+  {
+    name: 'ev-iframe',
+    id: '6',
+    type: 'iframe',
+    label: 'iframe组件',
+    icon: 'icon-tongyi-shuju-huiju',
+    props: {
+      url: 'https://blog.csdn.net/weixin_47030180',
     },
   },
 ]

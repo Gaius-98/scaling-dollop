@@ -16,7 +16,6 @@ const barTemplate:viewCompCfg[] = [
             type: 'code',
             field: 'props.option.dataset.source',
             props: {},
-            
           },
         },
         ...titleTemplate,
