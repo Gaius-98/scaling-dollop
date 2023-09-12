@@ -10,7 +10,8 @@
 
 <script lang='ts' setup name="EvText">
 import { transformCssVar } from '@/utils/func'
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, toRefs, ref, watch } from 'vue'
+import useGetCompData from '../../../hooks/useViewData'
 
 interface obj{
 [key:string]:any
@@ -20,25 +21,35 @@ enum openTypes {
   _blank='_blank'
 }
 interface Props {
-    value:string,
     styleConfig?:COMMON.obj,
     openUrl:boolean,
     openType:keyof typeof openTypes,
-    url:string
+    url:string,
+    dataSetting:DataSetting
 }
 const props = withDefaults(defineProps<Props>(), {
-  value: '',
   styleConfig: () => ({}),
   openUrl: false,
   openType: '_blank',
   url: '',
 })
-const { openUrl, openType, url } = toRefs(props)
+const { openUrl, openType, url, dataSetting } = toRefs(props)
+const value = ref('')
 const open = () => {
   if (openUrl.value && url.value) {
     window.open(url.value, openType.value)
   }
 }
+watch(dataSetting.value, () => {
+  const resData = useGetCompData(dataSetting.value)
+  resData.then(res => {
+    value.value = res
+  })
+}, {
+  deep: true,
+  immediate: true,
+})
+
 </script>
 <style scoped lang='scss'>
 .ev-text{

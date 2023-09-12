@@ -8,6 +8,15 @@ export default [
     props: {
       value: '文本内容',
     },
+    dataSetting: {
+      type: 'static',
+      data: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      params: {
+      },
+      handleFunc: `const { data } = resData
+      return data.result.note
+      `,
+    },
   },
   {
     name: 'ev-img',

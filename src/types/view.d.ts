@@ -52,6 +52,11 @@ declare interface viewComponent {
      * 组件类别
      */
     type:string,
+    dataSetting:{
+        type:'static'|'dev',
+        data:any,
+        params:COMMON.obj
+    },
     /**
      * 位置及尺寸信息
      */
@@ -75,6 +80,7 @@ enum cfgComp {
     slider='slider',
     tab='tab',
     iconSelect='iconSelect'
+    varObj='varObj'
 }
 /**
  * 配置面板结构
@@ -85,6 +91,23 @@ declare interface viewCompCfg {
         type:keyof typeof cfgComp,
         field:string,
         props:COMMON.obj,
-        children?:viewCompCfg[]
+        children?:viewCompCfg[],
+        connectShow?:{
+            field:string,
+            value:string
+        }
     }
+}
+/**
+ * 数据源类型 static dev
+ */
+type dataSetType = 'static' | 'dev'
+/**
+ * 数据源配置
+ */
+interface DataSetting {
+    type:dataSetType,
+    data:any,
+    params?:COMMON.obj,
+    handleFunc?:string
 }
