@@ -79,7 +79,7 @@ enum cfgComp {
     code='code',
     slider='slider',
     tab='tab',
-    iconSelect='iconSelect'
+    iconSelect='iconSelect',
     varObj='varObj'
 }
 /**
