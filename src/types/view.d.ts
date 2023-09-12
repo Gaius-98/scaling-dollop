@@ -52,11 +52,7 @@ declare interface viewComponent {
      * 组件类别
      */
     type:string,
-    dataSetting:{
-        type:'static'|'dev',
-        data:any,
-        params:COMMON.obj
-    },
+    dataSetting:DataSetting,
     /**
      * 位置及尺寸信息
      */

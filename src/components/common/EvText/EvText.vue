@@ -42,8 +42,8 @@ const open = () => {
 }
 watch(dataSetting.value, () => {
   const resData = useGetCompData(dataSetting.value)
-  resData.then(res => {
-    value.value = res
+  resData.then((res) => {
+    value.value = res as string
   })
 }, {
   deep: true,

@@ -12,8 +12,15 @@ const useGetCompData = async (dataSetting:DataSetting) => {
         method: 'post',
         params,
       }).then(res => {
-        let fn = new Function('resData', handleFunc)
-        let data = fn(res)
+        let data = res
+        if (handleFunc) {
+          try {
+            let fn = new Function('resData', handleFunc)
+            data = fn(res)
+          } catch (error) {
+            console.warn('处理函数执行失败', error)
+          }
+        }
         resolve(data)
       })
     }
