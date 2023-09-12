@@ -66,6 +66,7 @@
       <el-select
         :model-value="deepGetValue(item.ui.field)"
         clearable
+        filterable
         @change="deepSetValue($event,item.ui.field)"
       >
         <el-option
@@ -77,6 +78,19 @@
           {{ it.label }}
         </el-option>
       </el-select>
+    </el-form-item>
+
+    <el-form-item
+      v-if="item.ui.type == 'iconSelect'"
+      :label="item.label"
+    >
+      <icon-select
+        :model-value="deepGetValue(item.ui.field)"
+        clearable
+        filterable
+        @change="deepSetValue($event,item.ui.field)"
+      >
+      </icon-select>
     </el-form-item>
     <el-form-item
       v-if="item.ui.type == 'switch'"
@@ -136,6 +150,7 @@ import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
 import { cloneDeep } from 'lodash'
+import IconSelect from './cfgComponents/IconSelect.vue'
 
 interface Props{
     template:viewCompCfg[]

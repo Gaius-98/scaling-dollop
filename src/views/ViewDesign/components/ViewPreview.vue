@@ -12,6 +12,7 @@
       <component
         :is="item.name"
         v-bind="item.props"
+        :preview="true"
       >
         {{ item.name == 'el-text' ? item.props.value :'' }}
       </component>

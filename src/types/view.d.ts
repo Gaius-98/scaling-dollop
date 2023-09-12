@@ -73,7 +73,8 @@ enum cfgComp {
     color='color',
     code='code',
     slider='slider',
-    tab='tab'
+    tab='tab',
+    iconSelect='iconSelect'
 }
 /**
  * 配置面板结构

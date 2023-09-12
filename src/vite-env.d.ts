@@ -11,3 +11,7 @@ declare module '*.md' {
   const Component: ComponentOptions
   export default Component
 }
+declare module '*.json' {
+  const content: any
+  export default content
+}

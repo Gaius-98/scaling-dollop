@@ -16,7 +16,7 @@ export default [
     label: '图片组件',
     icon: 'icon-tupian',
     props: {
-      src: 'https://img1.baidu.com/it/u=1400131798,3422378849&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1690304400&t=6836d8acb0adcf55038070c7599815d7',
+      src: 'https://avatars.githubusercontent.com/u/59641156?v=4',
     },
   },
   {
@@ -140,6 +140,16 @@ export default [
     icon: 'icon-tongyi-shuju-huiju',
     props: {
       url: 'https://blog.csdn.net/weixin_47030180',
+    },
+  },
+  {
+    name: 'ev-icon',
+    id: '7',
+    type: 'icon',
+    label: 'icon组件',
+    icon: 'icon-tongyi-shuju-huiju',
+    props: {
+      icon: 'text',
     },
   },
 ]
