@@ -1,5 +1,9 @@
 <template>
-  <el-form :model="curFormItem">
+  <el-form
+    :model="curFormItem"
+    label-width="110px"
+    label-position="left"
+  >
     <common-attr />
     <input-attr v-if="curFormItem.comp == 'input'" />
     <textarea-attr v-if="curFormItem.comp == 'textarea'" />

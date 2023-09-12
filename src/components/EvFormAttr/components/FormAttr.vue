@@ -1,6 +1,8 @@
 <template>
   <el-form
     :model="saveForm.formProp"
+    label-width="130px"
+    label-position="left"
   >
     <el-form-item
       prop="size"
