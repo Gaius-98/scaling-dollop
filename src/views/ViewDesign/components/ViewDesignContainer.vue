@@ -24,6 +24,7 @@
         <component
           :is="item.name"
           v-bind="item.props"
+          :data-setting="item.dataSetting"
         >
         </component>
       </gu-drag-resize>

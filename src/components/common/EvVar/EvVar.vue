@@ -67,6 +67,7 @@ const props = defineProps({
 const { data } = toRefs(props)
 // const tableData = ref<COMMON.reqTableData[]>([])
 const tableKey = ref(uuidv4())
+console.log(data)
 const tableData = computed(() => {
   const table:COMMON.varTableData[] = []
   if (Object.keys(data.value).length == 0) {

@@ -24,6 +24,14 @@ export const useViewStore = defineStore('viewStore', () => {
     props: {},
     id: '',
     type: '',
+    dataSetting: {
+      type: 'static',
+      data: '',
+      handleFunc: '',
+      params: {
+        
+      },
+    },
     positionSize: {
       top: 0,
       left: 0,

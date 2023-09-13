@@ -5,7 +5,7 @@
     class="view-cfg"
   >
     <el-collapse
-      v-if="item.ui.type=='collapse'"
+      v-if="item.ui.type=='collapse' && isShow(item)"
     >
       <el-collapse-item
         :title="item.label"
@@ -16,7 +16,7 @@
       </el-collapse-item>
     </el-collapse>
     <el-tabs
-      v-if="item.ui.type =='tab'"
+      v-if="item.ui.type =='tab' && isShow(item)"
       type="card"
       editable
       :style="{
@@ -37,7 +37,7 @@
       </el-tab-pane>
     </el-tabs>
     <el-form-item
-      v-if="item.ui.type == 'input'"
+      v-if="item.ui.type == 'input' && isShow(item)"
       :label="item.label"
     >
       <el-input
@@ -49,7 +49,7 @@
       </el-input>
     </el-form-item>
     <el-form-item
-      v-if="item.ui.type == 'number'"
+      v-if="item.ui.type == 'number' && isShow(item)"
       :label="item.label"
     >
       <el-input-number
@@ -60,7 +60,7 @@
       </el-input-number>
     </el-form-item>
     <el-form-item
-      v-if="item.ui.type == 'select'"
+      v-if="item.ui.type == 'select' && isShow(item)"
       :label="item.label"
     >
       <el-select
@@ -81,7 +81,7 @@
     </el-form-item>
 
     <el-form-item
-      v-if="item.ui.type == 'iconSelect'"
+      v-if="item.ui.type == 'iconSelect' && isShow(item)"
       :label="item.label"
     >
       <icon-select
@@ -93,7 +93,7 @@
       </icon-select>
     </el-form-item>
     <el-form-item
-      v-if="item.ui.type == 'switch'"
+      v-if="item.ui.type == 'switch' && isShow(item)"
       :label="item.label"
     >
       <el-switch
@@ -103,7 +103,7 @@
       </el-switch>
     </el-form-item>
     <el-form-item
-      v-if="item.ui.type == 'color'"
+      v-if="item.ui.type == 'color' && isShow(item)"
       :label="item.label"
     >
       <el-color-picker
@@ -114,7 +114,7 @@
       </el-color-picker>
     </el-form-item>
     <el-form-item 
-      v-if="item.ui.type == 'code'"
+      v-if="item.ui.type == 'code' && isShow(item)"
       :label="item.label"
     >
       <div style="width: 100%;height: 200px;">
@@ -127,7 +127,17 @@
       </div>
     </el-form-item>
     <el-form-item 
-      v-if="item.ui.type == 'slider'"
+      v-if="item.ui.type == 'varObj' && isShow(item)"
+      :label="item.label"
+    >
+      <ev-var
+        :data="deepGetValue(item.ui.field)"
+        @update:data="deepSetValue($event,item.ui.field)"
+      >
+      </ev-var>
+    </el-form-item>
+    <el-form-item 
+      v-if="item.ui.type == 'slider' && isShow(item)"
       :label="item.label"
     >
       <el-slider
@@ -212,6 +222,14 @@ const handleTabsEdit = (tag:string, action:string, field:string) => {
     })
     deepSetValue(val, field)
   }
+}
+const isShow = (data:viewCompCfg) => {
+  const { ui: { connectShow } } = data
+  if (connectShow) {
+    const { field, value } = connectShow
+    return deepGetValue(field) == value
+  }
+  return true
 }
 </script>
 <style scoped lang='scss'>

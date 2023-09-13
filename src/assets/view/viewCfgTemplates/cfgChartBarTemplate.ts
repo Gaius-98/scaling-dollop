@@ -11,6 +11,25 @@ const barTemplate:viewCompCfg[] = [
       props: {},
       children: [
         {
+          label: '数据源类型',
+          ui: {
+            type: 'select',
+            field: 'props.dataType',
+            props: {
+              options: [
+                {
+                  label: '静态数据源',
+                  value: 'static',
+                },
+                {
+                  label: '动态数据源',
+                  value: 'dev',
+                },
+              ],
+            },
+          },
+        },
+        {
           label: '数据源',
           ui: {
             type: 'code',
