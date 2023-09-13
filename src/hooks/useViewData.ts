@@ -6,7 +6,7 @@ interface resCompData {
   data:any
 }
 const useGetCompData = async (compCfg:viewComponent):Promise<resCompData> => {
-  const { dataSetting: { type, data, params, handleFunc }, id } = compCfg
+  const { dataSetting: { type, data, params, handleFunc, interfaceUrl }, id } = compCfg
   let p = new Promise<resCompData>((resolve, reject) => {
     if (type == 'static') {
       resolve({
@@ -15,7 +15,7 @@ const useGetCompData = async (compCfg:viewComponent):Promise<resCompData> => {
       }) 
     } else {
       axios({
-        url: data,
+        url: interfaceUrl,
         method: 'post',
         params,
       }).then(res => {

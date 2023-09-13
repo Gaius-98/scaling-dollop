@@ -78,6 +78,7 @@ const dragResizeAfter = (data:dragResizeInfo) => {
   })
   setSnapshot()
 }
+
 const allowDrop = (ev:any) => {
   ev.preventDefault()
 }
@@ -93,6 +94,7 @@ const dropComponent = (ev:any) => {
   }
   addComp(data)
 }
+
 const setCompData = (id:string, data:any) => {
   let idx = viewData.value.componentData.findIndex(e => e.id == id)
   if (idx != -1) {
@@ -108,6 +110,15 @@ const setCompData = (id:string, data:any) => {
       case 'iframe':
         viewData.value.componentData[idx].props.url = data
         break
+      case 'chartPie':
+        viewData.value.componentData[idx].props.option.dataset.source = data
+        break
+      case 'chartBar':
+        viewData.value.componentData[idx].props.option.dataset.source = data
+        break
+      case 'chartLine':
+        viewData.value.componentData[idx].props.option.dataset.source = data
+        break
       default:
         viewData.value.componentData[idx].props.value = data
         break
@@ -122,8 +133,7 @@ const handleComponent = () => {
     })
   })
 }
-
-watch(() => viewData.value.componentData, () => {
+watch(() => viewData.value.componentData.map(e => e.dataSetting), () => {
   handleComponent()
 }, {
   deep: true,

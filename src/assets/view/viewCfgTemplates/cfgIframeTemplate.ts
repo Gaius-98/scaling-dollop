@@ -28,7 +28,25 @@ const iframeTemplate:viewCompCfg[] = [
           label: '数据源',
           ui: {
             type: 'input',
+            connectShow: {
+              field: 'dataSetting.type',
+              value: 'static',
+            },
             field: 'dataSetting.data',
+            props: {
+              
+            },
+          },
+        },
+        {
+          label: '接口地址',
+          ui: {
+            type: 'input',
+            connectShow: {
+              field: 'dataSetting.type',
+              value: 'dev',
+            },
+            field: 'dataSetting.interfaceUrl',
             props: {
               
             },

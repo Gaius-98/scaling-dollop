@@ -103,7 +103,8 @@ type dataSetType = 'static' | 'dev'
  */
 interface DataSetting {
     type:dataSetType,
-    data:string,
+    data:any,
+    interfaceUrl?:string,
     params?:COMMON.obj,
     handleFunc?:string
 }

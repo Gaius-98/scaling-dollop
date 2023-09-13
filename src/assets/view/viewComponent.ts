@@ -10,9 +10,10 @@ export default [
     },
     dataSetting: {
       type: 'static',
-      data: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: '文本',
       params: {
       },
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       handleFunc: `const { data } = resData
       return data.result.note
       `,
@@ -29,9 +30,10 @@ export default [
     },
     dataSetting: {
       type: 'static',
-      data: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: 'https://avatars.githubusercontent.com/u/59641156?v=4',
       params: {
       },
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       handleFunc: `const { data } = resData
       return data.result.img
       `,
@@ -73,6 +75,28 @@ export default [
         },
       },
     },
+    dataSetting: {
+      type: 'static',
+      data: [
+        ['product', '2015', '2016', '2017'],
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1],
+      ],
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      params: {
+      },
+      handleFunc: `const  data  =  [
+        ['product', '2015', '2016', '2017'],
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1],
+      ]
+      return data
+      `,
+    },
   },
   {
     name: 'ev-chart',
@@ -92,12 +116,7 @@ export default [
           {
             type: 'line',
           },
-          {
-            type: 'line',
-          },
-          {
-            type: 'line',
-          },
+
         ],
         dataset: {
           source: [
@@ -110,6 +129,28 @@ export default [
         },
       },
     },
+    dataSetting: {
+      type: 'static',
+      data: [
+        ['product', '2015', '2016', '2017'],
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1],
+      ],
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      params: {
+      },
+      handleFunc: `const  data  =  [
+        ['product', '2015', '2016', '2017'],
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1],
+      ]
+      return data
+      `,
+    },
   },
   {
     name: 'ev-chart',
@@ -119,6 +160,15 @@ export default [
     icon: 'icon-keshihuatubiao-10',
     props: {
       option: {
+        dataset: {
+          source: [
+            { value: 1048, name: 'Search Engine' },
+            { value: 735, name: 'Direct' },
+            { value: 580, name: 'Email' },
+            { value: 484, name: 'Union Ads' },
+            { value: 300, name: 'Video Ads' },
+          ],
+        },
         tooltip: {
           trigger: 'item',
         },
@@ -131,13 +181,6 @@ export default [
             name: 'Access From',
             type: 'pie',
             radius: [0, 50],
-            data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' },
-              { value: 300, name: 'Video Ads' },
-            ],
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -148,6 +191,22 @@ export default [
           },
         ],
       },
+    },
+    dataSetting: {
+      type: 'static',
+      data: [
+        { value: 1048, name: 'Search Engine' },
+        { value: 735, name: 'Direct' },
+        { value: 580, name: 'Email' },
+        { value: 484, name: 'Union Ads' },
+        { value: 300, name: 'Video Ads' },
+      ],
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      params: {
+      },
+      handleFunc: `const { data } = resData
+      return data.result.note
+      `,
     },
   },
   {
@@ -161,11 +220,18 @@ export default [
     },
     dataSetting: {
       type: 'static',
-      data: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: 'https://blog.csdn.net/weixin_47030180',
       params: {
       },
-      handleFunc: `const { data } = resData
-      return data.result.img
+      handleFunc: `const  data  =  [
+        ['product', '2015', '2016', '2017'],
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1],
+      ]
+      return data
       `,
     },
   },
