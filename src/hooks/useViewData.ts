@@ -1,11 +1,18 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-const useGetCompData = async (dataSetting:DataSetting) => {
-  const { type, data, params, handleFunc } = dataSetting
-  let p = new Promise((resolve, reject) => {
+interface resCompData {
+  id:string,
+  data:any
+}
+const useGetCompData = async (compCfg:viewComponent):Promise<resCompData> => {
+  const { dataSetting: { type, data, params, handleFunc }, id } = compCfg
+  let p = new Promise<resCompData>((resolve, reject) => {
     if (type == 'static') {
-      resolve(data)
+      resolve({
+        id,
+        data,
+      }) 
     } else {
       axios({
         url: data,
@@ -21,7 +28,10 @@ const useGetCompData = async (dataSetting:DataSetting) => {
             console.warn('处理函数执行失败', error)
           }
         }
-        resolve(data)
+        resolve({
+          id,
+          data,
+        })
       })
     }
   })

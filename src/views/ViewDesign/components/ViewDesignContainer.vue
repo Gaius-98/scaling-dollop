@@ -24,7 +24,6 @@
         <component
           :is="item.name"
           v-bind="item.props"
-          :data-setting="item.dataSetting"
         >
         </component>
       </gu-drag-resize>
@@ -38,6 +37,7 @@ import { GuDragResize } from 'gaius-utils'
 import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
 import { v1 as uuid } from 'uuid'
+import useGetCompData from '@/hooks/useViewData'
 
 interface dragResizeInfo {
   nodeKey:string,
@@ -93,6 +93,43 @@ const dropComponent = (ev:any) => {
   }
   addComp(data)
 }
+const setCompData = (id:string, data:any) => {
+  let idx = viewData.value.componentData.findIndex(e => e.id == id)
+  if (idx != -1) {
+    let comp = viewData.value.componentData[idx]
+    const { type } = comp
+    switch (type) {
+      case 'text':
+        viewData.value.componentData[idx].props.value = data
+        break
+      case 'img':
+        viewData.value.componentData[idx].props.src = data
+        break
+      case 'iframe':
+        viewData.value.componentData[idx].props.url = data
+        break
+      default:
+        viewData.value.componentData[idx].props.value = data
+        break
+    }
+  }
+}
+const handleComponent = () => {
+  let allRes = viewData.value.componentData.map(e => useGetCompData(e))
+  Promise.all(allRes).then(res => {
+    res.forEach(({ id, data }) => {
+      setCompData(id, data)
+    })
+  })
+}
+
+watch(() => viewData.value.componentData, () => {
+  handleComponent()
+}, {
+  deep: true,
+  immediate: true,
+})
+
 </script>
 <style scoped lang='scss'>
 .view-design-container{

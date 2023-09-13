@@ -239,9 +239,10 @@ const isShow = (data:viewCompCfg) => {
       height: 32px;
       line-height: 32px;
       border-bottom: 0;
+      color: var(--ev-active-color);
     }
     .el-collapse-item__content{
-      padding: 5px 0;
+      padding: 5px 0 5px 15px;
     }
   }
   :deep(.el-tabs__item){

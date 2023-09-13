@@ -1,7 +1,7 @@
 <template>
   <el-form
-    label-width="90px"
     size="small"
+    label-position="top"
   >
     <view-cfg :template="template"></view-cfg>
   </el-form>

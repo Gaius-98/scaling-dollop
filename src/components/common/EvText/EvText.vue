@@ -11,7 +11,7 @@
 <script lang='ts' setup name="EvText">
 import { transformCssVar } from '@/utils/func'
 import { reactive, toRefs, ref, watch } from 'vue'
-import useGetCompData from '../../../hooks/useViewData'
+
 
 interface obj{
 [key:string]:any
@@ -21,11 +21,11 @@ enum openTypes {
   _blank='_blank'
 }
 interface Props {
+    value:string,
     styleConfig?:COMMON.obj,
     openUrl:boolean,
     openType:keyof typeof openTypes,
     url:string,
-    dataSetting:DataSetting
 }
 const props = withDefaults(defineProps<Props>(), {
   styleConfig: () => ({}),
@@ -33,22 +33,13 @@ const props = withDefaults(defineProps<Props>(), {
   openType: '_blank',
   url: '',
 })
-const { openUrl, openType, url, dataSetting } = toRefs(props)
-const value = ref('')
+const { openUrl, openType, url } = toRefs(props)
+
 const open = () => {
   if (openUrl.value && url.value) {
     window.open(url.value, openType.value)
   }
 }
-watch(dataSetting.value, () => {
-  const resData = useGetCompData(dataSetting.value)
-  resData.then((res) => {
-    value.value = res as string
-  })
-}, {
-  deep: true,
-  immediate: true,
-})
 
 </script>
 <style scoped lang='scss'>

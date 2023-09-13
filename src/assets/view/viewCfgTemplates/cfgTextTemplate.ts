@@ -58,7 +58,7 @@ const template:viewCompCfg[] = [
               {
                 label: '处理函数',
                 ui: {
-                  type: 'code',
+                  type: 'input',
                   field: 'dataSetting.handleFunc',
                   connectShow: {
                     field: 'dataSetting.type',

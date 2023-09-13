@@ -27,6 +27,15 @@ export default [
     props: {
       src: 'https://avatars.githubusercontent.com/u/59641156?v=4',
     },
+    dataSetting: {
+      type: 'static',
+      data: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      params: {
+      },
+      handleFunc: `const { data } = resData
+      return data.result.img
+      `,
+    },
   },
   {
     name: 'ev-chart',
@@ -149,6 +158,15 @@ export default [
     icon: 'icon-tongyi-shuju-huiju',
     props: {
       url: 'https://blog.csdn.net/weixin_47030180',
+    },
+    dataSetting: {
+      type: 'static',
+      data: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      params: {
+      },
+      handleFunc: `const { data } = resData
+      return data.result.img
+      `,
     },
   },
   {
