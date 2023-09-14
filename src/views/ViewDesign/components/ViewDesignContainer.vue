@@ -10,7 +10,7 @@
       @drop="dropComponent"
     >
       <gu-drag-resize
-        v-for="item in viewData.componentData"
+        v-for="(item,idx) in viewData.componentData"
         :key="item.id"
         minh="20"
         minw="20"
@@ -18,6 +18,9 @@
         v-bind="item.positionSize"
         :class="item.id == curCompData.id ? 'active' :''"
         class="drag"
+        :style="{
+          zIndex:`${idx + 100}`
+        }"
         @on-drag-resize="dragResizeAfter"
         @click="onClickComp(item)"
       >

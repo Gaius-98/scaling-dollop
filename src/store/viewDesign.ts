@@ -101,5 +101,43 @@ export const useViewStore = defineStore('viewStore', () => {
     viewData.componentData.push(data)
     setSnapshot()
   }
-  return { viewData, curCompData, snapshotData, curSnapshotIdx, setSnapshot, undo, redo, onClickComp, setComp, addComp }
+
+  /**
+   * 通过command 处理组件
+   * @params {string} command
+   * @params {string} compId
+   */
+  const changeCompByCommand = (command:string, id:string) => {
+    let idx = viewData.componentData.findIndex(e => e.id === id)
+    let newComp = viewData.componentData[idx]
+    switch (command) {
+      case 'delete':
+        viewData.componentData.splice(idx, 1) 
+        break
+      case 'placeTop':
+        viewData.componentData.splice(idx, 1) 
+        viewData.componentData.push(newComp)
+        break
+      case 'placeBottom':
+        viewData.componentData.splice(idx, 1) 
+        viewData.componentData.unshift(newComp)
+        break
+      default:
+        break
+    }
+    setSnapshot()
+  }
+  return {
+    viewData, 
+    curCompData, 
+    snapshotData, 
+    curSnapshotIdx,
+    setSnapshot,
+    undo,
+    redo,
+    onClickComp, 
+    setComp,
+    addComp,
+    changeCompByCommand, 
+  }
 })
