@@ -244,5 +244,15 @@ export default [
     props: {
       icon: 'text',
     },
+    dataSetting: {
+      type: 'static',
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: 'text',
+      params: {
+      },
+      handleFunc: `const  data  =  'move'
+      return data
+      `,
+    },
   },
 ]

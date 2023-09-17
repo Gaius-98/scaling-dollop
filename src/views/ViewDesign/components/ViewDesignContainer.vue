@@ -122,6 +122,9 @@ const setCompData = (id:string, data:any) => {
       case 'chartLine':
         viewData.value.componentData[idx].props.option.dataset.source = data
         break
+      case 'icon':
+        viewData.value.componentData[idx].props.icon = data
+        break
       default:
         viewData.value.componentData[idx].props.value = data
         break
@@ -136,7 +139,8 @@ const handleComponent = () => {
     })
   })
 }
-watch(() => viewData.value.componentData.map(e => e.dataSetting), () => {
+watch(() => viewData.value.componentData.map(e => e.dataSetting), (val) => {
+  console.log(val)
   handleComponent()
 }, {
   deep: true,
