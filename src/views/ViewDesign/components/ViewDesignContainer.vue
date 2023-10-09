@@ -23,6 +23,7 @@
         }"
         @on-drag-resize="dragResizeAfter"
         @click="onClickComp(item)"
+        @contextmenu.prevent="openContextMenu($event,item)"
       >
         <component
           :is="item.name"
@@ -32,6 +33,16 @@
       </gu-drag-resize>
     </div>
   </div>
+  <ul
+    v-show="showMenu"
+    v-click-outside="closeMenu"
+    class="menu"
+    @click="onChangeCommand($event)"
+  >
+    <li data-command="placeTop">置顶</li>
+    <li data-command="placeBottom">置底</li>
+    <li data-command="delete">删除</li>
+  </ul>
 </template>
 
 <script lang='ts' setup>
@@ -51,7 +62,7 @@ interface dragResizeInfo {
 }
 const store = useViewStore()
 const { viewData, curCompData } = storeToRefs(store)
-const { onClickComp, setSnapshot, setComp, addComp } = store
+const { onClickComp, setSnapshot, setComp, addComp, changeCompByCommand } = store
 const container = ref()
 const getContainerStyle = () => {
   const { width, height } = viewData.value
@@ -139,14 +150,34 @@ const handleComponent = () => {
     })
   })
 }
-watch(() => viewData.value.componentData.map(e => e.dataSetting), (val) => {
-  console.log(val)
+watch(() => viewData.value.componentData.map(e => e.dataSetting), () => {
   handleComponent()
 }, {
   deep: true,
   immediate: true,
 })
-
+const showMenu = ref(false)
+const top = ref(0)
+const left = ref(0)
+const componentId = ref('0')
+const openContextMenu = (event:MouseEvent, componentItem:viewComponent) => {
+  componentId.value = componentItem.id
+  const { x, y } = event
+  top.value = y
+  left.value = x
+  showMenu.value = true
+}
+const onChangeCommand = (event:MouseEvent) => {
+  const target = event.target as HTMLElement
+  let command = target.dataset.command
+  if (command) {
+    changeCompByCommand(command, componentId.value)
+  }
+  closeMenu()
+}
+const closeMenu = () => {
+  showMenu.value = false
+}
 </script>
 <style scoped lang='scss'>
 .view-design-container{
@@ -170,5 +201,30 @@ watch(() => viewData.value.componentData.map(e => e.dataSetting), (val) => {
       }
     }
    
+}
+.menu{
+
+  position: fixed;
+  top:calc(v-bind(top) * 1px);
+  left: calc(v-bind(left) * 1px);
+  margin:0;
+  padding:0;
+  width: 80px;
+  z-index: 999;
+  list-style: none;
+  background: #fff;
+  box-shadow: 2px 2px 6px  #000;
+
+  li{
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    &:hover{
+      color: var(--ev-active-color);
+    }
+  }
 }
 </style>
