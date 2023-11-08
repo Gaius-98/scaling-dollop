@@ -22,6 +22,8 @@
           zIndex:`${idx + 100}`
         }"
         @on-drag-resize="dragResizeAfter"
+        @on-drag="showMarkLine"
+        @on-resize="showMarkLine"
         @click="onClickComp(item)"
         @contextmenu.prevent="openContextMenu($event,item)"
       >
@@ -31,6 +33,22 @@
         >
         </component>
       </gu-drag-resize>
+      <div
+        v-show="lineType.type == 'v'"
+        class="vertical-line"
+        :style="{
+          left:lineType.line + 'px'
+        }"
+      >
+      </div>
+      <div
+        v-show="lineType.type == 'h'"
+        class="horizontal-line"
+        :style="{
+          top:lineType.line+'px'
+        }"
+      >
+      </div>
     </div>
   </div>
   <ul
@@ -90,9 +108,61 @@ const dragResizeAfter = (data:dragResizeInfo) => {
       height: parseFloat(height),
     },
   })
+  // 隐藏辅助线
+  lineType.type = ''
   setSnapshot()
 }
-
+const lineType = reactive({
+  type: '',
+  line: 0,
+})
+const showMarkLine = (curData:dragResizeInfo) => {
+  let lineInfo 
+  for (let i = 0; i < viewData.value.componentData.length; i++) {
+    let item = viewData.value.componentData[i]
+    if (item.id != curData.nodeKey) {
+      let data = judgeShowLine(item, curData)
+      if (data) {
+        lineInfo = data
+        break
+      }
+    }
+  }
+  if (lineInfo) {
+    const { type, line } = lineInfo
+    lineType.type = type
+    lineType.line = parseFloat(line as string)
+  } else {
+    lineType.type = ''
+    lineType.line = 0
+  }
+}
+const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
+  const { positionSize: { top, left, width, height } } = data
+  const { top: curTop, left: curLeft, width: curWidth, height: curHeight } = cur
+  let type = null
+  let line = null
+  if (parseFloat(curTop) == top 
+   || parseFloat(curTop) + parseFloat(curHeight) == top
+   || parseFloat(curTop) == top + height) {
+    type = 'h'
+    line = curTop
+  } else if (parseFloat(curTop) + parseFloat(curHeight) == top + height) {
+    type = 'h'
+    line = top + height
+  } else if (
+    parseFloat(curLeft) == left 
+    || parseFloat(curLeft) + parseFloat(curWidth) == left 
+    || parseFloat(curLeft) == left + width 
+  ) {
+    type = 'v'
+    line = curLeft
+  } else if (parseFloat(curLeft) + parseFloat(curWidth) == left + width) {
+    type = 'v'
+    line = left + width
+  }
+  return type ? { type, line } : false
+}
 const allowDrop = (ev:any) => {
   ev.preventDefault()
 }
@@ -142,16 +212,23 @@ const setCompData = (id:string, data:any) => {
     }
   }
 }
-const handleComponent = () => {
-  let allRes = viewData.value.componentData.map(e => useGetCompData(e))
-  Promise.all(allRes).then(res => {
-    res.forEach(({ id, data }) => {
+const handleComponent = (data?:viewComponent) => {
+  if (data) {
+    useGetCompData(data).then(({ id, data }) => {
       setCompData(id, data)
     })
-  })
+  } else {
+    let allRes = viewData.value.componentData.map(e => useGetCompData(e))
+    Promise.all(allRes).then(res => {
+      res.forEach(({ id, data }) => {
+        setCompData(id, data)
+      })
+    })
+  }
 }
 watch(() => viewData.value.componentData.map(e => e.dataSetting), () => {
-  handleComponent()
+  // 数据源配置变更，应该只刷新当前配置对应的组件数据
+  handleComponent(curCompData.value)
 }, {
   deep: true,
   immediate: true,
@@ -198,6 +275,18 @@ const closeMenu = () => {
       .active{
         border: 1px dashed #ccc;
         background: #77ddb24d;
+      }
+      .vertical-line{
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        background: var(--ev-active-color);
+      }
+      .horizontal-line{
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        background: var(--ev-active-color);
       }
     }
    

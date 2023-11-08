@@ -24,13 +24,6 @@
     </el-button>
   </div>
   <el-dialog
-    v-model="dialogVisible"
-    title="预览"
-  >
-    <ev-form :form-config="saveForm">
-    </ev-form>
-  </el-dialog>
-  <el-dialog
     v-model="dialogJson"
     title="JSON配置"
   >
@@ -49,16 +42,24 @@ import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
-
-const dialogVisible = ref(false)
-const onClickView = () => {
-  dialogVisible.value = true
-}
+import { useGuDialog } from 'gaius-utils'
+import EvForm from '@/components/common/EvForm/EvForm.vue'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
 const onExportJson = () => {
   downloadFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
+}
+
+const viewDialog = useGuDialog({
+  title: '预览',
+  content: EvForm,
+  componentProps: {
+    formConfig: saveForm.value,
+  },
+})
+const onClickView = () => {
+  viewDialog.open()
 }
 const onExportVue = (version:number) => {
   if (version == 2) {
