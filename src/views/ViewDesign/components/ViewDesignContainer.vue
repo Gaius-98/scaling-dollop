@@ -143,16 +143,17 @@ const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
   let type = null
   let line = null
   if (parseFloat(curTop) == top 
-   || parseFloat(curTop) + parseFloat(curHeight) == top
    || parseFloat(curTop) == top + height) {
     type = 'h'
     line = curTop
   } else if (parseFloat(curTop) + parseFloat(curHeight) == top + height) {
     type = 'h'
     line = top + height
+  } else if (parseFloat(curTop) + parseFloat(curHeight) == top) {
+    type = 'h'
+    line = top
   } else if (
     parseFloat(curLeft) == left 
-    || parseFloat(curLeft) + parseFloat(curWidth) == left 
     || parseFloat(curLeft) == left + width 
   ) {
     type = 'v'
@@ -160,6 +161,9 @@ const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
   } else if (parseFloat(curLeft) + parseFloat(curWidth) == left + width) {
     type = 'v'
     line = left + width
+  } else if (parseFloat(curLeft) + parseFloat(curWidth) == left) {
+    type = 'v'
+    line = left 
   }
   return type ? { type, line } : false
 }
