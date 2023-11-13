@@ -98,7 +98,12 @@ const getContainerStyle = () => {
   }
 }
 const dragResizeAfter = (data:dragResizeInfo) => {
-  const { nodeKey, left, top, width, height } = data
+  let { nodeKey, left, top, width, height } = data
+  if (lineType.type == 'h') {
+    top = lineType.line.toString()
+  } else if (lineType.type == 'v') {
+    left = lineType.line.toString()
+  }
   setComp({
     id: nodeKey,
     positionSize: {
@@ -110,6 +115,7 @@ const dragResizeAfter = (data:dragResizeInfo) => {
   })
   // 隐藏辅助线
   lineType.type = ''
+  lineType.line = 0
   setSnapshot()
 }
 const lineType = reactive({
@@ -131,7 +137,7 @@ const showMarkLine = (curData:dragResizeInfo) => {
   if (lineInfo) {
     const { type, line } = lineInfo
     lineType.type = type
-    lineType.line = parseFloat(line as string)
+    lineType.line = line as number
   } else {
     lineType.type = ''
     lineType.line = 0
@@ -142,26 +148,31 @@ const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
   const { top: curTop, left: curLeft, width: curWidth, height: curHeight } = cur
   let type = null
   let line = null
-  if (parseFloat(curTop) == top 
-   || parseFloat(curTop) == top + height) {
-    type = 'h'
-    line = curTop
-  } else if (parseFloat(curTop) + parseFloat(curHeight) == top + height) {
-    type = 'h'
-    line = top + height
-  } else if (parseFloat(curTop) + parseFloat(curHeight) == top) {
+  const mistake = 3
+  const judgeMisTake = (val1:number, val2:number) => Math.abs(val1 - val2) <= mistake
+
+  if (judgeMisTake(parseFloat(curTop), top)) {
     type = 'h'
     line = top
-  } else if (
-    parseFloat(curLeft) == left 
-    || parseFloat(curLeft) == left + width 
-  ) {
+  } else if (judgeMisTake(parseFloat(curTop), top + height)) {
+    type = 'h'
+    line = top + height
+  } else if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top + height)) {
+    type = 'h'
+    line = top + height
+  } else if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top)) {
+    type = 'h'
+    line = top
+  } else if (judgeMisTake(parseFloat(curLeft), left)) {
     type = 'v'
-    line = curLeft
-  } else if (parseFloat(curLeft) + parseFloat(curWidth) == left + width) {
+    line = left
+  } else if (judgeMisTake(parseFloat(curLeft), left + width)) {
     type = 'v'
     line = left + width
-  } else if (parseFloat(curLeft) + parseFloat(curWidth) == left) {
+  } else if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left + width)) {
+    type = 'v'
+    line = left + width
+  } else if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left)) {
     type = 'v'
     line = left 
   }
