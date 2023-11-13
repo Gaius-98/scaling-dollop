@@ -22,8 +22,8 @@
           zIndex:`${idx + 100}`
         }"
         @on-drag-resize="dragResizeAfter"
-        @on-drag="showMarkLine"
-        @on-resize="showMarkLine"
+        @on-drag="(e)=>{ showMarkLine(e,'drag') }"
+        @on-resize="(e)=>{ showMarkLine(e,'resize') }"
         @click="onClickComp(item)"
         @contextmenu.prevent="openContextMenu($event,item)"
       >
@@ -99,10 +99,22 @@ const getContainerStyle = () => {
 }
 const dragResizeAfter = (data:dragResizeInfo) => {
   let { nodeKey, left, top, width, height } = data
-  if (lineType.type == 'h') {
-    top = lineType.line.toString()
-  } else if (lineType.type == 'v') {
-    left = lineType.line.toString()
+  if (lineType.type == 'h' && lineType.optType == 'drag') {
+    if (lineType.direction == 't2t' || lineType.direction == 't2b') {
+      top = lineType.line.toString()
+    } else if (lineType.direction == 'b2t' || lineType.direction == 'b2b') {
+      top = String(lineType.line - parseFloat(height))
+    }
+  } else if (lineType.type == 'h' && lineType.optType == 'resize') {
+    height = String(lineType.line - parseFloat(top))
+  } else if (lineType.type == 'v' && lineType.optType == 'drag') {
+    if (lineType.direction == 'l2l' || lineType.direction == 'l2r') {
+      left = lineType.line.toString()
+    } else if (lineType.direction == 'r2r' || lineType.direction == 'r2l') {
+      left = String(lineType.line - parseFloat(width))
+    }
+  } else if (lineType.type == 'v' && lineType.optType == 'resize') {
+    width = String(lineType.line - parseFloat(left))
   }
   setComp({
     id: nodeKey,
@@ -121,8 +133,10 @@ const dragResizeAfter = (data:dragResizeInfo) => {
 const lineType = reactive({
   type: '',
   line: 0,
+  optType: '',
+  direction: '',
 })
-const showMarkLine = (curData:dragResizeInfo) => {
+const showMarkLine = (curData:dragResizeInfo, optType:string) => {
   let lineInfo 
   for (let i = 0; i < viewData.value.componentData.length; i++) {
     let item = viewData.value.componentData[i]
@@ -135,12 +149,16 @@ const showMarkLine = (curData:dragResizeInfo) => {
     }
   }
   if (lineInfo) {
-    const { type, line } = lineInfo
+    const { type, line, direction } = lineInfo
     lineType.type = type
     lineType.line = line as number
+    lineType.optType = optType
+    lineType.direction = direction
   } else {
     lineType.type = ''
     lineType.line = 0
+    lineType.optType = ''
+    lineType.direction = ''
   }
 }
 const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
@@ -148,35 +166,44 @@ const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
   const { top: curTop, left: curLeft, width: curWidth, height: curHeight } = cur
   let type = null
   let line = null
+  let direction = ''
   const mistake = 3
   const judgeMisTake = (val1:number, val2:number) => Math.abs(val1 - val2) <= mistake
 
   if (judgeMisTake(parseFloat(curTop), top)) {
     type = 'h'
     line = top
+    direction = 't2t'
   } else if (judgeMisTake(parseFloat(curTop), top + height)) {
     type = 'h'
     line = top + height
+    direction = 't2b'
   } else if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top + height)) {
     type = 'h'
     line = top + height
+    direction = 'b2b'
   } else if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top)) {
     type = 'h'
     line = top
+    direction = 'b2t'
   } else if (judgeMisTake(parseFloat(curLeft), left)) {
     type = 'v'
     line = left
+    direction = 'l2l'
   } else if (judgeMisTake(parseFloat(curLeft), left + width)) {
     type = 'v'
     line = left + width
+    direction = 'l2r'
   } else if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left + width)) {
     type = 'v'
     line = left + width
+    direction = 'r2r'
   } else if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left)) {
     type = 'v'
     line = left 
+    direction = 'r2l'
   }
-  return type ? { type, line } : false
+  return type ? { type, line, direction } : false
 }
 const allowDrop = (ev:any) => {
   ev.preventDefault()
