@@ -106,7 +106,9 @@ const dragResizeAfter = (data:dragResizeInfo) => {
       top = String(lineType.line - parseFloat(height))
     }
   } else if (lineType.type == 'h' && lineType.optType == 'resize') {
-    height = String(lineType.line - parseFloat(top))
+    if (lineType.direction == 'b2t' || lineType.direction == 'b2b') {
+      height = String(lineType.line - parseFloat(top))
+    }
   } else if (lineType.type == 'v' && lineType.optType == 'drag') {
     if (lineType.direction == 'l2l' || lineType.direction == 'l2r') {
       left = lineType.line.toString()
@@ -114,7 +116,9 @@ const dragResizeAfter = (data:dragResizeInfo) => {
       left = String(lineType.line - parseFloat(width))
     }
   } else if (lineType.type == 'v' && lineType.optType == 'resize') {
-    width = String(lineType.line - parseFloat(left))
+    if (lineType.direction == 'r2r' || lineType.direction == 'r2l') {
+      width = String(lineType.line - parseFloat(left))
+    }
   }
   setComp({
     id: nodeKey,
