@@ -56,12 +56,8 @@ declare namespace COMMON{
    * 分页响应
    */
   declare interface pageData<T>{
-    data:T,
-    pagination:{
-      pageNumber:number,
-      pageSize:number,
-      total:number
-    }
+    rows:T,
+    count:number
   }
   /**
    * 列表配置
@@ -69,5 +65,11 @@ declare namespace COMMON{
   declare interface columnConfig {
     field:string,
     label:string,
+  }
+  /**
+   * 列表插槽
+   */
+  declare interface columnScope {
+    row:COMMON.obj
   }
 }

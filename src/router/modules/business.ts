@@ -16,6 +16,14 @@ const business:RouteRecordRaw[] = [
         },
       },
       {
+        path: 'formList',
+        name: 'formList',
+        component: () => import('@/views/Form/FormList/FormList.vue'),
+        meta: {
+          appId: '2af076bc-9bae-4909-b6d3-83d583441d8d',
+        },
+      },
+      {
         path: 'formDesign',
         name: 'formDesign',
         component: () => import('@/views/Form/FormDesign/FormDesign.vue'),

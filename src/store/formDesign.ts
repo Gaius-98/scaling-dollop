@@ -27,6 +27,7 @@ export const useFormDesignStore = defineStore('formDesignStore', () => {
         labelWidth: 120,
       },
       name: '',
+      id: '',
     })
     Object.assign(formData, {})
     Object.assign(curFormItem, {})

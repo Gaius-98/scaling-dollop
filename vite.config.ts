@@ -47,7 +47,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/local': {
-        target: 'http://localhost:19091',
+        target: 'http://localhost:3000',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/local/, ''),
       },

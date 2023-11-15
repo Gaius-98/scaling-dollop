@@ -34,7 +34,26 @@ import dragCompList from './components/dragCompList.vue'
 import FormAttr from '@/components/EvFormAttr/components/FormAttr.vue'
 import formHeader from '@/views/Form/FormDesign/components/formHeader.vue'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useFormDesignStore } from '@/store/formDesign'
+import api from '../service/api'
 
+const store = useFormDesignStore()
+const { setForm, init } = store
+const route = useRoute()
+if (route.query.id && route.query.type == 'edit') {
+  let id = route.query.id as string
+  api.getDetail({
+    id: parseInt(id),
+  }).then(res => {
+    const { code, data } = res
+    if (code == 0) {
+      setForm(data)
+    }
+  })
+} else {
+  init()
+}
 const activeName = ref('comp')
 </script>
 <style scoped lang='scss'>

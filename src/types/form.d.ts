@@ -104,4 +104,5 @@ declare interface formConfig{
     labelWidth: number,
   },
   name?: string,
+  id?:number
 }

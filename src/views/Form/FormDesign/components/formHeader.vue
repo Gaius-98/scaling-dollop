@@ -7,6 +7,9 @@
     </el-input>
   </div>
   <div class="form_opt">
+    <el-button @click="onSave">
+      保存
+    </el-button>
     <el-button @click="onOpenJSon">
       写入JSON
     </el-button>
@@ -44,6 +47,8 @@ import { useFormDesignStore } from '@/store/formDesign'
 import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
 import { useGuDialog } from 'gaius-utils'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
+import api from '@/views/Form/service/api'
+import { ElMessage } from 'element-plus'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
@@ -80,6 +85,18 @@ const onClickSubmitJson = () => {
   const form = JSON.parse(jsonForm.value) as formConfig
   setForm(form)
   dialogJson.value = false
+}
+const onSave = async () => {
+  let saveOrUpdate
+  if (saveForm.value.id) {
+    saveOrUpdate = api.update
+  } else {
+    saveOrUpdate = api.save
+  }
+  const { code, msg } = await saveOrUpdate(saveForm.value)
+  if (code == 0) {
+    ElMessage.success(msg)
+  }
 }
 </script>
 <style scoped lang='scss'>

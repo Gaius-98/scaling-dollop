@@ -5,6 +5,7 @@
     v-model:page-size="pagConfig.pageSize"
     :page-sizes="pagConfig.pageSizes || [10,20,30]"
     :total="pagConfig.total"
+    layout="total, sizes, prev, pager, next, jumper"
     @size-change="handlePaging"
     @current-change="handlePaging"
   />
