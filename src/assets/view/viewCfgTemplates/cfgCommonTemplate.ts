@@ -1,4 +1,4 @@
-const commonTemplate:viewCompCfg[] = [
+const commonTemplate:ViewCompCfg[] = [
   {
     label: '位置及大小信息',
     ui: {

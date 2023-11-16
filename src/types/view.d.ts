@@ -1,11 +1,11 @@
 /**
  * 页面设计数据
  */
-declare interface viewData {
+declare interface ViewData {
     /**
      * 所有的组件数据
      */
-    componentData:viewComponent[],
+    componentData:ViewComponent[],
     /**
      * 页面名称
      */
@@ -31,7 +31,7 @@ declare interface viewData {
 /**
  * 页面设计 单个组件
  */
-declare interface viewComponent {
+declare interface ViewComponent {
     /**
      * 组件component名称
      */
@@ -81,13 +81,13 @@ enum cfgComp {
 /**
  * 配置面板结构
  */
-declare interface viewCompCfg {
+declare interface ViewCompCfg {
     label:string,
     ui:{
         type:keyof typeof cfgComp,
         field:string,
         props:COMMON.obj,
-        children?:viewCompCfg[],
+        children?:ViewCompCfg[],
         connectShow?:{
             field:string,
             value:string

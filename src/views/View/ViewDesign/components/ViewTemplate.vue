@@ -22,7 +22,7 @@ watch(curCompData.value, () => {
     for (const key in modules.value) {
       if (key.includes(getUpperCase(curCompData.value.type))) {
         const module = modules.value[key] as Record<string, unknown>
-        curTemplate = module.default as viewCompCfg[]
+        curTemplate = module.default as ViewCompCfg[]
         template.value = [...commonTemplate.value, ...curTemplate]
       }
     }
@@ -30,10 +30,10 @@ watch(curCompData.value, () => {
 }, {
   deep: true,
 })
-const template = ref<viewCompCfg[]>([])
+const template = ref<ViewCompCfg[]>([])
 
 const modules = ref<Record<string, unknown>>()
-const commonTemplate = ref<viewCompCfg[]>([])
+const commonTemplate = ref<ViewCompCfg[]>([])
 
 const getModule = async () => await import.meta.glob('@/assets/view/viewCfgTemplates/*.ts', { eager: true })
 getModule().then(res => {
@@ -41,7 +41,7 @@ getModule().then(res => {
   for (const key in modules.value) {
     if (key.includes('Common')) {
       const module = modules.value[key] as Record<string, unknown>
-      commonTemplate.value = module.default as viewCompCfg[]
+      commonTemplate.value = module.default as ViewCompCfg[]
     }
   }
 })

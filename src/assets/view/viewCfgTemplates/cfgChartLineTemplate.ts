@@ -2,7 +2,7 @@ import gridTemplate from './cfgChartCommonTemplate/cfgChartGridTemplate'
 import legendTemplate from './cfgChartCommonTemplate/cfgChartLegendTemplate'
 import titleTemplate from './cfgChartCommonTemplate/cfgChartTitleTemplate'
 
-const lineTemplate:viewCompCfg[] = [
+const lineTemplate:ViewCompCfg[] = [
   {
     label: '图表配置',
     ui: {

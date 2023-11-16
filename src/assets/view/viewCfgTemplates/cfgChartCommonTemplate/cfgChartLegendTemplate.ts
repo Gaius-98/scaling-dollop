@@ -1,4 +1,4 @@
-const legendTemplate:viewCompCfg[] = [
+const legendTemplate:ViewCompCfg[] = [
   {
     label: '图例',
     ui: {

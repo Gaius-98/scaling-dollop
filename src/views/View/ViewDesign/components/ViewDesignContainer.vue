@@ -165,7 +165,7 @@ const showMarkLine = (curData:dragResizeInfo, optType:string) => {
     lineType.direction = ''
   }
 }
-const judgeShowLine = (data:viewComponent, cur:dragResizeInfo) => {
+const judgeShowLine = (data:ViewComponent, cur:dragResizeInfo) => {
   const { positionSize: { top, left, width, height } } = data
   const { top: curTop, left: curLeft, width: curWidth, height: curHeight } = cur
   let type = null
@@ -214,7 +214,7 @@ const allowDrop = (ev:any) => {
 }
 const dropComponent = (ev:any) => {
   ev.preventDefault()
-  let data = JSON.parse(ev.dataTransfer.getData('componentData')) as viewComponent
+  let data = JSON.parse(ev.dataTransfer.getData('componentData')) as ViewComponent
   data.id = uuid()
   data.positionSize = {
     width: 100,
@@ -258,7 +258,7 @@ const setCompData = (id:string, data:any) => {
     }
   }
 }
-const handleComponent = (data?:viewComponent) => {
+const handleComponent = (data?:ViewComponent) => {
   if (data) {
     useGetCompData(data).then(({ id, data }) => {
       setCompData(id, data)
@@ -283,7 +283,7 @@ const showMenu = ref(false)
 const top = ref(0)
 const left = ref(0)
 const componentId = ref('0')
-const openContextMenu = (event:MouseEvent, componentItem:viewComponent) => {
+const openContextMenu = (event:MouseEvent, componentItem:ViewComponent) => {
   componentId.value = componentItem.id
   const { x, y } = event
   top.value = y

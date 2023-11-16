@@ -5,7 +5,7 @@ interface resCompData {
   id:string,
   data:any
 }
-const useGetCompData = async (compCfg:viewComponent):Promise<resCompData> => {
+const useGetCompData = async (compCfg:ViewComponent):Promise<resCompData> => {
   const { dataSetting: { type, data, params, handleFunc, interfaceUrl }, id } = compCfg
   let p = new Promise<resCompData>((resolve, reject) => {
     if (type == 'static') {

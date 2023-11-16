@@ -6,7 +6,7 @@ export const useViewStore = defineStore('viewStore', () => {
   /**
    * 页面设计器的所有数据
    */
-  const viewData = reactive<viewData>({
+  const viewData = reactive<ViewData>({
     componentData: [
     ],
     name: '',
@@ -18,7 +18,7 @@ export const useViewStore = defineStore('viewStore', () => {
   /**
    * 单个组件的数据
    */
-  const curCompData = reactive<viewComponent>({
+  const curCompData = reactive<ViewComponent>({
     name: '',
     label: '',
     props: {},
@@ -56,7 +56,7 @@ export const useViewStore = defineStore('viewStore', () => {
   /**
    * 快照数据 -- 只有影响布局的操作才会保存快照
    */
-  const snapshotData = reactive<viewComponent[][]>([])
+  const snapshotData = reactive<ViewComponent[][]>([])
   /**
    * 当前快照idx
    */
@@ -88,7 +88,7 @@ export const useViewStore = defineStore('viewStore', () => {
   /**
    * 选择组件
    */
-  const onClickComp = (item:viewComponent) => {
+  const onClickComp = (item:ViewComponent) => {
     let idx = viewData.componentData.findIndex(e => e.id === item.id)
     if (idx != -1) {
       Object.assign(curCompData, viewData.componentData[idx])
@@ -97,7 +97,7 @@ export const useViewStore = defineStore('viewStore', () => {
   /**
    * 新增组件
    */
-  const addComp = (data:viewComponent) => {
+  const addComp = (data:ViewComponent) => {
     viewData.componentData.push(data)
     setSnapshot()
   }
@@ -127,6 +127,48 @@ export const useViewStore = defineStore('viewStore', () => {
     }
     setSnapshot()
   }
+  /**
+   * 还原
+   */
+  const init = () => {
+    Object.assign(viewData, {
+      componentData: [
+      ],
+      name: '',
+      id: '',
+      img: '',
+      height: 1080,
+      width: 1920,
+    })
+    initCurComp()
+  }
+  const setViewData = (obj:ViewData) => {
+    Object.assign(viewData, obj)
+  }
+  const initCurComp = () => {
+    Object.assign(curCompData, {
+      name: '',
+      label: '',
+      props: {},
+      id: '',
+      type: '',
+      dataSetting: {
+        type: 'static',
+        data: '',
+        handleFunc: '',
+        params: {
+          
+        },
+      },
+      positionSize: {
+        top: 0,
+        left: 0,
+        width: 100,
+        height: 100,
+      },
+  
+    })
+  }
   return {
     viewData, 
     curCompData, 
@@ -139,5 +181,8 @@ export const useViewStore = defineStore('viewStore', () => {
     setComp,
     addComp,
     changeCompByCommand, 
+    init,
+    setViewData,
+    initCurComp,
   }
 })

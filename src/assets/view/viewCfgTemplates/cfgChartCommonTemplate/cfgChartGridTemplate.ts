@@ -1,4 +1,4 @@
-const gridTemplate:viewCompCfg[] = [
+const gridTemplate:ViewCompCfg[] = [
   {
     label: '网格容器',
     ui: {

@@ -32,14 +32,21 @@ const business:RouteRecordRaw[] = [
         },
       },
       {
-        path: 'viewDesign',
-        name: 'viewDesign',
-        component: () => import('@/views/ViewDesign/ViewDesign.vue'),
+        path: 'viewList',
+        name: 'viewList',
+        component: () => import('@/views/View/ViewList/ViewList.vue'),
         meta: {
           appId: 'test',
         },
       },
-
+      {
+        path: 'viewDesign',
+        name: 'viewDesign',
+        component: () => import('@/views/View/ViewDesign/ViewDesign.vue'),
+        meta: {
+          appId: 'test',
+        },
+      },
       {
         path: '404',
         name: '404',

@@ -1,4 +1,4 @@
-const iframeTemplate:viewCompCfg[] = [
+const iframeTemplate:ViewCompCfg[] = [
   {
     label: '数据源配置',
     ui: {

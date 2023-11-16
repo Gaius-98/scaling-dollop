@@ -1,4 +1,4 @@
-const titleTemplate:viewCompCfg[] = [
+const titleTemplate:ViewCompCfg[] = [
 
   {
     label: '标题配置',

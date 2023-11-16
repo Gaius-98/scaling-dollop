@@ -1,4 +1,4 @@
-const template:viewCompCfg[] = [
+const template:ViewCompCfg[] = [
   {
     label: '组件属性',
     ui: {

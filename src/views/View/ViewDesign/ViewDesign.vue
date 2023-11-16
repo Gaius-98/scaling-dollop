@@ -40,7 +40,10 @@
         >
           预览
         </el-button>
-        <el-button type="preview">
+        <el-button
+          type="primary"
+          @click="onSave"
+        >
           保存
         </el-button>
       </el-button-group>
@@ -68,25 +71,59 @@
 </template>
 
 <script lang='ts' setup name="viewDesign">
-import ViewLevel from '@/views/ViewDesign/components/ViewLevel.vue'
+import ViewLevel from './components/ViewLevel.vue'
 import ViewDesignContainer from './components/ViewDesignContainer.vue'
 import ViewMaterial from './components/ViewMaterial.vue'
 import { reactive, toRefs, ref } from 'vue'
 import { useViewStore } from '@/store/viewDesign'
 import { storeToRefs } from 'pinia'
-
+import api from '@/views/View/service/api'
 import ViewTemplate from './components/ViewTemplate.vue'
-
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import html2canvas from 'html2canvas'
+import { ElMessage } from 'element-plus'
 
 const store = useViewStore()
 const router = useRouter()
-const { undo, redo } = store
-const { viewData, curCompData } = storeToRefs(store)
+const route = useRoute()
+const { undo, redo, init, setViewData, initCurComp } = store
+const { viewData } = storeToRefs(store)
 const preview = () => {
   router.push({
     name: 'viewPre',
+    query: {
+      id: viewData.value.id,
+    },
   })
+}
+const viewDesignContainer = ref()
+const onSave = async () => {
+  initCurComp()
+  const canvas = await html2canvas(document.querySelector('.view-design-main') as HTMLElement)
+  viewData.value.img = canvas.toDataURL('image/png')
+  let request  
+  if (viewData.value.id) {
+    request = api.update
+  } else {
+    request = api.save
+  }
+  const { code, msg } = await request(viewData.value)
+  if (code == 0) {
+    ElMessage.success(msg)
+  }
+}
+if (route.query.id && route.query.type == 'edit') {
+  let id = route.query.id as string
+  api.getDetail({
+    id,
+  }).then(res => {
+    const { code, data } = res
+    if (code == 0) {
+      setViewData(data)
+    }
+  })
+} else {
+  init()
 }
 </script>
 <style scoped lang='scss'>

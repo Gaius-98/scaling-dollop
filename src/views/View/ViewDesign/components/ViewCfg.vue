@@ -163,7 +163,7 @@ import { cloneDeep } from 'lodash'
 import IconSelect from './cfgComponents/IconSelect.vue'
 
 interface Props{
-    template:viewCompCfg[]
+    template:ViewCompCfg[]
 }
 const props = withDefaults(defineProps<Props>(), {
   template: () => ([]),
@@ -200,7 +200,7 @@ const deepSetCodeValue = (val:any, field:string) => {
   let value = JSON.parse(val)
   deepSetValue(value, field)
 }
-const getTabTemplate = (children:viewCompCfg[]|undefined, field:string, idx:number) => {
+const getTabTemplate = (children:ViewCompCfg[]|undefined, field:string, idx:number) => {
   if (children) {
     children = cloneDeep(children).map(e => {
       e.ui.field = `${field}.${idx}.${e.ui.field}`
@@ -223,7 +223,7 @@ const handleTabsEdit = (tag:string, action:string, field:string) => {
     deepSetValue(val, field)
   }
 }
-const isShow = (data:viewCompCfg) => {
+const isShow = (data:ViewCompCfg) => {
   const { ui: { connectShow } } = data
   if (connectShow) {
     const { field, value } = connectShow

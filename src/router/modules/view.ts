@@ -10,7 +10,7 @@ const business:RouteRecordRaw[] = [
       {
         path: 'viewPre',
         name: 'viewPre',
-        component: () => import('@/views/ViewDesign/components/ViewPreview.vue'),
+        component: () => import('@/views/View/ViewDesign/components/ViewPreview.vue'),
         meta: {
           appId: 'test',
         },
