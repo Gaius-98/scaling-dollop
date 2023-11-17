@@ -17,9 +17,9 @@
     </div>
     <div class="filter">
       <el-row align="middle">
-        <e-col :span="4">
+        <el-col :span="4">
           页面名称
-        </e-col>
+        </el-col>
         <el-col
           :span="4"
           :offset="1"
@@ -50,22 +50,26 @@
             {{ item.name }}
           </div>
           <div class="opt">
-            <el-icon
-              :size="16"
+            <span
+              class="iconfont icon-bianji"
               title="编辑"
+              :style="{
+                color:'#67C23A'
+              }"
               @click="onEdit(item)"
             >
-              <Edit />
-            </el-icon>
+
+            </span>
             <el-divider direction="vertical" />
-            <el-icon
-              :size="16"
+            <span
               title="预览"
-              color="#409EFF"
+              class="iconfont icon-play-circle"
+              :style="{
+                color:'#409eff'
+              }"
               @click="onPreview(item)"
             >
-              <View />
-            </el-icon>
+            </span>
             <el-divider direction="vertical" />
             <el-popconfirm
               title="确定要删除吗?"
@@ -78,6 +82,7 @@
                   :size="16"
                   color="red"
                   title="删除"
+                  class="iconfont "
                 >
                   <Delete />
                 </el-icon>
@@ -91,7 +96,10 @@
         >
       </div>
     </div>
-    <ev-pager></ev-pager>
+    <ev-pager
+      :pag-config="params"
+      @on-page-change="getList"
+    ></ev-pager>
   </div>
 </template>
 
@@ -104,11 +112,12 @@ import { ElMessage } from 'element-plus'
 
 const list = ref<ViewData[]>()
 const params = ref({
-  pageSize: 10,
+  pageSize: 15,
   pageNumber: 1,
   keyword: '',
-  pageSizes: [10, 20, 30],
+  pageSizes: [15, 30, 60],
   total: 0,
+  show: true,
 })
 const getList = () => {
   api.getList(params.value)
@@ -165,37 +174,39 @@ const onDel = (row:ViewData) => {
     .page-list{
         display: grid;
         column-gap: 10px;
+        row-gap: 20px;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: 250px;
+        grid-template-rows: repeat(3,220px);
         margin-top: 10px;
         .page-item{
             width: 100%;
             height: 100%;
-            border-radius: 4px;
+            border-radius: 8px;
+            border:1px solid #ccc;
             overflow: hidden;
             .header{
                 display: flex;
                 justify-content: space-between;
-                background-color: var(--ev-border);
+                background-color: #d6f4fd;
                 align-items: center;
                 padding: 0 10px;
                 .title{
-                    height: 30px;
-                    line-height: 30px;
-                    font-size: 20px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 14px;
                     font-weight: 600;
-                    color: var(--ev-text-color);
+                    // color: var(--ev-text-color);
                 }
                 .opt{
                     display: flex;
-                    color: var(--ev-text-color);
+                    // color: var(--ev-text-color);
                     cursor: pointer;
                 }
             }
 
             img{
                 width: 100%;
-                height: calc(100% - 30px);
+                height: calc(100% - 40px);
             }
         }
     }

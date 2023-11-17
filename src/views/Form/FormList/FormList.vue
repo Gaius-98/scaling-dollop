@@ -17,9 +17,9 @@
     </div>
     <div class="filter">
       <el-row align="middle">
-        <e-col :span="4">
+        <el-col :span="4">
           表单名称
-        </e-col>
+        </el-col>
         <el-col
           :span="4"
           :offset="1"
