@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, reactive } from 'vue'
-import { cloneDeep } from 'lodash'
+import { clone, cloneDeep } from 'lodash'
 
 export const useViewStore = defineStore('viewStore', () => {
   /**
@@ -91,7 +91,16 @@ export const useViewStore = defineStore('viewStore', () => {
   const onClickComp = (item:ViewComponent) => {
     let idx = viewData.componentData.findIndex(e => e.id === item.id)
     if (idx != -1) {
-      Object.assign(curCompData, viewData.componentData[idx])
+      Object.assign(curCompData, cloneDeep(viewData.componentData[idx]))
+    }
+  }
+  /**
+   * 同步配置
+   */
+  const syncCfg = () => {
+    let idx = viewData.componentData.findIndex(e => e.id === curCompData.id)
+    if (idx != -1) {
+      Object.assign(viewData.componentData[idx], cloneDeep(curCompData))
     }
   }
   /**
@@ -184,5 +193,6 @@ export const useViewStore = defineStore('viewStore', () => {
     init,
     setViewData,
     initCurComp,
+    syncCfg,
   }
 })

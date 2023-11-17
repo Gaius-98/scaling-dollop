@@ -61,7 +61,10 @@
       </div>
       <div class="material-option">
         <ev-title>
-          组件配置
+          组件配置 
+          <el-link @click="syncCfg">
+            同步配置
+          </el-link>
         </ev-title>
         <view-template style="height:calc(100% - 40px)">
         </view-template>
@@ -86,7 +89,7 @@ import { ElMessage } from 'element-plus'
 const store = useViewStore()
 const router = useRouter()
 const route = useRoute()
-const { undo, redo, init, setViewData, initCurComp } = store
+const { undo, redo, init, setViewData, initCurComp, syncCfg } = store
 const { viewData } = storeToRefs(store)
 const preview = () => {
   router.push({
