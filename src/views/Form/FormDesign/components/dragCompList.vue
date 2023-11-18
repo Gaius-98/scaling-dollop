@@ -70,7 +70,7 @@ const onDrag = (ev:DragEvent) => {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  border-right:2px solid var(--ev-border) ;
+  border-right:2px solid var(--ev-active-tint-color) ;
   margin-right: 5px;
 }
 .comp_list_container{
@@ -81,7 +81,7 @@ const onDrag = (ev:DragEvent) => {
     line-height: 20px;
     padding: 5px 10px;
     color: var(--ev-active-color);
-    border: 1px solid var(--ev-border);
+    border: 1px solid var(--ev-active-tint-color);
     margin-right: 5px;
     margin-bottom: 5px;
     // cursor: move;

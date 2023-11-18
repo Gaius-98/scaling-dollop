@@ -27,6 +27,6 @@ const { cols } = toRefs(props)
 <style scoped lang='scss'>
 .col{
   min-height: 80px;
-  border-right:1px dashed var(--ev-active-shallow-color) ;
+  border-right:1px dashed var(--ev-active-tint-color) ;
 }
 </style>

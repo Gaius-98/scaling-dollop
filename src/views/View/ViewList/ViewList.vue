@@ -182,12 +182,13 @@ const onDel = (row:ViewData) => {
             width: 100%;
             height: 100%;
             border-radius: 8px;
-            border:1px solid #ccc;
+            border:1px solid var(--ev-active-tint-color);
+            background: var(--ev-active-fusco-color);
             overflow: hidden;
             .header{
                 display: flex;
                 justify-content: space-between;
-                background-color: #d6f4fd;
+                background-color: var(--ev-active-fusco-color);
                 align-items: center;
                 padding: 0 10px;
                 .title{
@@ -195,7 +196,7 @@ const onDel = (row:ViewData) => {
                     line-height: 40px;
                     font-size: 14px;
                     font-weight: 600;
-                    // color: var(--ev-text-color);
+                    color: var(--ev-bg-color);
                 }
                 .opt{
                     display: flex;

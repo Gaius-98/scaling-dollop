@@ -46,7 +46,7 @@ const onDrag = (ev:any) => {
     .material{
         align-items: center;
         height: 90px;
-        box-shadow: 2px 2px 6px var(--ev-box-shadow-color);
+        box-shadow: 2px 2px 6px var(--ev-active-most-tint-color);
         padding:10px;
         cursor: move;
         .iconfont{

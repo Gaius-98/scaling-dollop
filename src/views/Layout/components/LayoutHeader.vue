@@ -56,6 +56,7 @@ const onClickMenu = (value:any) => {
     height: 100%;
     justify-content: space-around;
     align-items: center;
+
     background: var(--ev-active-color);
     .layout_header_sys_logo{
       width: 40px;
@@ -68,7 +69,7 @@ const onClickMenu = (value:any) => {
       }
     }
     .layout_header_sys_title{
-      color: var(--ev-text-color);
+      color:var(--ev-bg-color);
       font-weight: 600;
       font-size: 20px;
     }

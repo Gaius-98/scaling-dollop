@@ -1,24 +1,22 @@
 /* --------dark主题--------   */
 :root[class='dark']{
-  --ev-bg-color:#FFF;
-  --ev-text-color:#000;
-  --ev-col-bg-color:#222222;
-  --ev-box-shadow-color:#333;
-  --ev-active-color:#21ba45;
-  --ev-active-shallow-color:#bdf3c98f;
-  --ev-border: #57e678c5;
-  --ev-tint-color:rgba(0,0,0,.6);
+  --ev-bg-color:#000;
+  --ev-bg-tint-color:#505253;
+  --ev-text-color:#fff;
+  --ev-active-color:#73c088;
+  --ev-active-tint-color:#A8E0B7;
+  --ev-active-most-tint-color:#C8EAD1;
+  --ev-active-fusco-color:#397d54;
 }
 
 /* --------light主题--------   */
 :root[class='light']{
-  --ev-bg-color:#000;
-  --ev-text-color:#FFF;
-  --ev-col-bg-color:#fdfdfd;
-  --ev-box-shadow-color:rgb(143, 193, 255);
-  --ev-active-color:#409eff;
-  --ev-active-shallow-color:#96c2ee75;
-  --ev-border: #59a2ecc5;
-  --ev-tint-color:rgba(255,255,255,.6);
+  --ev-bg-color:#FFFFFF;
+  --ev-bg-tint-color:#BDBEBF;
+  --ev-text-color:#020203;
+  --ev-active-color:#6A57F5;
+  --ev-active-tint-color:#5D4AF4;
+  --ev-active-most-tint-color:#9793F8;
+  --ev-active-fusco-color:#392E95;
 }
 

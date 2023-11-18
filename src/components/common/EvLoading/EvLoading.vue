@@ -20,7 +20,7 @@ import { reactive, toRefs, ref } from 'vue'
   left:0;
   width: 100%;
   height: 100%;
-  background: var(--ev-tint-color);
+  background: var(--ev-active-most-tint-color);
   .ev-loading{
     display: inline-block;
     align-self: center;
@@ -39,7 +39,7 @@ import { reactive, toRefs, ref } from 'vue'
     border-radius: 25px;
   }
   40% {
-    color: var(--ev-col-bg-color);
+    color: var(--ev-text-color);
     border-radius: 5px;
     transform: rotate(360deg);
   }

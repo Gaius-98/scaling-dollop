@@ -345,9 +345,9 @@ watch(pool, () => {
     width: 100%;
     height: 100%;
     padding: 20px;
-    background: var(--ev-box-shadow-color);
+    background: var(--ev-active-most-tint-color);
     .container{
-      background: var(--ev-text-color);
+      background: var(--ev-bg-color);
       :deep(.drag-resize .drag-resize-container){
         overflow: hidden;
       }
@@ -355,21 +355,26 @@ watch(pool, () => {
         border: 1px solid transparent;
         padding: 0;
       }
+      :deep(.drag){
+        &:hover{
+          background: var(--ev-active-most-tint-color);
+        }  
+      }
       .active{
-        border: 1px dashed #ccc;
-        background: #77ddb24d;
+        border: 1px dashed var(--ev-active-fusco-color);
+        background: var(--ev-active-most-tint-color);
       }
       .vertical-line{
         position: absolute;
         width: 1px;
         height: 100%;
-        background: var(--ev-active-color);
+        background: var(--ev-active-most-tint-color);
       }
       .horizontal-line{
         position: absolute;
         height: 1px;
         width: 100%;
-        background: var(--ev-active-color);
+        background: var(--ev-active-most-tint-color);
       }
     }
    
@@ -384,18 +389,20 @@ watch(pool, () => {
   width: 80px;
   z-index: 999;
   list-style: none;
-  background: #fff;
-  box-shadow: 2px 2px 6px  #000;
+  background: var(--ev-bg-color);
+  box-shadow: 2px 2px 6px  var(--ev-active-most-tint-color);
+  border-radius: 2px;
+  min-width: 120px;
+  font-size: 14px;
 
   li{
     box-sizing: border-box;
     width: 100%;
     cursor: pointer;
-    padding: 5px 10px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
+    padding: 5px 10px; 
     &:hover{
-      color: var(--ev-active-color);
+      color: var(--ev-bg-color);
+      background: var(--ev-active-color);
     }
   }
 }

@@ -135,7 +135,7 @@ if (route.query.id && route.query.type == 'edit') {
         align-items: center;
         height: 60px;
         line-height: 60px;
-        border-bottom: 2px solid var(--ev-active-shallow-color);
+        border-bottom: 2px solid var(--ev-active-tint-color);
         :deep(.el-form-item){
           margin-bottom: 0;
           margin-right: 14px;

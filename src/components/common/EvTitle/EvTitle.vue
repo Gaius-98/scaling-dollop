@@ -20,10 +20,9 @@ import { reactive, toRefs, ref } from 'vue'
   line-height: 28px;
   font-size: 13px;
   margin-bottom: 5px;
-  border-bottom: 1px solid var(--ev-text-color);
   .ev_title_text{
     display: inline-block;
-    color: var(--ev-bg-color);
+    color: var(--ev-text-color);
     font-family: Microsoft YaHei-Bold, Microsoft YaHei;
     font-weight: bold;
     padding: 2px 5px;

@@ -178,10 +178,10 @@ const dropComp = (ev:DragEvent) => {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  background-color: var(--ev-col-bg-color);
+  background-color: var(--ev-bg-color);
   .drop_container_item{
     position: relative;
-    border: 1px dashed var(--ev-active-shallow-color);
+    border: 1px dashed var(--ev-active-most-tint-color);
     padding: 0 10px;
     .drop_container_item_opt{
       display: none;
@@ -189,8 +189,8 @@ const dropComp = (ev:DragEvent) => {
       top: 1px;
       right: 1px;
       font-size: 18px;
-      color: var(--ev-text-color);
-      background: var(--ev-active-color);
+      color: var(--ev-bg-color);
+      background: var(--ev-active-tint-color);
       border-radius: 5px;
       cursor: pointer;
     }
