@@ -1,5 +1,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
+import useParamsPool from './useParamsPool'
+import { cloneDeep } from 'lodash'
 
 interface resCompData {
   id:string,
@@ -7,6 +9,18 @@ interface resCompData {
 }
 const useGetCompData = async (compCfg:ViewComponent):Promise<resCompData> => {
   const { dataSetting: { type, data, params, handleFunc, interfaceUrl }, id } = compCfg
+  const { pool } = useParamsPool()
+  console.log(pool, '---new-*--')
+  let newParams:COMMON.obj = {}
+  if (params) {
+    newParams = cloneDeep(params)
+    Object.keys(newParams).forEach(key => {
+      if (pool[newParams[key]]) {
+        newParams[key] = pool[newParams[key]]
+      }
+    })
+  }
+  console.log(newParams)
   let p = new Promise<resCompData>((resolve, reject) => {
     if (type == 'static') {
       resolve({
@@ -17,7 +31,7 @@ const useGetCompData = async (compCfg:ViewComponent):Promise<resCompData> => {
       axios({
         url: interfaceUrl,
         method: 'post',
-        params,
+        data: newParams,
       }).then(res => {
         let data = res
         if (handleFunc) {

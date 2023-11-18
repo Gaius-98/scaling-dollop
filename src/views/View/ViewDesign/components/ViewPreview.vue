@@ -22,13 +22,13 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref, PropType, StyleValue } from 'vue'
+import { reactive, toRefs, ref, PropType, StyleValue, watch } from 'vue'
 import { useViewStore } from '@/store/viewDesign'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import api from '@/views/View/service/api'
 import useGetCompData from '@/hooks/useViewData'
-import { all } from 'axios'
+import useParamsPool from '@/hooks/useParamsPool'
 
 const store = useViewStore()
 const { viewData } = storeToRefs(store)
@@ -42,6 +42,13 @@ const preHandleViewData = () => {
       setCompData(id, data)
     })
   })
+}
+const handleComponent = (data?:ViewComponent) => {
+  if (data) {
+    useGetCompData(data).then(({ id, data }) => {
+      setCompData(id, data)
+    })
+  }
 }
 const setCompData = (id:string, data:any) => {
   let idx = curData.value.componentData.findIndex(e => e.id == id)
@@ -105,6 +112,38 @@ const getStyle = (data:ViewComponent):StyleValue => {
 const getContainerStyle = ():StyleValue => ({
   width: `${curData.value!.width}px`,
   height: `${curData.value!.height}px`,
+})
+
+const { pool } = useParamsPool()
+const realParams = {}
+const changeByParams = (keys:string[]) => {
+  viewData.value.componentData.forEach(comp => {
+    if (comp.dataSetting.type == 'dev' && comp.dataSetting.params) {
+      // 依赖的组件变量发生了变化
+      if (Object.keys(comp.dataSetting.params).some((key:string) => (keys.includes(key)))) {
+        handleComponent(comp)
+      }
+    }
+  })
+}
+const findChangeParamsKey = (oldParams:COMMON.obj, newParams:COMMON.obj) => {
+  let differentKey:string[] = []
+  let newKeys = Object.keys(newParams)
+  let oldKeys = Object.keys(oldParams)
+  newKeys.forEach(key => {
+    if (!oldKeys.includes(key)) {
+      differentKey.push(key)
+    } else if (oldParams[key] != newParams[key]) {
+      differentKey.push(key)
+    }
+  })
+  return differentKey
+}
+watch(pool, () => {
+  const keys = findChangeParamsKey(realParams, pool)
+  changeByParams(keys)
+}, {
+  deep: true,
 })
 </script>
 <style scoped lang='scss'>

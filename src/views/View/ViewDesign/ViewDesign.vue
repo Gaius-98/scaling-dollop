@@ -85,7 +85,6 @@ import ViewTemplate from './components/ViewTemplate.vue'
 import { useRouter, useRoute } from 'vue-router'
 import html2canvas from 'html2canvas'
 import { ElMessage } from 'element-plus'
-
 const store = useViewStore()
 const router = useRouter()
 const route = useRoute()

@@ -70,6 +70,7 @@ import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
 import { v1 as uuid } from 'uuid'
 import useGetCompData from '@/hooks/useViewData'
+import useParamsPool from '@/hooks/useParamsPool'
 
 interface dragResizeInfo {
   nodeKey:string,
@@ -252,6 +253,10 @@ const setCompData = (id:string, data:any) => {
       case 'icon':
         viewData.value.componentData[idx].props.icon = data
         break
+      case 'select':
+        viewData.value.componentData[idx].props.value = viewData.value.componentData[idx].props.value || ''
+        viewData.value.componentData[idx].props.list = data
+        break
       default:
         viewData.value.componentData[idx].props.value = data
         break
@@ -301,6 +306,38 @@ const onChangeCommand = (event:MouseEvent) => {
 const closeMenu = () => {
   showMenu.value = false
 }
+
+const { pool } = useParamsPool()
+const realParams = {}
+const changeByParams = (keys:string[]) => {
+  viewData.value.componentData.forEach(comp => {
+    if (comp.dataSetting.type == 'dev' && comp.dataSetting.params) {
+      // 依赖的组件变量发生了变化
+      if (Object.keys(comp.dataSetting.params).some((key:string) => (keys.includes(key)))) {
+        handleComponent(comp)
+      }
+    }
+  })
+}
+const findChangeParamsKey = (oldParams:COMMON.obj, newParams:COMMON.obj) => {
+  let differentKey:string[] = []
+  let newKeys = Object.keys(newParams)
+  let oldKeys = Object.keys(oldParams)
+  newKeys.forEach(key => {
+    if (!oldKeys.includes(key)) {
+      differentKey.push(key)
+    } else if (oldParams[key] != newParams[key]) {
+      differentKey.push(key)
+    }
+  })
+  return differentKey
+}
+watch(pool, () => {
+  const keys = findChangeParamsKey(realParams, pool)
+  changeByParams(keys)
+}, {
+  deep: true,
+})
 </script>
 <style scoped lang='scss'>
 .view-design-container{

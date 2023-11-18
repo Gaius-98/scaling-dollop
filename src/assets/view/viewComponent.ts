@@ -255,4 +255,65 @@ export default [
       `,
     },
   },
+  {
+    name: 'ev-select',
+    id: '8',
+    type: 'select',
+    label: 'Select组件',
+    icon: 'icon-tongyi-shuju-huiju',
+    props: {
+      value: '',
+      list: [
+        { value: 1, label: '男' },
+        { value: 0, label: '女' },
+      ],
+      replaceFields: {
+        value: 'value',
+        label: 'label',
+        key: 'value',
+      },
+      paramsField: {
+        paramsValue: 'paramsValue',
+      },
+    },
+    dataSetting: {
+      type: 'static',
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: [
+        { value: 1, label: '男' },
+        { value: 0, label: '女' },
+      ],
+      params: {
+      },
+      handleFunc: `const  data  =  [
+        { value: 'test1', label: '静态' },
+        { value: 'test2', label: '动态' },
+      ]
+      return data
+      `,
+    },
+  },
+  {
+    name: 'ev-Input',
+    id: '8',
+    type: 'input',
+    label: 'Input组件',
+    icon: 'icon-tongyi-shuju-huiju',
+    props: {
+      value: '',
+      paramsField: {
+        paramsValue: 'paramsLabel',
+      },
+    },
+    dataSetting: {
+      type: 'static',
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: '',
+      params: {
+      },
+      handleFunc: `const  data  = '测试文本'
+      return data
+      `,
+    },
+  },
 ]
