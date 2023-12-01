@@ -44,7 +44,10 @@
         </el-col>
       </el-row>
     </div>
-    <div class="page-list">
+    <div
+      v-loading="loading"
+      class="page-list"
+    >
       <div
         v-for="item in list"
         :key="item.id"
@@ -124,10 +127,13 @@ const params = ref({
   total: 0,
   show: true,
 })
+const loading = ref(true)
 const getList = () => {
+  loading.value = true
   api.getList(params.value)
   .then(res => {
     const { code, data } = res
+    loading.value = false
     if (code == 0) {
       list.value = data.rows
       params.value.total = data.count

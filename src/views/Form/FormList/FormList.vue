@@ -37,8 +37,12 @@
         </el-col>
       </el-row>
     </div>
-    <div class="main">
+    <div
+      v-loading="loading"
+      class="main"
+    >
       <ev-table 
+
         :data="tableData"
         :table-config="config"
         :pag-config="pageCfg"
@@ -126,6 +130,7 @@ import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
   vue3='vue3',
   json='json'
 }
+const loading = ref(true)
 const tableData = ref<formConfig[]>([])
 const config = ref({
   columns: [
@@ -159,8 +164,10 @@ const pageCfg = ref({
   pageSizes: [10, 20, 30],
 })
 const getList = () => {
+  loading.value = true
   api.getList(pageCfg.value)
   .then(res => {
+    loading.value = false
     const { code, data, msg } = res
     if (code == 0) {
       tableData.value = data.rows
