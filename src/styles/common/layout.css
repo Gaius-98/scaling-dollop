@@ -25,3 +25,7 @@
   display: flex;
   justify-content: start;
 }
+
+.el-button{
+  padding: 8px 15px;
+}

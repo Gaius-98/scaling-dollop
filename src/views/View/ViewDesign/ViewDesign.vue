@@ -62,12 +62,15 @@
       <div class="material-option">
         <ev-title>
           组件配置 
-          <el-link @click="syncCfg">
-            同步配置
-          </el-link>
         </ev-title>
-        <view-template style="height:calc(100% - 40px)">
+        <view-template style="height:calc(100% - 80px);overflow-y: auto;">
         </view-template>
+        <el-button
+          type="primary"
+          @click="syncCfg"
+        >
+          同步配置
+        </el-button>
       </div>
     </div>
   </main>
@@ -85,6 +88,7 @@ import ViewTemplate from './components/ViewTemplate.vue'
 import { useRouter, useRoute } from 'vue-router'
 import html2canvas from 'html2canvas'
 import { ElMessage } from 'element-plus'
+
 const store = useViewStore()
 const router = useRouter()
 const route = useRoute()
@@ -130,7 +134,7 @@ if (route.query.id && route.query.type == 'edit') {
 </script>
 <style scoped lang='scss'>
 .view-design{
-    height: calc(100vh - 80px);
+    height: calc(100vh - 85px);
     .view-design-header{
         align-items: center;
         height: 60px;

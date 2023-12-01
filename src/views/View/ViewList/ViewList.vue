@@ -6,23 +6,16 @@
           :offset="22"
           :span="2"
         >
-          <el-button
-            type="primary"
-            @click="onAdd"
-          >
-            新增
-          </el-button>
         </el-col>
       </el-row>
     </div>
     <div class="filter">
       <el-row align="middle">
-        <el-col :span="4">
+        <el-col :span="1">
           页面名称
         </el-col>
         <el-col
-          :span="4"
-          :offset="1"
+          :span="3"
         >
           <el-input
             v-model="params.keyword"
@@ -30,11 +23,23 @@
           </el-input>
         </el-col>
         <el-col
-          :span="4"
-          :offset="10"
+          :span="2"
+          :offset="1"
         >
           <el-button @click="getList">
             搜索
+          </el-button>
+        </el-col>
+        <el-col
+          :span="1"
+          :offset="16"
+        >
+          <el-button
+            :icon="Plus"
+            type="primary"
+            @click="onAdd"
+          >
+            新增
           </el-button>
         </el-col>
       </el-row>
@@ -107,7 +112,7 @@
 import { reactive, toRefs, ref } from 'vue'
 import api from '@/views/View/service/api'
 import { useRouter } from 'vue-router'
-import { Edit, Delete, View } from '@element-plus/icons-vue'
+import { Plus, Delete } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
 const list = ref<ViewData[]>()
@@ -176,7 +181,7 @@ const onDel = (row:ViewData) => {
         column-gap: 10px;
         row-gap: 20px;
         grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(3,220px);
+        grid-template-rows: repeat(3,230px);
         margin-top: 10px;
         .page-item{
             width: 100%;

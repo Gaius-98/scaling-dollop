@@ -1,28 +1,12 @@
 <template>
   <div class="form-list">
-    <div class="opt">
-      <el-row>
-        <el-col
-          :offset="22"
-          :span="2"
-        >
-          <el-button
-            type="primary"
-            @click="onAdd"
-          >
-            新增
-          </el-button>
-        </el-col>
-      </el-row>
-    </div>
     <div class="filter">
       <el-row align="middle">
-        <el-col :span="4">
+        <el-col :span="1">
           表单名称
         </el-col>
         <el-col
-          :span="4"
-          :offset="1"
+          :span="3"
         >
           <el-input
             v-model="pageCfg.keyword"
@@ -30,11 +14,25 @@
           </el-input>
         </el-col>
         <el-col
-          :span="4"
-          :offset="10"
+          :span="2"
+          :offset="1"
         >
-          <el-button @click="getList">
+          <el-button
+            @click="getList"
+          >
             搜索
+          </el-button>
+        </el-col>
+        <el-col
+          :span="1"
+          :offset="16"
+        >
+          <el-button
+            :icon="Plus"
+            type="primary"
+            @click="onAdd"
+          >
+            新增
           </el-button>
         </el-col>
       </el-row>
@@ -44,6 +42,7 @@
         :data="tableData"
         :table-config="config"
         :pag-config="pageCfg"
+        :height="750"
         @on-page-change="getList"
       >   
         <template #opt="scope">
@@ -87,7 +86,7 @@ import api from '@/views/Form/service/api'
 import { useGuDialog } from 'gaius-utils'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
 import _ from 'lodash'
-import { Search } from '@element-plus/icons-vue'
+import { Plus } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 

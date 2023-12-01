@@ -38,6 +38,7 @@
   <ev-pager
     v-if="pagConfig.show"
     :pag-config="pagConfig"
+    style="margin-top: 5px;"
     @on-page-change="handlePaging"
   >
   </ev-pager>
