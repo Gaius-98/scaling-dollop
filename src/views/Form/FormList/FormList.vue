@@ -69,6 +69,27 @@
             编辑
           </el-link>
           <el-divider direction="vertical" />
+          <el-link
+            type="primary"
+            @click="onExport(scope,'json')"
+          >
+            导出JSON
+          </el-link>
+          <el-divider direction="vertical" />
+          <el-link
+            type="primary"
+            @click="onExport(scope,'vue2')"
+          >
+            导出VUE2文件
+          </el-link>
+          <el-divider direction="vertical" />
+          <el-link
+            type="primary"
+            @click="onExport(scope,'vue3')"
+          >
+            导出VUE3文件
+          </el-link>
+          <el-divider direction="vertical" />
           <el-popconfirm
             title="确定要删除吗?"
             confirm-button-text="确认"
@@ -98,7 +119,13 @@ import _ from 'lodash'
 import { Plus } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
 
+ enum downType {
+  vue2='vue2',
+  vue3='vue3',
+  json='json'
+}
 const tableData = ref<formConfig[]>([])
 const config = ref({
   columns: [
@@ -119,7 +146,7 @@ const config = ref({
   ],
   opt: {
     label: '操作',
-    width: 200,
+    width: 500,
     fixed: 'right',
   },
 })
@@ -176,6 +203,23 @@ const onEdit = (scope:COMMON.columnScope) => {
     },
   })
 }
+
+const onExport = (scope:COMMON.columnScope, type:keyof typeof downType) => {
+  let form = {
+    formProp: JSON.parse(scope.row.formProp),
+    list: JSON.parse(scope.row.list),
+    name: scope.row.name,
+    id: scope.row.id,
+  }
+  if (type == 'json') {
+    downloadFile(JSON.stringify(form, null, 4), scope.row.name) 
+  } else if (type == 'vue2') {
+    downloadFile(createFormSfcV2(form), scope.row.name, 'vue')
+  } else {
+    downloadFile(createFormSfc(form), scope.row.name, 'vue')
+  }
+}
+
 const onDel = (scope:COMMON.columnScope) => {
   api.deleteForm({
     id: scope.row.id,
@@ -191,9 +235,6 @@ const onDel = (scope:COMMON.columnScope) => {
 <style scoped lang='scss'>
 .form-list{
     margin: 10px;
-    .filter{
-
-    }
     .main{
         width: 100%;
     }
