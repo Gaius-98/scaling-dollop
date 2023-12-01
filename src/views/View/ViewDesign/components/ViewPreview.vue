@@ -117,7 +117,7 @@ const getContainerStyle = ():StyleValue => ({
 const { pool } = useParamsPool()
 const realParams = {}
 const changeByParams = (keys:string[]) => {
-  viewData.value.componentData.forEach(comp => {
+  curData.value.componentData.forEach(comp => {
     if (comp.dataSetting.type == 'dev' && comp.dataSetting.params) {
       // 依赖的组件变量发生了变化
       if (Object.keys(comp.dataSetting.params).some((key:string) => (keys.includes(key)))) {
