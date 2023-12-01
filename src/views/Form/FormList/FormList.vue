@@ -45,6 +45,15 @@
         :height="750"
         @on-page-change="getList"
       >   
+        <template #formImg="scope">
+          <el-image 
+            :src="scope.row.img"
+            style="width:120px;height:84px"
+            :preview-src-list="[scope.row.img]"
+            :preview-teleported="true"
+          >
+          </el-image>
+        </template>
         <template #opt="scope">
           <el-link
             type="primary"
@@ -98,8 +107,14 @@ const config = ref({
       prop: 'id',
     },
     {
+      label: '表单缩略图',
+      prop: 'img',
+      slot: 'formImg',
+
+    },
+    {
       label: '表单名称',
-      prop: 'name',     
+      prop: 'name',   
     },
   ],
   opt: {

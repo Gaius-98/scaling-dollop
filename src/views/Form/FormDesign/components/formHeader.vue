@@ -41,7 +41,7 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, toRefs, ref, createApp } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
 import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
@@ -49,6 +49,7 @@ import { useGuDialog } from 'gaius-utils'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
 import api from '@/views/Form/service/api'
 import { ElMessage } from 'element-plus'
+import html2canvas from 'html2canvas'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
@@ -86,14 +87,39 @@ const onClickSubmitJson = () => {
   setForm(form)
   dialogJson.value = false
 }
+const onAddPreviewForm = () => {
+  const vNode = document.createElement('div')
+  vNode.className = 'preview-form'
+  vNode.style.width = '720px'
+  vNode.style.height = '500px'
+  vNode.style.overflowY = 'auto'
+  let formComp = createApp(EvForm, {
+    formConfig: saveForm.value,
+  })
+  formComp.mount(vNode).$el
+  document.body.appendChild(vNode)
+}
 const onSave = async () => {
+  onAddPreviewForm()
+  let img = ''
+  if (document.querySelector('.preview-form')) {
+    const canvas = await html2canvas(document.querySelector('.preview-form') as HTMLElement)
+    if (canvas) {
+      img = canvas.toDataURL('image/png')
+      document.body.removeChild(document.querySelector('.preview-form') as Node)
+    }
+  }
+
   let saveOrUpdate
   if (saveForm.value.id) {
     saveOrUpdate = api.update
   } else {
     saveOrUpdate = api.save
   }
-  const { code, msg } = await saveOrUpdate(saveForm.value)
+  const { code, msg } = await saveOrUpdate({
+    ...saveForm.value,
+    img,
+  })
   if (code == 0) {
     ElMessage.success(msg)
   }
