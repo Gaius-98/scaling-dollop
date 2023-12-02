@@ -66,7 +66,7 @@ const activeName = ref('comp')
     align-items: center;
     justify-content: space-between;
     height: 60px;
-    border: 2px solid var(--ev-active-tint-color);
+    border-bottom: 2px solid var(--ev-active-tint-color);
   }
   .form-design_container{
     display: flex;

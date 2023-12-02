@@ -50,9 +50,11 @@ import EvForm from '@/components/common/EvForm/EvForm.vue'
 import api from '@/views/Form/service/api'
 import { ElMessage } from 'element-plus'
 import html2canvas from 'html2canvas'
+import { useRouter } from 'vue-router'
 
 const store = useFormDesignStore()
 const { saveForm } = storeToRefs(store)
+const router = useRouter()
 const onExportJson = () => {
   downloadFile(JSON.stringify(saveForm.value, null, 4), saveForm.value.name)
 }
@@ -123,6 +125,7 @@ const onSave = async () => {
   if (code == 0) {
     ElMessage.success(msg)
   }
+  router.back()
 }
 </script>
 <style scoped lang='scss'>

@@ -117,6 +117,7 @@ const onSave = async () => {
   if (code == 0) {
     ElMessage.success(msg)
   }
+  router.back()
 }
 if (route.query.id && route.query.type == 'edit') {
   let id = route.query.id as string
