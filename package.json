@@ -17,7 +17,7 @@
     "axios": "^1.2.0",
     "codemirror": "^6.0.1",
     "element-plus": "^2.2.8",
-    "gaius-utils": "^0.2.25",
+    "gaius-utils": "^0.2.26",
     "github-markdown-css": "^5.2.0",
     "html2canvas": "^1.4.1",
     "js-cookie": "^3.0.1",

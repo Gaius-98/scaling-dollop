@@ -41,14 +41,12 @@ const active = ref()
 const local = useGuLocalStorage()
 const onClickMenu = (value:any) => {
   active.value = value
-  local.setItem('scaling-dollop', {
-    activeMenu: value,
-  })
+  local.setItem('scaling-dollop-active-menu', value)
   routerPush(value)
 }
 onMounted(() => {
-  if (local.getItem('scaling-dollop')) {
-    active.value = local.getItem('scaling-dollop')?.activeMenu
+  if (local.getItem('scaling-dollop-active-menu')) {
+    active.value = local.getItem('scaling-dollop-active-menu')
   }
 })
 </script>
