@@ -106,6 +106,7 @@
     </div>
     <ev-pager
       :pag-config="params"
+      style="margin-top: 20px;"
       @on-page-change="getList"
     ></ev-pager>
   </div>
@@ -181,14 +182,14 @@ const onDel = (row:ViewData) => {
 </script>
 <style scoped lang='scss'>
 .view-list{
-    margin: 10px;
     .page-list{
         display: grid;
         column-gap: 10px;
         row-gap: 20px;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(3,230px);
-        margin-top: 10px;
+        margin-top: 15px;
+        height: 750px;
         .page-item{
             width: 100%;
             height: 100%;

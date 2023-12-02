@@ -1,33 +1,21 @@
 <template>
-  <header class="layout_header">
+  <header class="layout-header">
     <div
-      class="layout_header_sys"
+      class="layout-header-sys"
       @click="onClickMenu('home')"
     >
-      <div class="layout_header_sys_logo">
+      <div class="layout-header-sys-logo">
         <img
           src="@/assets/images/logo.jpg"
           alt=""
         >
       </div>
-      <div class="layout_header_sys_title">
-        gaius-form
+      <div class="layout-header-sys-title">
+        scaling-dollop
       </div>
     </div>
-    <ev-menu
-      class="layout_header_sys_menu"
-      mode="horizontal"
-      :data="menuList"
-      :replace-fields="{
-        value:'appId',
-        label:'appName',
-        children:'children',
-        icon:'icon'
-      }"
-      @on-click-item="onClickMenu"
-    >
-    </ev-menu>
-    <div class="layout_header_sys_opt">
+
+    <div class="layout-header-sys-opt">
       <toggle-theme></toggle-theme>
     </div>
   </header>
@@ -35,22 +23,14 @@
 
 <script lang='ts' setup>
 import { reactive, toRefs, ref } from 'vue'
-import { routerPush } from '@/utils/func'
-import data from '@/assets/menu/menu'
-
-const menuList = ref<sysMenu[]>(data)
-
-const onClickMenu = (value:any) => {
-  routerPush(value)
-}
 
 </script>
 <style scoped lang='scss'>
-.layout_header{
+.layout-header{
   display: flex;
   width: 100%;
-  height: 80px;
-  .layout_header_sys{
+  height: 40px;
+  .layout-header-sys{
     display: flex;
     width: 240px;
     height: 100%;
@@ -58,9 +38,9 @@ const onClickMenu = (value:any) => {
     align-items: center;
 
     background: var(--ev-active-color);
-    .layout_header_sys_logo{
-      width: 40px;
-      height: 40px;
+    .layout-header-sys-logo{
+      width: 30px;
+      height: 30px;
       overflow: hidden;
       border-radius: 50% 50%;
       img{
@@ -68,18 +48,18 @@ const onClickMenu = (value:any) => {
         height: 100%;
       }
     }
-    .layout_header_sys_title{
+    .layout-header-sys-title{
       color:var(--ev-bg-color);
       font-weight: 600;
       font-size: 20px;
     }
     
   }
-  .layout_header_sys_menu{
+  .layout-header-sys-menu{
     flex: 1;
     margin: 0 10px;
   }
-  .layout_header_sys_opt{
+  .layout-header-sys-opt{
     display: flex;
     align-items: center;
     justify-content: space-around;

@@ -1,5 +1,5 @@
 <template>
-  <main class="layout_container">
+  <main class="layout-container">
     <router-view></router-view>
     <!-- <Suspense>
       <template #default>
@@ -22,8 +22,12 @@ import { reactive, toRefs, ref } from 'vue'
 
 </script>
 <style scoped lang='scss'>
-.layout_container{
-  width: 100%;
-  flex: 1;
+.layout-container{
+  box-sizing: border-box;
+  background: var(--ev-bg-color);
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="form-design">
-    <div class="form-design_header">
+    <div class="form-design-header">
       <form-header></form-header>
     </div>
-    <div class="form-design_container">
+    <div class="form-design-container">
       <drag-comp-list />
       <drop-container />
-      <div class="form-design_opt">
+      <div class="form-design-opt">
         <el-tabs
           v-model="activeName"
         >
@@ -61,20 +61,20 @@ const activeName = ref('comp')
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  .form-design_header{
+  .form-design-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 60px;
     border-bottom: 2px solid var(--ev-active-tint-color);
   }
-  .form-design_container{
+  .form-design-container{
     display: flex;
     justify-content: flex-start;
     margin-top: 5px;
     height: calc(100vh - 150px);
   }
-  .form-design_opt{
+  .form-design-opt{
     width: 380px;
     overflow: auto;
     padding: 5px;

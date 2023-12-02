@@ -12,11 +12,11 @@
 /* --------light主题--------   */
 :root[class='light']{
   --ev-bg-color:#FFFFFF;
-  --ev-bg-tint-color:#BDBEBF;
-  --ev-text-color:#020203;
+  --ev-bg-tint-color:#f0f2f5;
+  --ev-text-color:#0d0d0e;
   --ev-active-color:#6A57F5;
   --ev-active-tint-color:#5D4AF4;
-  --ev-active-most-tint-color:#9793F8;
+  --ev-active-most-tint-color:#9693f823;
   --ev-active-fusco-color:#392E95;
 }
 

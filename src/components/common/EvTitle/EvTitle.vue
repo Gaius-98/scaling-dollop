@@ -1,6 +1,6 @@
 <template>
-  <div class="ev_title_container">
-    <span class="ev_title_text">
+  <div class="ev-title-container">
+    <span class="ev-title-text">
       <slot></slot>
     </span>
     <slot name="opt"></slot>
@@ -12,7 +12,7 @@ import { reactive, toRefs, ref } from 'vue'
 
 </script>
 <style scoped lang='scss'>
-.ev_title_container{
+.ev-title-container{
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -20,7 +20,7 @@ import { reactive, toRefs, ref } from 'vue'
   line-height: 28px;
   font-size: 13px;
   margin-bottom: 5px;
-  .ev_title_text{
+  .ev-title-text{
     display: inline-block;
     color: var(--ev-text-color);
     font-family: Microsoft YaHei-Bold, Microsoft YaHei;

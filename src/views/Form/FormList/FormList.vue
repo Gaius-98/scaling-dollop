@@ -241,7 +241,6 @@ const onDel = (scope:COMMON.columnScope) => {
 </script>
 <style scoped lang='scss'>
 .form-list{
-    margin: 10px;
     .main{
         width: 100%;
     }

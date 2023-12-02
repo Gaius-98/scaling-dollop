@@ -3,7 +3,7 @@
     v-model="compList"
     item-key="compId"
     group="comp"
-    class="drop_container"
+    class="drop-container"
     @drop.prevent.stop="dropComp"
     @dragover.prevent="()=>{}"
   >
@@ -11,8 +11,8 @@
       #item="{element}"
     >
       <div
-        class="drop_container_item"
-        :class="curFormItem.compId == element.compId ? 'drop_container_item-active' :''"
+        class="drop-container-item"
+        :class="curFormItem.compId == element.compId ? 'drop-container-item-active' :''"
         @click.stop="onClickFormItem(element)"
       >
         <el-form-item
@@ -123,7 +123,7 @@
           </drop-collapse>
         </div>
         <div
-          class="drop_container_item_opt iconfont icon-a-shanchulajitong"
+          class="drop-container-item-opt iconfont icon-a-shanchulajitong"
           @click="onClickRemove(element)"
         >
         </div>
@@ -174,16 +174,16 @@ const dropComp = (ev:DragEvent) => {
 
 </script>
 <style scoped lang='scss'>
-.drop_container{
+.drop-container{
   width: 100%;
   height: 100%;
   overflow-y: auto;
   background-color: var(--ev-bg-color);
-  .drop_container_item{
+  .drop-container-item{
     position: relative;
     border: 1px dashed var(--ev-active-most-tint-color);
     padding: 0 10px;
-    .drop_container_item_opt{
+    .drop-container-item-opt{
       display: none;
       position: absolute;
       top: 1px;
@@ -195,9 +195,9 @@ const dropComp = (ev:DragEvent) => {
       cursor: pointer;
     }
   }
-  .drop_container_item-active {
+  .drop-container-item-active {
     border: 1px solid var(--ev-active-color);
-    .drop_container_item_opt{
+    .drop-container-item-opt{
       display: block;
     }
   }

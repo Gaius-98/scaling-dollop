@@ -1,12 +1,12 @@
 <template>
-  <div class="form_name">
+  <div class="form-name">
     <span>
       表单名称
     </span>
     <el-input v-model="saveForm.name">
     </el-input>
   </div>
-  <div class="form_opt">
+  <div class="form-opt">
     <el-button @click="onSave">
       保存
     </el-button>
@@ -129,7 +129,7 @@ const onSave = async () => {
 }
 </script>
 <style scoped lang='scss'>
-.form_name{
+.form-name{
   display: flex;
   align-items: center;
   width: 250px;

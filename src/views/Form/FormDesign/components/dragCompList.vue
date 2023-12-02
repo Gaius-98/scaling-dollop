@@ -1,11 +1,11 @@
 <template>
-  <div class="comp_container">
+  <div class="comp-container">
     <div class="title">
       表单组件
     </div>
     <div class="com-list">
       <div class="container-list">
-        <div class="comp_list_container">
+        <div class="comp-list-container">
           <div
             v-for="item in compList"
             :key="item.compId"
@@ -23,7 +23,7 @@
       容器组件
     </div>
     <div class="container-list">
-      <div class="comp_list_container">
+      <div class="comp-list-container">
         <div
           v-for="item in containerList"
           :key="item.compId"
@@ -64,7 +64,7 @@ const onDrag = (ev:DragEvent) => {
 }
 </script>
 <style scoped lang='scss'>
-.comp_container{
+.comp-container{
   width: 300px;
   height: 100%;
   display: flex;
@@ -73,7 +73,7 @@ const onDrag = (ev:DragEvent) => {
   border-right:2px solid var(--ev-active-tint-color) ;
   margin-right: 5px;
 }
-.comp_list_container{
+.comp-list-container{
   padding: 10px;
   .comp{
     display: inline-block;
