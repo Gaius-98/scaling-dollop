@@ -2,7 +2,6 @@
   <header class="layout-header">
     <div
       class="layout-header-sys"
-      @click="onClickMenu('home')"
     >
       <div class="layout-header-sys-logo">
         <img
