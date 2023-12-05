@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import View from '@/views/Layout/View.vue'
 
-const business:RouteRecordRaw[] = [
+const view:RouteRecordRaw[] = [
   {
     path: '/view',
     name: 'view',
@@ -18,4 +18,4 @@ const business:RouteRecordRaw[] = [
     ],
   },
 ]
-export default business
+export default view
