@@ -1,0 +1,1 @@
+import{d as r,o as l,c as s,__tla as _}from"./index.e83a60db.js";let a,m=Promise.all([(()=>{try{return _}catch{}})()]).then(async()=>{let t,e;t=""+new URL("bg.87516382.png",import.meta.url).href,e={src:t,alt:""},a=r({__name:"404View",setup(n){return(o,c)=>(l(),s("img",e))}})});export{m as __tla,a as default};
