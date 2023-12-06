@@ -100,7 +100,6 @@ const login = () => {
       api.login(reqForm).then(res => {
         const { code, data } = res
         if (code == 0) {
-          setCookie('gaius-token', data.token)
           router.push({
             name: 'home',
           })

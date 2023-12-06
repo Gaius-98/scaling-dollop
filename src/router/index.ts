@@ -22,7 +22,7 @@ const router = createRouter({
 router.beforeEach((to, form, next) => {
   if (to.path == '/login') {
     next()
-  } else if (getCookie('gaius-token')) {
+  } else if (getCookie('gaiusToken')) {
     next()
   } else {
     next({ path: '/login' })
