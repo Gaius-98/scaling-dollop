@@ -368,13 +368,13 @@ watch(pool, () => {
         position: absolute;
         width: 1px;
         height: 100%;
-        background: var(--ev-active-most-tint-color);
+        background: var(--ev-active-color);
       }
       .horizontal-line{
         position: absolute;
         height: 1px;
         width: 100%;
-        background: var(--ev-active-most-tint-color);
+        background: var(--ev-active-color);
       }
     }
    

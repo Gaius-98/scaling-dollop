@@ -14,7 +14,6 @@ const routes:Array<RouteRecordRaw> = [
   },
   ...routersModules,
 ]
-console.log(routes)
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
