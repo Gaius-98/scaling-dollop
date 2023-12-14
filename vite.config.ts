@@ -52,7 +52,7 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/local/, ''),
       },
       '/api': {
-        target: 'http://1.117.70.174:19091',
+        target: 'http://123.57.2.173:3000/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },

@@ -70,8 +70,8 @@ import _ from 'lodash'
 
 const router = useRouter()
 const form = reactive({
-  username: '',
-  password: '',
+  username: 'test',
+  password: 'test',
   code: '',
 })
 const ruleForm = ref()
@@ -99,6 +99,7 @@ const login = () => {
       reqForm.password = md5(reqForm.password)
       api.login(reqForm).then(res => {
         const { code, data } = res
+        api.record()
         if (code == 0) {
           router.push({
             name: 'home',
@@ -107,10 +108,6 @@ const login = () => {
       }) 
     }
   })
-
-  // 在这里添加登录逻辑，例如发送请求到后端验证用户名和密码  
-  console.log('登录成功')  
-  // 可以根据需要进行进一步处理，例如重定向到其他页面等  
 }  
 const getCaptchaSvg = () => {
   api.getCaptcha().then(res => {

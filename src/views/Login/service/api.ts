@@ -19,4 +19,8 @@ export default {
     url: 'sys/user/captcha',
     method: 'get',
   }),
+  record: () => request<void>({
+    url: '/sys/access/record',
+    method: 'get',
+  }),
 }

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import api from '@/api'
+
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
-api.record()
 </script>
 
 <template>
