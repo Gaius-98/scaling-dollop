@@ -28,7 +28,7 @@ const judgeLoading = (ele:HTMLElement, binding:any) => {
 const app = createApp(loadingComp)
 const load = app.mount(document.createElement('div'))
 const loading = {
-  name: 'loading',
+  name: 'ev-loading',
   options: {
     mounted(el:HTMLElement, binding:any) {
       judgeLoading(el, binding)

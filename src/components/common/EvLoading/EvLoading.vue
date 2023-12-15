@@ -20,7 +20,7 @@ import { reactive, toRefs, ref } from 'vue'
   left:0;
   width: 100%;
   height: 100%;
-  background: rgba(#ccc,.3);
+  background: rgba(122, 122, 122, 0.3);
   .ev-loading{
     display: inline-block;
     align-self: center;
@@ -29,26 +29,27 @@ import { reactive, toRefs, ref } from 'vue'
     line-height: 50px;
     font-size: 13px;
     text-align: center;
-    background: var(--ev-active-color);
+    color: var(--ev-bg-color);
     animation:rotateA 3s ease-in-out infinite;
   }
 }
 @keyframes rotateA {
   0% {
-    color: var(--ev-bg-color);
+    color: var(--ev-bg-tint-color);
+    background: var(--ev-active-most-tint-color);
     border-radius: 25px;
   }
   40% {
-    color: var(--ev-text-color);
+    background: var(--ev-active-tint-color);
     border-radius: 5px;
     transform: rotate(360deg);
   }
   80% {
-    color: var(--ev-text-color);
+    background: var(--ev-active-color);
     border-radius: 25px;
   }
   100% {
-    color: var(--ev-bg-color);
+    background: var(--ev-active-fusco-color);
     border-radius: 25px;
   }
 

@@ -1,14 +1,5 @@
 <template>
   <div class="view-list">
-    <div class="opt">
-      <el-row>
-        <el-col
-          :offset="22"
-          :span="2"
-        >
-        </el-col>
-      </el-row>
-    </div>
     <div class="filter">
       <el-row align="middle">
         <el-col :span="1">
@@ -45,7 +36,7 @@
       </el-row>
     </div>
     <div
-      v-loading="loading"
+      v-ev-loading="loading"
       class="page-list"
     >
       <div
@@ -189,7 +180,7 @@ const onDel = (row:ViewData) => {
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(3,230px);
         margin-top: 15px;
-        height: 750px;
+        height: 700px;
         .page-item{
             width: 100%;
             height: 100%;

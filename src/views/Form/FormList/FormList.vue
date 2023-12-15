@@ -38,7 +38,7 @@
       </el-row>
     </div>
     <div
-      v-loading="loading"
+      v-ev-loading="loading"
       class="main"
     >
       <ev-table 

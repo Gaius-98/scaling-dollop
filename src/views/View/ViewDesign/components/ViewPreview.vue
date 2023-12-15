@@ -1,6 +1,6 @@
 <template>
   <div
-    v-loading="loading"
+    v-ev-loading="loading"
     class="view-preview"
     :style="getContainerStyle"
   >

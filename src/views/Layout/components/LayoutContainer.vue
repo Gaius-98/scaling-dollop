@@ -26,6 +26,7 @@ import { reactive, toRefs, ref } from 'vue'
   box-sizing: border-box;
   background: var(--ev-bg-color);
   padding: 10px;
+  height: calc(100vh - 52px);
   border-radius: 5px;
   overflow-x: hidden;
   overflow-y: auto;
