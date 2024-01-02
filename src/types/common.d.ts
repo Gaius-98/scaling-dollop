@@ -72,4 +72,14 @@ declare namespace COMMON{
   declare interface columnScope {
     row:COMMON.obj
   }
+  declare interface commonColumnConfig {
+    label:string,
+    prop:string,
+    width?:string|number,
+    fixed?:string|boolean,
+    sortable?:string|boolean,
+    align?:string,
+    slot?:string,
+    type?:'selection' | 'index' | 'expand' | null
+  }
 }
