@@ -36,7 +36,7 @@ const business:RouteRecordRaw[] = [
         name: 'viewList',
         component: () => import('@/views/View/ViewList/ViewList.vue'),
         meta: {
-          appId: 'test',
+          appId: 'page',
         },
       },
       {
@@ -44,7 +44,7 @@ const business:RouteRecordRaw[] = [
         name: 'viewDesign',
         component: () => import('@/views/View/ViewDesign/ViewDesign.vue'),
         meta: {
-          appId: 'test',
+          appId: 'page',
         },
       },
       {
