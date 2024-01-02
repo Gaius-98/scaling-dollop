@@ -1,7 +1,7 @@
 <template>
   <main class="layout-container">
-    <router-view></router-view>
-    <!-- <Suspense>
+    <!-- <router-view></router-view> -->
+    <Suspense>
       <template #default>
         <router-view v-slot="{ Component }">
           <transition name="fade">
@@ -10,10 +10,10 @@
         </router-view>
       </template>
       <template #fallback>
-        <div v-loading="true">
+        <div v-ev-loading="true">
         </div>
       </template>
-    </Suspense> -->
+    </Suspense>
   </main>
 </template>
 

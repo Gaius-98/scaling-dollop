@@ -33,22 +33,15 @@ import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutContainer from './components/LayoutContainer.vue'
 import { routerPush } from '@/utils/func'
 import data from '@/assets/menu/menu'
-import { reactive, toRefs, ref, onMounted } from 'vue'
-import { useGuLocalStorage } from 'gaius-utils'
+import { ref } from 'vue'
 
 const menuList = ref<sysMenu[]>(data)
-const active = ref()
-const local = useGuLocalStorage()
+const active = ref('home')
 const onClickMenu = (value:any) => {
   active.value = value
-  local.setItem('scaling-dollop-active-menu', value)
   routerPush(value)
 }
-onMounted(() => {
-  if (local.getItem('scaling-dollop-active-menu')) {
-    active.value = local.getItem('scaling-dollop-active-menu')
-  }
-})
+
 </script>
 <style scoped lang='scss'>
 .layout{

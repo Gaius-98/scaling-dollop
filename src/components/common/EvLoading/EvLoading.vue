@@ -20,7 +20,7 @@ import { reactive, toRefs, ref } from 'vue'
   left:0;
   width: 100%;
   height: 100%;
-  background: rgba(122, 122, 122, 0.3);
+  background: hsla(0,0%,100%,.9);
   .ev-loading{
     display: inline-block;
     align-self: center;

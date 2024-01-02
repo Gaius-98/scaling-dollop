@@ -23,7 +23,7 @@
         </el-col>
         <el-col
           :span="1"
-          :offset="16"
+          :offset="15"
         >
           <el-button
             :icon="Plus"
