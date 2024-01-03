@@ -4,23 +4,8 @@
     v-bind="$attrs"
     :data="data"
   >
-    <el-table-column
-      v-for="column in tableConfig.columns"
-      :prop="column.prop"
-      :label="column.label"
-      :sortable="column.sortable"
-      :width="column.width"
-    >
-      <template
-        v-if="column.slot"
-        #default="scope"
-      >
-        <slot
-          :name="column.slot" 
-          :row="scope.row"
-        ></slot>
-      </template>
-    </el-table-column>
+    <ev-column :column-list="tableConfig.columns">
+    </ev-column>
     <el-table-column
       v-if="tableConfig.opt"
       :fixed="tableConfig.opt.fixed"
@@ -46,6 +31,7 @@
 
 <script lang='ts' setup name="EvTable">
 import { reactive, toRefs, ref, PropType } from 'vue'
+import EvColumn from './components/EvColumn.vue'
 
 interface tableData {
   [key: string]: any
@@ -58,7 +44,8 @@ interface columns{
   sortable?:string|boolean,
   align?:string,
   slot?:string,
-  type?:'selection' | 'index' | 'expand' | null
+  type?:'selection' | 'index' | 'expand' | null,
+  children?:columns[]
 }
 interface tableConfig {
   columns:columns[],

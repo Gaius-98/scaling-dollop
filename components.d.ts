@@ -56,6 +56,7 @@ declare module '@vue/runtime-core' {
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     EvChart: typeof import('./src/components/common/EvChart/EvChart.vue')['default']
     EvCode: typeof import('./src/components/common/EvCode/EvCode.vue')['default']
+    EvColumn: typeof import('./src/components/common/EvTable/components/EvColumn.vue')['default']
     EvForm: typeof import('./src/components/common/EvForm/EvForm.vue')['default']
     EvFormAttr: typeof import('./src/components/EvFormAttr/EvFormAttr.vue')['default']
     EvIcon: typeof import('./src/components/common/EvIcon/EvIcon.vue')['default']
