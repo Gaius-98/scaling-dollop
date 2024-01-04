@@ -190,7 +190,7 @@ const onView = (scope:COMMON.columnScope) => {
       formConfig: form,
     },
   })
-  viewDialog.open()
+  viewDialog.open(viewDialog.destroyed)
 }
 const router = useRouter()
 const onAdd = () => {

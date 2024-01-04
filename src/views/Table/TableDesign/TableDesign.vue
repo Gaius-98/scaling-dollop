@@ -139,13 +139,15 @@ const addFieldDialog = useGuDialog({
 
 })
 const onAddField = () => {
-  addFieldDialog.open().then((res:any) => {
+  addFieldDialog.open(async (res:any) => {
+    const { valid } = await res.data.getFormValidate()
     const columnData = res.data.getFormData()
-    if (columnData.label && columnData.prop) {
+    if (valid) {
       tableConfig.columns.push({
         label: columnData.label,
         prop: columnData.prop,
       })
+      addFieldDialog.destroyed()
     }
   })
 }

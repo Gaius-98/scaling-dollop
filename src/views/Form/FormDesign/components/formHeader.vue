@@ -67,7 +67,7 @@ const viewDialog = useGuDialog({
   },
 })
 const onClickView = () => {
-  viewDialog.open()
+  viewDialog.open(viewDialog.destroyed)
 }
 const onExportVue = (version:number) => {
   if (version == 2) {
