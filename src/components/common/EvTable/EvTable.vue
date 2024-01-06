@@ -4,8 +4,24 @@
     v-bind="$attrs"
     :data="data"
   >
-    <ev-column :column-list="tableConfig.columns">
-    </ev-column>
+    <el-table-column
+      v-for="column in tableConfig.columns"
+      :key="column.label + column.prop"
+      :prop="column.prop"
+      :label="column.label"
+      :sortable="column.sortable"
+      :width="column.width"
+    >
+      <template
+        v-if="column.slot"
+        #default="scope"
+      >
+        <slot
+          :name="column.slot" 
+          :row="scope.row"
+        ></slot>
+      </template>
+    </el-table-column>
     <el-table-column
       v-if="tableConfig.opt"
       :fixed="tableConfig.opt.fixed"

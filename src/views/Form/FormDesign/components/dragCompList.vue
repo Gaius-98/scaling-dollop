@@ -1,8 +1,25 @@
 <template>
   <div class="comp-container">
-    <div class="title">
-      表单组件
+    <ev-title class="title">
+      容器组件
+    </ev-title>
+    <div class="container-list">
+      <div class="comp-list-container">
+        <div
+          v-for="item in containerList"
+          :key="item.compId"
+          class="comp"
+          draggable="true"
+          :data-comp="JSON.stringify(item)"
+          @dragstart="onDrag" 
+        >
+          {{ item.name }}
+        </div>
+      </div>
     </div>
+    <ev-title class="title">
+      表单组件
+    </ev-title>
     <div class="com-list">
       <div class="container-list">
         <div class="comp-list-container">
@@ -16,23 +33,6 @@
           >
             {{ item.name }}
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="title">
-      容器组件
-    </div>
-    <div class="container-list">
-      <div class="comp-list-container">
-        <div
-          v-for="item in containerList"
-          :key="item.compId"
-          class="comp"
-          draggable="true"
-          :data-comp="JSON.stringify(item)"
-          @dragstart="onDrag" 
-        >
-          {{ item.name }}
         </div>
       </div>
     </div>
@@ -74,6 +74,8 @@ const onDrag = (ev:DragEvent) => {
   margin-right: 5px;
 }
 .comp-list-container{
+  display:grid ;
+  grid-template-columns: repeat(2,1fr);
   padding: 10px;
   .comp{
     display: inline-block;
@@ -84,7 +86,8 @@ const onDrag = (ev:DragEvent) => {
     border: 1px solid var(--ev-active-tint-color);
     margin-right: 5px;
     margin-bottom: 5px;
-    // cursor: move;
+    text-align: center;
+    cursor: move;
   }
 }
 

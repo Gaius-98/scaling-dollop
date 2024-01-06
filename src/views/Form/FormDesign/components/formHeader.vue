@@ -7,28 +7,39 @@
     </el-input>
   </div>
   <div class="form-opt">
-    <el-button @click="onSave">
-      保存
-    </el-button>
     <el-button @click="onOpenJSon">
-      写入JSON
+      <i class="iconfont icon-daoru"></i>
+      写入配置
     </el-button>
     <el-button @click="onClickView">
+      <i class="iconfont icon-photo"></i>
       预览
     </el-button>
-    <el-button @click="onExportJson">
+    <!-- <el-button @click="onExportJson">
+      <i class="iconfont icon-daochu"></i>
       导出JSON
+    </el-button> -->
+    <el-button
+      title="导出vue3文件"
+      @click="onExportVue(3)"
+    >
+      <i class="iconfont icon-daochu"></i>
+      导出
     </el-button>
-    <el-button @click="onExportVue(3)">
-      导出VUE文件(vue3)
+    <el-button
+      type="primary"
+      @click="onSave"
+    >
+      <i class="iconfont icon-save"></i>
+      保存
     </el-button>
-    <el-button @click="onExportVue(2)">
+    <!-- <el-button @click="onExportVue(2)">
       导出VUE文件(vue2)
-    </el-button>
+    </el-button> -->
   </div>
   <el-dialog
     v-model="dialogJson"
-    title="JSON配置"
+    title="写入JSON配置"
   >
     <ev-code v-model:code="jsonForm">
     </ev-code>

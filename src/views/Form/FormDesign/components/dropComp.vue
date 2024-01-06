@@ -182,7 +182,7 @@ const dropComp = (ev:DragEvent) => {
   .drop-container-item{
     position: relative;
     border: 1px dashed var(--ev-active-most-tint-color);
-    padding: 0 10px;
+    padding: 0 1px;
     .drop-container-item-opt{
       display: none;
       position: absolute;
@@ -202,7 +202,7 @@ const dropComp = (ev:DragEvent) => {
     }
   }
   :deep(.el-form-item){
-    margin-top: 18px;
+    margin:5px 0;
   }
 }
 

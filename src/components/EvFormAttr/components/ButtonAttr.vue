@@ -54,13 +54,6 @@
     </el-switch>
   </el-form-item>
   <el-form-item
-    prop="prop.bg"
-    label="显示文字按钮背景颜色"
-  >
-    <el-switch v-model="curFormItem.prop.bg">
-    </el-switch>
-  </el-form-item>
-  <el-form-item
     prop="prop.link"
     label="链接按钮"
   >

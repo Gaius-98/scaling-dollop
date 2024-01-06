@@ -59,21 +59,40 @@
           </el-image>
         </template>
         <template #opt="scope">
-          <el-link
-            type="primary"
-            @click="onView(scope)"
-          >
-            预览
-          </el-link>
-          <el-divider direction="vertical" />
-          <el-link
-            type="primary"
-            @click="onEdit(scope)"
-          >
-            编辑
-          </el-link>
-          <el-divider direction="vertical" />
-          <el-link
+          <div class="opt-container">
+            <el-link
+              type="primary"
+              @click="onView(scope)"
+            >
+              <i class="iconfont icon-photo"></i>
+              预览
+            </el-link>
+            <el-divider direction="vertical" />
+            <el-link
+              type="primary"
+              @click="onEdit(scope)"
+            >
+              <i class="iconfont icon-bianji"></i>
+              编辑
+            </el-link>
+            <el-divider direction="vertical" />
+
+            <el-dropdown @command="handleCommand(scope,$event)">
+              <el-link
+                type="primary"
+              >
+                <i class="iconfont icon-daochu"></i>
+                导出
+              </el-link>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item command="json">json</el-dropdown-item>
+                  <el-dropdown-item command="vue2">vue2</el-dropdown-item>
+                  <el-dropdown-item command="vue3">vue3</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+            <!-- <el-link
             type="primary"
             @click="onExport(scope,'json')"
           >
@@ -92,22 +111,23 @@
             @click="onExport(scope,'vue3')"
           >
             导出VUE3文件
-          </el-link>
-          <el-divider direction="vertical" />
-          <el-popconfirm
-            title="确定要删除吗?"
-            confirm-button-text="确认"
-            cancel-button-text="取消"
-            @confirm="onDel(scope)"
-          >
-            <template #reference>
-              <el-link
-                type="danger"
-              >
-                删除
-              </el-link>
-            </template>
-          </el-popconfirm>
+          </el-link> -->
+            <el-divider direction="vertical" />
+            <el-popconfirm
+              title="确定要删除吗?"
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              @confirm="onDel(scope)"
+            >
+              <template #reference>
+                <el-link
+                  type="danger"
+                >
+                  删除
+                </el-link>
+              </template>
+            </el-popconfirm>
+          </div>
         </template>
       </ev-table>
     </div>
@@ -151,7 +171,7 @@ const config = ref({
   ],
   opt: {
     label: '操作',
-    width: 500,
+    width: 300,
     fixed: 'right',
   },
 })
@@ -226,7 +246,9 @@ const onExport = (scope:COMMON.columnScope, type:keyof typeof downType) => {
     downloadFile(createFormSfc(form), scope.row.name, 'vue')
   }
 }
-
+const handleCommand = (scope:COMMON.columnScope, command:keyof typeof downType) => {
+  onExport(scope, command)
+}
 const onDel = (scope:COMMON.columnScope) => {
   api.deleteForm({
     id: scope.row.id,
@@ -243,6 +265,10 @@ const onDel = (scope:COMMON.columnScope) => {
 .form-list{
     .main{
         width: 100%;
+        .opt-container{
+          display: flex;
+          align-items: center;
+        }
     }
 }
 
