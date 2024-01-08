@@ -10,21 +10,24 @@
       class="view-level"
     >
       <template #item="{element}">
-        <el-dropdown
+        <div
+          class="view-level-item"
+          :class="curCompData.id == element.id ? 'active' :''"
+          @mouseover="onClickComp(element)"
+        >
+          <i
+            class="iconfont "
+            :class="element.icon"
+          ></i>
+          {{ element.label }}
+        </div>
+      </template>
+    </draggable>
+  </div>
+  <!-- <el-dropdown
           trigger="contextmenu"
           @command="onChangeCompByCommand"
         >
-          <div
-            class="view-level-item"
-            :class="curCompData.id == element.id ? 'active' :''"
-            @mouseover="onClickComp(element)"
-          >
-            <i
-              class="iconfont "
-              :class="element.icon"
-            ></i>
-            {{ element.label }}
-          </div>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
@@ -47,10 +50,7 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
-        </el-dropdown>
-      </template>
-    </draggable>
-  </div>
+        </el-dropdown> -->
 </template>
 
 <script lang='ts' setup>
@@ -74,13 +74,14 @@ const onChangeCompByCommand = (command:string, node:any) => {
     padding-top: 10px;
     overflow-y: auto;
     .view-level-item{
+        box-sizing: border-box;
         width: 100%;
-        height: 50px;
-        line-height: 50px;
+        height: 20px;
+        line-height: 20px;
         padding: 0 10px;
         cursor: move;    
         color: var(--ev-active-color);
-        border-bottom: 1px solid var(--ev-active-color);
+        /* border-bottom: 1px solid var(--ev-active-color); */
         &:hover{
             background: #bdf3c98f;
         }

@@ -49,7 +49,7 @@
       </el-button-group>
     </header>
     <div class="container f-rs">
-      <aside class="material f-ra">
+      <aside class="material f-rb">
         <view-level class="material-level">
         </view-level>
         <view-material>
@@ -149,7 +149,7 @@ if (route.query.id && route.query.type == 'edit') {
     .container{
         height: calc(100% - 60px);
         .material{
-            width: 400px;
+            width: 300px;
             height: 100%;
             .material-level{
               width: 30%;
@@ -157,7 +157,7 @@ if (route.query.id && route.query.type == 'edit') {
             }
         }
         .view-design-main{
-            width: calc(100% - 650px);
+            width: calc(100% - 550px);
             height: 100%;
         }
         .material-option{

@@ -3,7 +3,7 @@ export default [
     name: 'ev-text',
     id: '1',
     type: 'text',
-    label: '文本组件',
+    label: 'text',
     icon: 'icon-text',
     props: {
       value: '文本内容',
@@ -23,7 +23,7 @@ export default [
     name: 'ev-img',
     id: '2',
     type: 'img',
-    label: '图片组件',
+    label: 'img',
     icon: 'icon-tupian',
     props: {
       src: 'https://avatars.githubusercontent.com/u/59641156?v=4',
@@ -43,7 +43,7 @@ export default [
     name: 'ev-chart',
     id: '3',
     type: 'chartBar',
-    label: '柱状图组件',
+    label: 'bar',
     icon: 'icon-keshihuatubiao-1',
     props: {
       option: {
@@ -102,7 +102,7 @@ export default [
     name: 'ev-chart',
     id: '4',
     type: 'chartBar',
-    label: '折线图组件',
+    label: 'line',
     icon: 'icon-keshihuatubiao-3',
     props: {
       option: {
@@ -156,7 +156,7 @@ export default [
     name: 'ev-chart',
     id: '5',
     type: 'chartPie',
-    label: '饼图组件',
+    label: 'pie',
     icon: 'icon-keshihuatubiao-10',
     props: {
       option: {
@@ -213,7 +213,7 @@ export default [
     name: 'ev-iframe',
     id: '6',
     type: 'iframe',
-    label: 'iframe组件',
+    label: 'iframe',
     icon: 'icon-tongyi-shuju-huiju',
     props: {
       url: 'https://blog.csdn.net/weixin_47030180',
@@ -239,7 +239,7 @@ export default [
     name: 'ev-icon',
     id: '7',
     type: 'icon',
-    label: 'icon组件',
+    label: 'icon',
     icon: 'icon-tongyi-shuju-huiju',
     props: {
       icon: 'text',
@@ -259,7 +259,7 @@ export default [
     name: 'ev-select',
     id: '8',
     type: 'select',
-    label: 'Select组件',
+    label: 'Select',
     icon: 'icon-tongyi-shuju-huiju',
     props: {
       value: '',
@@ -297,7 +297,7 @@ export default [
     name: 'ev-Input',
     id: '8',
     type: 'input',
-    label: 'Input组件',
+    label: 'Input',
     icon: 'icon-tongyi-shuju-huiju',
     props: {
       value: '',
@@ -321,7 +321,7 @@ export default [
     id: '9',
     type: 'colorBox',
     label: '色块',
-    icon: 'icon-tongyi-shuju-huiju',
+    icon: 'icon-rectangle',
     props: {
       styleConfig: {
         default: {

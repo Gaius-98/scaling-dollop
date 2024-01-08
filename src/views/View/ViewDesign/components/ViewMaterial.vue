@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="flex:1">
     <ev-title>
       组件
     </ev-title>

@@ -12,7 +12,6 @@
 import { transformCssVar } from '@/utils/func'
 import { reactive, toRefs, ref, watch } from 'vue'
 
-
 interface obj{
 [key:string]:any
 }
@@ -26,18 +25,22 @@ interface Props {
     openUrl:boolean,
     openType:keyof typeof openTypes,
     url:string,
+    preview:boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   styleConfig: () => ({}),
-  openUrl: false,
+  openUrl: true,
   openType: '_blank',
   url: '',
+  preview: false,
 })
-const { openUrl, openType, url } = toRefs(props)
+const { openUrl, openType, url, preview } = toRefs(props)
 
 const open = () => {
-  if (openUrl.value && url.value) {
-    window.open(url.value, openType.value)
+  if (preview.value) {
+    if (openUrl.value && url.value) {
+      window.open(url.value, openType.value)
+    }
   }
 }
 
