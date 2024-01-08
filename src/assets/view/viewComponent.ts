@@ -316,4 +316,33 @@ export default [
       `,
     },
   },
+  {
+    name: 'ev-color-box',
+    id: '9',
+    type: 'colorBox',
+    label: '色块',
+    icon: 'icon-tongyi-shuju-huiju',
+    props: {
+      styleConfig: {
+        default: {
+          backgroundColor: '#fff',
+          borderRadius: 5,
+        },
+        hover: {
+          backgroundColor: '#fff',
+          borderRadius: 5,
+        },
+      },
+    },
+    dataSetting: {
+      type: 'static',
+      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
+      data: 'text',
+      params: {
+      },
+      handleFunc: `const  data  =  'move'
+      return data
+      `,
+    },
+  },
 ]

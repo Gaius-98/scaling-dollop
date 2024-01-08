@@ -21,8 +21,8 @@ watch(curCompData.value, () => {
     let curTemplate
     for (const key in modules.value) {
       if (key.includes(getUpperCase(curCompData.value.type))) {
-        const module = modules.value[key] as Record<string, unknown>
-        curTemplate = module.default as ViewCompCfg[]
+        const module = modules.value[key] as Record<string, ViewCompCfg[]>
+        curTemplate = module.default
         template.value = [...commonTemplate.value, ...curTemplate]
       }
     }

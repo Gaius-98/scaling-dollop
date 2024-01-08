@@ -21,13 +21,6 @@
     </el-switch>
   </el-form-item>
   <el-form-item
-    prop="prop.arrowControl"
-    label="是否使用箭头进行时间选择"
-  >
-    <el-switch v-model="curFormItem.prop.arrowControl">
-    </el-switch>
-  </el-form-item>
-  <el-form-item
     prop="prop.isRange"
     label="时间范围选择"
   >
