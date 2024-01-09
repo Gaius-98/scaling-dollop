@@ -19,7 +19,7 @@ const router = createRouter({
   routes,
 })
 router.beforeEach((to, form, next) => {
-  if (to.path == '/login') {
+  if (to.path == '/login' || to.path.includes('view')) {
     next()
   } else if (getCookie('gaiusToken')) {
     next()
