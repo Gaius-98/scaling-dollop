@@ -95,6 +95,7 @@ if (route.query.id) {
     }
   })
 } else {
+  loading.value = false
   curData.value = viewData.value
   preHandleViewData()
 }
