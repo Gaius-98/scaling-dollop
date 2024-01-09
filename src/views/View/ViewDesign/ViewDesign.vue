@@ -63,14 +63,16 @@
         <ev-title>
           组件配置 
         </ev-title>
-        <view-template style="height:calc(100% - 80px);overflow-y: auto;">
+        <view-template
+          style="height:calc(100% - 80px);overflow-y: auto;"
+        >
         </view-template>
-        <el-button
+        <!-- <el-button
           type="primary"
           @click="syncCfg"
         >
           同步配置
-        </el-button>
+        </el-button> -->
       </div>
     </div>
   </main>
@@ -92,7 +94,7 @@ import { ElMessage } from 'element-plus'
 const store = useViewStore()
 const router = useRouter()
 const route = useRoute()
-const { undo, redo, init, setViewData, initCurComp, syncCfg } = store
+const { undo, redo, init, setViewData, initCurComp } = store
 const { viewData } = storeToRefs(store)
 const preview = () => {
   router.push({

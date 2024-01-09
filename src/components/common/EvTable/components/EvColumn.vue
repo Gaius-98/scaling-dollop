@@ -45,7 +45,6 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {})
 const { columnList } = toRefs(props)
-console.log(columnList)
 </script>
 <style scoped lang='scss'>
 </style>

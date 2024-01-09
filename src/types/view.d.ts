@@ -76,7 +76,8 @@ enum cfgComp {
     slider='slider',
     tab='tab',
     iconSelect='iconSelect',
-    varObj='varObj'
+    varObj='varObj',
+    dataSource='dataSource'
 }
 /**
  * 配置面板结构
@@ -98,13 +99,15 @@ declare interface ViewCompCfg {
  * 数据源类型 static dev
  */
 type dataSetType = 'static' | 'dev'
+type ReqType = 'get'|'post'
 /**
  * 数据源配置
- */
-interface DataSetting {
+ */ 
+declare interface DataSetting {
     type:dataSetType,
     data:any,
     interfaceUrl?:string,
     params?:COMMON.obj,
-    handleFunc?:string
+    handleFunc?:string,
+    reqType:ReqType
 }

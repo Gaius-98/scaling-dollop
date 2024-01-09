@@ -58,6 +58,7 @@ declare module '@vue/runtime-core' {
     EvCode: typeof import('./src/components/common/EvCode/EvCode.vue')['default']
     EvColorBox: typeof import('./src/components/common/EvColorBox/EvColorBox.vue')['default']
     EvColumn: typeof import('./src/components/common/EvTable/components/EvColumn.vue')['default']
+    EvDataSource: typeof import('./src/components/common/EvDataSource/EvDataSource.vue')['default']
     EvForm: typeof import('./src/components/common/EvForm/EvForm.vue')['default']
     EvFormAttr: typeof import('./src/components/EvFormAttr/EvFormAttr.vue')['default']
     EvIcon: typeof import('./src/components/common/EvIcon/EvIcon.vue')['default']

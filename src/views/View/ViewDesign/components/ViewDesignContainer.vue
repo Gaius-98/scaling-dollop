@@ -279,6 +279,7 @@ const handleComponent = (data?:ViewComponent) => {
 }
 watch(() => viewData.value.componentData.map(e => e.dataSetting), () => {
   // 数据源配置变更，应该只刷新当前配置对应的组件数据
+  console.log('--------watch', curCompData.value)
   handleComponent(curCompData.value)
 }, {
   deep: true,

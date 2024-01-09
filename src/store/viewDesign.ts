@@ -31,6 +31,7 @@ export const useViewStore = defineStore('viewStore', () => {
       params: {
         
       },
+      reqType: 'get',
     },
     positionSize: {
       top: 0,
@@ -91,18 +92,18 @@ export const useViewStore = defineStore('viewStore', () => {
   const onClickComp = (item:ViewComponent) => {
     let idx = viewData.componentData.findIndex(e => e.id === item.id)
     if (idx != -1) {
-      Object.assign(curCompData, cloneDeep(viewData.componentData[idx]))
+      Object.assign(curCompData, viewData.componentData[idx])
     }
   }
-  /**
-   * 同步配置
-   */
-  const syncCfg = () => {
-    let idx = viewData.componentData.findIndex(e => e.id === curCompData.id)
-    if (idx != -1) {
-      Object.assign(viewData.componentData[idx], cloneDeep(curCompData))
-    }
-  }
+  // /**
+  //  * 同步配置
+  //  */
+  // const syncCfg = () => {
+  //   let idx = viewData.componentData.findIndex(e => e.id === curCompData.id)
+  //   if (idx != -1) {
+  //     Object.assign(viewData.componentData[idx], cloneDeep(curCompData))
+  //   }
+  // }
   /**
    * 新增组件
    */
@@ -121,7 +122,11 @@ export const useViewStore = defineStore('viewStore', () => {
     let newComp = viewData.componentData[idx]
     switch (command) {
       case 'delete':
+        if (id === curCompData.id) {
+          initCurComp()
+        }
         viewData.componentData.splice(idx, 1) 
+        
         break
       case 'placeTop':
         viewData.componentData.splice(idx, 1) 
@@ -193,6 +198,6 @@ export const useViewStore = defineStore('viewStore', () => {
     init,
     setViewData,
     initCurComp,
-    syncCfg,
+    // syncCfg,
   }
 })

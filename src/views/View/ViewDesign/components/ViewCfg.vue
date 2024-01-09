@@ -151,16 +151,28 @@
       >
       </el-slider>
     </el-form-item>
+    <el-form-item
+      v-if="item.ui.type =='dataSource' && isShow(item)"
+    >
+      <el-button 
+        type="primary"
+        @click="onOpenDataSource(cloneDeep(deepGetValue(item.ui.field)))"
+      >
+        数据源配置
+      </el-button>
+    </el-form-item>
   </div>
 </template>
 
 <script lang='ts' setup name="viewCfg">
+import EvDataSource from '@/components/common/EvDataSource/EvDataSource.vue'
 import commonTemplate from '@/assets/view/viewCfgTemplates/cfgCommonTemplate'
 import { reactive, toRefs, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
 import { cloneDeep } from 'lodash'
 import IconSelect from './cfgComponents/IconSelect.vue'
+import { useGuDialog } from 'gaius-utils'
 
 interface Props{
     template:ViewCompCfg[]
@@ -178,6 +190,7 @@ const deepGetValue = (field:string) => field.split('.').reduce((p, c) => {
   return p[c]
 }, curCompData.value as any)
 const deepSetValue = (val:any, field:string) => {
+  console.log(val, field, 'set')
   field.split('.').reduce((p:any, c:string, idx:number, arr:string[]) => {
     if (idx == arr.length - 1) {
       p[c] = val
@@ -230,6 +243,23 @@ const isShow = (data:ViewCompCfg) => {
     return deepGetValue(field) == value
   }
   return true
+}
+const onOpenDataSource = (data:any) => {
+  const dialog = useGuDialog({
+    title: '数据源配置',
+    componentProps: {
+      data,
+    },
+    height: 900,
+    content: EvDataSource,
+  })
+  dialog.open((res:any) => {
+    Object.assign(curCompData.value.dataSetting, {
+      ...res.data.data,
+    })
+    console.log(curCompData)
+    dialog.destroyed()
+  })
 }
 </script>
 <style scoped lang='scss'>

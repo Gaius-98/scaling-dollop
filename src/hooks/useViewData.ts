@@ -8,9 +8,8 @@ interface resCompData {
   data:any
 }
 const useGetCompData = async (compCfg:ViewComponent):Promise<resCompData> => {
-  const { dataSetting: { type, data, params, handleFunc, interfaceUrl }, id } = compCfg
+  const { dataSetting: { type, data, params, handleFunc, interfaceUrl, reqType }, id } = compCfg
   const { pool } = useParamsPool()
-  console.log(pool, '---new-*--')
   let newParams:COMMON.obj = {}
   if (params) {
     newParams = cloneDeep(params)
@@ -20,18 +19,30 @@ const useGetCompData = async (compCfg:ViewComponent):Promise<resCompData> => {
       }
     })
   }
-  console.log(newParams)
   let p = new Promise<resCompData>((resolve, reject) => {
     if (type == 'static') {
+      let realdata
+      if (handleFunc) {
+        let fn = new Function('resData', handleFunc)
+        realdata = fn(data)
+      } else {
+        realdata = data
+      }
+      
       resolve({
         id,
-        data,
+        data: realdata,
       }) 
     } else {
       axios({
-        url: interfaceUrl,
+        url: '/index/proxy',
+        baseURL: import.meta.env.VITE_REQ_URL,
         method: 'post',
-        data: newParams,
+        data: {
+          url: interfaceUrl,
+          method: reqType,
+          data: newParams,
+        },
       }).then(res => {
         let data = res
         if (handleFunc) {
