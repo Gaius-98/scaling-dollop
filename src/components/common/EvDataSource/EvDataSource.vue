@@ -71,7 +71,7 @@
       </span>
       <ev-code
         v-model:code="cloneData.handleFunc"
-        style="width: 100%;height: 200px;"
+        style="width: 100%;height: 100px;"
       >
       </ev-code>
       <span class="code">
@@ -89,7 +89,7 @@
       <ev-code 
         v-model:code="result"
         readonly
-        style="width:100%;height:100px;margin-top:10px"
+        style="width:100%;height:200px;margin-top:10px"
         placeholder="数据处理结果"
       >
       </ev-code>
