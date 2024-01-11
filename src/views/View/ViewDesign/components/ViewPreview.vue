@@ -27,7 +27,7 @@ import { useViewStore } from '@/store/viewDesign'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import api from '@/views/View/service/api'
-import useGetCompData from '@/hooks/useViewData'
+import { getViewData } from '@/utils/func'
 import useParamsPool from '@/hooks/useParamsPool'
 
 const store = useViewStore()
@@ -36,7 +36,7 @@ const route = useRoute()
 const curData = ref<ViewData>(viewData.value)
 const loading = ref(true)
 const preHandleViewData = () => {
-  let allRes = curData.value.componentData.map(e => useGetCompData(e))
+  let allRes = curData.value.componentData.map(e => getViewData(e))
   Promise.all(allRes).then(res => {
     res.forEach(({ id, data }) => {
       setCompData(id, data)
@@ -45,7 +45,7 @@ const preHandleViewData = () => {
 }
 const handleComponent = (data?:ViewComponent) => {
   if (data) {
-    useGetCompData(data).then(({ id, data }) => {
+    getViewData(data).then(({ id, data }) => {
       setCompData(id, data)
     })
   }

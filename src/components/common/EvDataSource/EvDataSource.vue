@@ -22,7 +22,7 @@
       label="数据"
     >
       <ev-code
-        style="width: 100%;height: 100%;"
+        style="width: 100%;height: 200px;"
         :code="JSON.stringify(cloneData.data,null,4)"
         @change="changeJsonData"
       >
@@ -100,7 +100,7 @@
 <script lang='ts' setup name="EvDataSource">
 import { reactive, toRefs, ref } from 'vue'
 import ReqTable from '@/components/common/EvReq/components/ReqTable.vue'
-import useGetCompData from '@/hooks/useViewData'
+import { getData } from '@/utils/func'
 
 interface Props {
     data:DataSetting
@@ -121,11 +121,7 @@ const changeJsonData = (code:string) => {
   cloneData.data = JSON.parse(code)
 }
 const onClickSendReq = () => {
-  const previewReq = {
-    id: 'preview',
-    dataSetting: cloneData,
-  } as ViewComponent
-  useGetCompData(previewReq).then(({ id, data }) => {
+  getData(cloneData).then((data) => {
     result.value = typeof data == 'string' ? data : JSON.stringify(data, null, 4)
   })
 }

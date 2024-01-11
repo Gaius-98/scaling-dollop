@@ -69,7 +69,7 @@ import { GuDragResize } from 'gaius-utils'
 import { storeToRefs } from 'pinia'
 import { useViewStore } from '@/store/viewDesign'
 import { v1 as uuid } from 'uuid'
-import useGetCompData from '@/hooks/useViewData'
+import { getViewData } from '@/utils/func'
 import useParamsPool from '@/hooks/useParamsPool'
 
 interface dragResizeInfo {
@@ -265,11 +265,11 @@ const setCompData = (id:string, data:any) => {
 }
 const handleComponent = (data?:ViewComponent) => {
   if (data) {
-    useGetCompData(data).then(({ id, data }) => {
+    getViewData(data).then(({ id, data }) => {
       setCompData(id, data)
     })
   } else {
-    let allRes = viewData.value.componentData.map(e => useGetCompData(e))
+    let allRes = viewData.value.componentData.map(e => getViewData(e))
     Promise.all(allRes).then(res => {
       res.forEach(({ id, data }) => {
         setCompData(id, data)
@@ -279,7 +279,6 @@ const handleComponent = (data?:ViewComponent) => {
 }
 watch(() => viewData.value.componentData.map(e => e.dataSetting), () => {
   // 数据源配置变更，应该只刷新当前配置对应的组件数据
-  console.log('--------watch', curCompData.value)
   handleComponent(curCompData.value)
 }, {
   deep: true,

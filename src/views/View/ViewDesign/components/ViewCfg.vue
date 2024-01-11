@@ -190,7 +190,6 @@ const deepGetValue = (field:string) => field.split('.').reduce((p, c) => {
   return p[c]
 }, curCompData.value as any)
 const deepSetValue = (val:any, field:string) => {
-  console.log(val, field, 'set')
   field.split('.').reduce((p:any, c:string, idx:number, arr:string[]) => {
     if (idx == arr.length - 1) {
       p[c] = val
@@ -257,7 +256,6 @@ const onOpenDataSource = (data:any) => {
     Object.assign(curCompData.value.dataSetting, {
       ...res.data.data,
     })
-    console.log(curCompData)
     dialog.destroyed()
   })
 }

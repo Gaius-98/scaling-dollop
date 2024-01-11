@@ -3,6 +3,8 @@ import { cloneDeep } from 'lodash'
 import { formComp } from '@/assets/form/formSfc'
 import { v4 as uuidv4 } from 'uuid'
 import { getUpperCase } from 'gaius-utils'
+import axios from 'axios'
+import useParamsPool from '@/hooks/useParamsPool'
 /**
  * 对象扁平化
  * @params {object} 要扁平化的对象
@@ -347,6 +349,90 @@ export const transformCssVar = (obj:COMMON.obj) => {
   traverse(obj)
   return result
 }
+export interface getDataCfg {
+  type: dataSetType,
+  data:any,
+  interfaceUrl?:string,
+  params?:COMMON.obj,
+  handleFunc?:string,
+  reqType:ReqType
+}
+/**
+ * 公共请求数据方法
+ * @param cfg getDataCfg
+ * @returns  data any
+ */
+export const getData = async (cfg:getDataCfg):Promise<COMMON.obj> => {
+  const { type, data, params, handleFunc, interfaceUrl, reqType } = cfg
+  const { pool } = useParamsPool()
+  let newParams:COMMON.obj = {}
+  if (params) {
+    newParams = cloneDeep(params)
+    Object.keys(newParams).forEach(key => {
+      if (pool[newParams[key]]) {
+        newParams[key] = pool[newParams[key]]
+      }
+    })
+  }
+  let p = new Promise<COMMON.obj>((resolve, reject) => {
+    if (type == 'static') {
+      let realdata
+      if (handleFunc) {
+        let fn = new Function('resData', handleFunc)
+        realdata = fn(data)
+      } else {
+        realdata = data
+      }
+      resolve(realdata) 
+    } else {
+      axios({
+        url: '/index/proxy',
+        baseURL: import.meta.env.VITE_REQ_URL,
+        method: 'post',
+        data: {
+          url: interfaceUrl,
+          method: reqType,
+          data: newParams,
+        },
+      }).then(res => {
+        let data = res
+        if (handleFunc) {
+          try {
+            let fn = new Function('resData', handleFunc)
+            data = fn(res)
+          } catch (error) {
+            console.warn('处理函数执行失败', error)
+          }
+        }
+        resolve(data)
+      })
+    }
+  })
+ 
+  return p
+}
+
+interface resCompData {
+  id:string,
+  data:any
+}
+/**
+ * 页面请求数据方法
+ * @param compCfg 
+ * @returns 
+ */
+export const getViewData = async (compCfg:ViewComponent):Promise<resCompData> => {
+  const { dataSetting, id } = compCfg
+  const data = await getData(dataSetting)
+  let p = new Promise<resCompData>((resolve, reject) => {
+    resolve({
+      id,
+      data,
+    })
+  })
+
+  return p
+}
 /**
  * 常用函数
  */
@@ -356,5 +442,7 @@ const func = {
   routerPush,
   createFormSfc,
   downloadFile,
+  getViewData,
+  getData,
 }
 export default func
