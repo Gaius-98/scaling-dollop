@@ -1,16 +1,12 @@
 <template>
   <div class="table-design">
-    <div class="table-data">
-      <ev-title>
-        数据源
-      </ev-title>
-      <ev-code
-        :code="JSON.stringify(data,null,4)"
-        @change="onChangeData"
-      >
-      </ev-code>
-    </div>
     <div class="table-container">
+      <el-button
+        type="primary"
+        @click="openDataSource"
+      >
+        数据源配置
+      </el-button>
       <el-button
         type="primary"
         :icon="Plus"
@@ -55,20 +51,20 @@
         </template>
       </draggable>
       <ev-title>
-        预览区域
+        预览区域  <span>注：只展示前10条数据</span>
       </ev-title>
       <ev-table 
         ref="table"
-        :data="data"
+        :data="tableData"
         :table-config="tableConfig"
         border
         height="750"
+        :loading="loading"
       >
       </ev-table>
     </div>
     <div class="table-cfg">
       <table-cfg
-        v-show="curTableColumn.prop"
         :cfg="curTableColumn"
       ></table-cfg>
     </div>
@@ -82,6 +78,8 @@ import { useGuDialog } from 'gaius-utils'
 import TableField from '@/views/Table/TableDesign/dialog/TableField.vue'
 import TableCfg from '@/views/Table/TableDesign/components/TableCfg.vue'
 import { Plus, Delete } from '@element-plus/icons-vue'
+import EvDataSource from '@/components/common/EvDataSource/EvDataSource.vue'
+import { getData } from '@/utils/func'
 
 const curTableColumn = ref<COMMON.commonColumnConfig>({
   label: '',
@@ -107,24 +105,32 @@ const tableConfig = reactive(
   },
 
 )
+const dataSetting = ref<getDataCfg>({
+  type: 'static',
+  data: [{
+    date: '2016-05-02',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1518 弄',
+  }, {
+    date: '2016-05-04',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1517 弄',
+  }, {
+    date: '2016-05-01',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1519 弄',
+  }, {
+    date: '2016-05-03',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1516 弄',
+  }],
+  reqType: 'get',
+  params: {},
+  handleFunc: 'return resData',
+  interfaceUrl: 'http://xxxx',
+})
 const table = ref()
-const data = reactive([{
-  date: '2016-05-02',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1518 弄',
-}, {
-  date: '2016-05-04',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1517 弄',
-}, {
-  date: '2016-05-01',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1519 弄',
-}, {
-  date: '2016-05-03',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1516 弄',
-}])
+const tableData = ref([])
 const onClickTableHeader = (property:string) => {
   activeColumn.value = property
 
@@ -158,8 +164,31 @@ const onChangeByCommand = (command:string, node:any) => {
     tableConfig.columns.splice(idx, 1)
   }
 }
-const onChangeData = (val:string) => {
-  Object.assign(data, JSON.parse(val))
+
+const loading = ref(false)
+const handleData = async () => {
+  loading.value = true
+  const data = await getData(dataSetting.value)
+  tableData.value = data.slice(0, 9)
+  loading.value = false
+}
+const openDataSource = () => {
+  const dataSourceDialog = useGuDialog({
+    title: '数据源配置',
+    content: EvDataSource,
+    height: 820,
+    componentProps: {
+      data: dataSetting.value,
+    },
+  })
+  dataSourceDialog.open(({ type, data }:{type:string, data:any}) => {
+    console.log(type, data, data.data)
+    if (type == 'ok') {
+      dataSetting.value = data.data
+    }
+    handleData()
+    dataSourceDialog.destroyed()
+  })
 }
 </script>
 <style scoped lang='scss'>

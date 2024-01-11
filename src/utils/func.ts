@@ -349,14 +349,7 @@ export const transformCssVar = (obj:COMMON.obj) => {
   traverse(obj)
   return result
 }
-export interface getDataCfg {
-  type: dataSetType,
-  data:any,
-  interfaceUrl?:string,
-  params?:COMMON.obj,
-  handleFunc?:string,
-  reqType:ReqType
-}
+
 /**
  * 公共请求数据方法
  * @param cfg getDataCfg

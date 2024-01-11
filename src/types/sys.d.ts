@@ -34,3 +34,14 @@ declare interface sysDict {
   orderNum:number,
   description:string
 }
+/**
+ * 系统请求外部数据配置
+ */
+declare interface getDataCfg {
+  type: dataSetType,
+  data:any,
+  interfaceUrl?:string,
+  params?:COMMON.obj,
+  handleFunc?:string,
+  reqType:ReqType
+}
