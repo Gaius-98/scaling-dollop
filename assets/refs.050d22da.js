@@ -1,0 +1,1 @@
+import{a_ as r,__tla as _}from"./index.64d56b1e.js";let e,c=Promise.all([(()=>{try{return _}catch{}})()]).then(async()=>{e=(...l)=>t=>{l.forEach(a=>{r(a)?a(t):a.value=t})}});export{c as __tla,e as c};
