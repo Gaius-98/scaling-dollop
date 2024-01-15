@@ -65,7 +65,7 @@ interface columns{
 }
 interface tableConfig {
   columns:columns[],
-  opt?:{
+  opt:{
     fixed?:string|boolean,
     width?:string|number,
     label?:string,
