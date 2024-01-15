@@ -78,7 +78,7 @@ const onChangeCompByCommand = (command:string, node:any) => {
         width: 100%;
         height: 20px;
         line-height: 20px;
-        padding: 0 10px;
+
         cursor: move;    
         color: var(--ev-active-color);
         /* border-bottom: 1px solid var(--ev-active-color); */

@@ -51,7 +51,7 @@
         </template>
       </draggable>
       <ev-title>
-        预览区域  <span>注：只展示前10条数据</span>
+        预览区域  <span style="font-size: 10px;color: #ccc;">(注：只展示前10条数据)</span>
       </ev-title>
       <ev-table 
         ref="table"
@@ -64,6 +64,16 @@
       </ev-table>
     </div>
     <div class="table-cfg">
+      <ev-title>
+        全局配置
+      </ev-title>
+      <global-cfg
+        :cfg="globalCfg"
+      >
+      </global-cfg>
+      <ev-title style="margin-top: 20px;">
+        当前列配置
+      </ev-title>
       <table-cfg
         :cfg="curTableColumn"
       ></table-cfg>
@@ -77,6 +87,7 @@ import draggable from 'vuedraggable'
 import { useGuDialog } from 'gaius-utils'
 import TableField from '@/views/Table/TableDesign/dialog/TableField.vue'
 import TableCfg from '@/views/Table/TableDesign/components/TableCfg.vue'
+import GlobalCfg from './components/GlobalCfg.vue'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import EvDataSource from '@/components/common/EvDataSource/EvDataSource.vue'
 import { getData } from '@/utils/func'
@@ -131,6 +142,20 @@ const dataSetting = ref<getDataCfg>({
 })
 const table = ref()
 const tableData = ref([])
+const globalCfg = ref({
+  pagConfig: {
+    show: false,
+    pageSize: 10,
+  },
+  add: {
+    show: false,
+    id: '',
+  },
+  edit: {
+    show: false,
+    id: '',
+  },
+})
 const onClickTableHeader = (property:string) => {
   activeColumn.value = property
 
@@ -201,7 +226,6 @@ const openDataSource = () => {
   }
   .table-container{
     flex: 1;
-    max-width: 1000px;
     padding: 0 20px;
   }
   .table-cfg{
