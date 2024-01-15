@@ -23,7 +23,7 @@
       </template>
     </el-table-column>
     <el-table-column
-      v-if="tableConfig.opt"
+      v-if="tableConfig.opt.show"
       :fixed="tableConfig.opt.fixed"
       :width="tableConfig.opt.width || 200"
       :label="tableConfig.opt.label || '操作'"
@@ -69,6 +69,7 @@ interface tableConfig {
     fixed?:string|boolean,
     width?:string|number,
     label?:string,
+    show?:boolean
   }
 }
 interface pagConfig {

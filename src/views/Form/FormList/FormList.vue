@@ -42,7 +42,6 @@
       class="main"
     >
       <ev-table 
-
         :data="tableData"
         :table-config="config"
         :pag-config="pageCfg"
@@ -173,6 +172,7 @@ const config = ref({
     label: '操作',
     width: 300,
     fixed: 'right',
+    show: true,
   },
 })
 const pageCfg = ref({

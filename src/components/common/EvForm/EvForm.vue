@@ -22,10 +22,14 @@ const props = defineProps({
     type: Object as PropType<COMMON.obj>,
     required: true,
   },
+  formData: {
+    type: Object as PropType<COMMON.obj>,
+    required: false,
+    default: () => ({}),
+  },
 })
 const formRef = ref<FormInstance>()
-const formData = reactive<COMMON.obj>({})
-const { formConfig } = toRefs(props)
+const { formConfig, formData } = toRefs(props)
 const getFormData = () => formData
 const resetForm = () => {
   if (!formRef.value) return

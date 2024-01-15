@@ -37,6 +37,7 @@
             >
               {{ element.label }}
             </div>
+
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item
@@ -53,14 +54,35 @@
       <ev-title>
         预览区域  <span style="font-size: 10px;color: #ccc;">(注：只展示前10条数据)</span>
       </ev-title>
+      <div class="filter">
+      </div>
+      <div class="btns">
+        <el-button
+          v-if="globalCfg.add.show"
+          type="primary"
+          @click="onOpenAddDialog"
+        >
+          新增
+        </el-button>
+      </div>
       <ev-table 
         ref="table"
         :data="tableData"
         :table-config="tableConfig"
+        :pag-config="globalCfg.pagConfig"
         border
-        height="750"
+        height="680"
         :loading="loading"
       >
+        <template #opt="scope"> 
+          <el-link
+            type="primary"
+            @click="onEdit(scope)"
+          >
+            <i class="iconfont icon-bianji"></i>
+            编辑
+          </el-link>
+        </template>
       </ev-table>
     </div>
     <div class="table-cfg">
@@ -82,7 +104,7 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, toRefs, ref, watchEffect } from 'vue'
 import draggable from 'vuedraggable'
 import { useGuDialog } from 'gaius-utils'
 import TableField from '@/views/Table/TableDesign/dialog/TableField.vue'
@@ -91,6 +113,9 @@ import GlobalCfg from './components/GlobalCfg.vue'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import EvDataSource from '@/components/common/EvDataSource/EvDataSource.vue'
 import { getData } from '@/utils/func'
+import formApi from '@/views/Form/service/api'
+import { ElMessage } from 'element-plus'
+import EvForm from '@/components/common/EvForm/EvForm.vue'
 
 const curTableColumn = ref<COMMON.commonColumnConfig>({
   label: '',
@@ -103,6 +128,7 @@ const tableConfig = reactive(
       {
         label: '日期',
         prop: 'date',
+        children: [],
       },
       {
         label: '姓名',
@@ -113,6 +139,9 @@ const tableConfig = reactive(
         prop: 'address',
       },
     ],
+    opt: {
+      show: false,
+    },
   },
 
 )
@@ -146,14 +175,15 @@ const globalCfg = ref({
   pagConfig: {
     show: false,
     pageSize: 10,
+    total: 10,
   },
   add: {
-    show: false,
-    id: '',
+    show: true,
+    id: 32,
   },
   edit: {
-    show: false,
-    id: '',
+    show: true,
+    id: 32,
   },
 })
 const onClickTableHeader = (property:string) => {
@@ -215,6 +245,60 @@ const openDataSource = () => {
     dataSourceDialog.destroyed()
   })
 }
+handleData()
+const onOpenAddDialog = () => {
+  formApi.getDetail({
+    id: Number(globalCfg.value.add.id),
+  }).then(res => {
+    const { code, data, msg } = res
+    if (code == 0) {
+      const dialog = useGuDialog({
+        title: '新增',
+        content: EvForm,
+        componentProps: {
+          formConfig: data,
+        },
+      })
+      dialog.open((dialogRes:any) => {
+        console.log(dialogRes.data.getFormData())
+        dialog.destroyed()
+      })
+    } else {
+      ElMessage.error(msg)
+    }
+  })
+}
+const onEdit = (scope:any) => {
+  console.log(scope)
+  formApi.getDetail({
+    id: Number(globalCfg.value.edit.id),
+  }).then(res => {
+    const { code, data, msg } = res
+    if (code == 0) {
+      const dialog = useGuDialog({
+        title: '编辑',
+        content: EvForm,
+        componentProps: {
+          formConfig: data,
+          formData: scope.row,
+        },
+      })
+      dialog.open((dialogRes:any) => {
+        console.log(dialogRes.data.getFormData())
+        dialog.destroyed()
+      })
+    } else {
+      ElMessage.error(msg)
+    }
+  })
+}
+watchEffect(() => {
+  if (globalCfg.value.edit.show) {
+    tableConfig.opt.show = true
+  } else {
+    tableConfig.opt.show = false
+  }
+})
 </script>
 <style scoped lang='scss'>
 .table-design{
@@ -226,10 +310,13 @@ const openDataSource = () => {
   }
   .table-container{
     flex: 1;
+    max-width: calc(100% - 340px);
     padding: 0 20px;
   }
   .table-cfg{
     width: 300px;
+    height:100%;
+    overflow-y: auto;
   }
 }
 
