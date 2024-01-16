@@ -7,10 +7,7 @@
     <el-table-column
       v-for="column in tableConfig.columns"
       :key="column.label + column.prop"
-      :prop="column.prop"
-      :label="column.label"
-      :sortable="column.sortable"
-      :width="column.width"
+      v-bind="column"
     >
       <template
         v-if="column.slot"
@@ -20,6 +17,13 @@
           :name="column.slot" 
           :row="scope.row"
         ></slot>
+      </template>
+      <template v-if="column.children&& column.children.length > 0 ">
+        <ev-column 
+          v-if="column.children && column.children.length > 0"
+          :column-list="column.children"
+        >
+        </ev-column>
       </template>
     </el-table-column>
     <el-table-column

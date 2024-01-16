@@ -1,5 +1,21 @@
 <template>
   <div class="table-design">
+    <div class="table-data">
+      <ev-title>
+        列配置
+      </ev-title>
+      <el-tree 
+        :allow-drop="true"
+        :allow-drag="true"
+        :data="tableConfig.columns"
+        draggable
+        node-key="prop"
+        :highlight-current="true"
+        :check-on-click-node="true"
+        @node-click="onClickTableHeader"
+      >
+      </el-tree>
+    </div>
     <div class="table-container">
       <el-button
         type="primary"
@@ -14,7 +30,7 @@
       >
         新增字段
       </el-button>
-      <ev-title>
+      <!-- <ev-title>
         配置列
       </ev-title>
       <draggable
@@ -50,7 +66,7 @@
             </template>
           </el-dropdown>
         </template>
-      </draggable>
+      </draggable> -->
       <ev-title>
         预览区域  <span style="font-size: 10px;color: #ccc;">(注：只展示前10条数据)</span>
       </ev-title>
@@ -116,6 +132,7 @@ import { getData } from '@/utils/func'
 import formApi from '@/views/Form/service/api'
 import { ElMessage } from 'element-plus'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
+import type Node from 'element-plus/es/components/tree/src/model/node'
 
 const curTableColumn = ref<COMMON.commonColumnConfig>({
   label: '',
@@ -128,7 +145,6 @@ const tableConfig = reactive(
       {
         label: '日期',
         prop: 'date',
-        children: [],
       },
       {
         label: '姓名',
@@ -178,18 +194,18 @@ const globalCfg = ref({
     total: 10,
   },
   add: {
-    show: true,
+    show: false,
     id: 32,
   },
   edit: {
-    show: true,
+    show: false,
     id: 32,
   },
 })
-const onClickTableHeader = (property:string) => {
+const onClickTableHeader = (info:COMMON.commonColumnConfig) => {
+  const { prop: property } = info
   activeColumn.value = property
-
-  curTableColumn.value = tableConfig.columns.find(e => (e.prop == property)) as COMMON.commonColumnConfig
+  curTableColumn.value = info as COMMON.commonColumnConfig
 }
 const addFieldDialog = useGuDialog({
   title: '新增列表字段',
@@ -201,14 +217,16 @@ const addFieldDialog = useGuDialog({
 })
 const onAddField = () => {
   addFieldDialog.open(async (res:any) => {
-    const { valid } = await res.data.getFormValidate()
-    const columnData = res.data.getFormData()
-    if (valid) {
-      tableConfig.columns.push({
-        label: columnData.label,
-        prop: columnData.prop,
-      })
-      addFieldDialog.destroyed()
+    if (res.type == 'ok') {
+      const { valid } = await res.data.getFormValidate()
+      const columnData = res.data.getFormData()
+      if (valid) {
+        tableConfig.columns.push({
+          label: columnData.label,
+          prop: columnData.prop,
+        })
+        addFieldDialog.destroyed()
+      }
     }
   })
 }
@@ -306,11 +324,11 @@ watchEffect(() => {
   height: 100%;
   display: flex;
   .table-data{
-    width: 300px;
+    width: 200px;
   }
   .table-container{
     flex: 1;
-    max-width: calc(100% - 340px);
+    max-width: calc(100% - 540px);
     padding: 0 20px;
   }
   .table-cfg{

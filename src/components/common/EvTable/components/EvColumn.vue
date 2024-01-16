@@ -2,22 +2,9 @@
   <el-table-column
     v-for="column in columnList"
     :key="column.label + column.prop"
-    :prop="column.prop"
-    :label="column.label"
-    :sortable="column.sortable"
-    :width="column.width"
+    v-bind="column"
   >
-    <template
-      v-if="column.slot"
-      #default="scope"
-    >
-      <slot
-        :name="column.slot" 
-        :row="scope.row"
-      ></slot>
-    </template>
     <template v-if="column.children && column.children.length >0">
-      <!-- {{ column.children }} -->
       <EvColumn
         :column-list="column.children"
       >

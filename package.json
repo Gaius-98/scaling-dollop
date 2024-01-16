@@ -16,7 +16,7 @@
     "@codemirror/theme-one-dark": "^6.1.0",
     "axios": "^1.2.0",
     "codemirror": "^6.0.1",
-    "element-plus": "^2.2.8",
+    "element-plus": "^2.5.1",
     "gaius-utils": "^0.4.26",
     "github-markdown-css": "^5.2.0",
     "html2canvas": "^1.4.1",

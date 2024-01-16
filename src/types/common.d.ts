@@ -80,6 +80,7 @@ declare namespace COMMON{
     sortable?:string|boolean,
     align?:string,
     slot?:string,
-    type?:'selection' | 'index' | 'expand' | null
+    type?:'selection' | 'index' | 'expand' | null,
+    children?:commonColumnConfig[]
   }
 }
