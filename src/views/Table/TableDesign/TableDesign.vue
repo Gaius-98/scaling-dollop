@@ -1,20 +1,37 @@
 <template>
   <div class="table-design">
     <div class="table-data">
-      <ev-title>
-        列配置
-      </ev-title>
-      <el-tree 
-        :allow-drop="true"
-        :allow-drag="true"
-        :data="tableConfig.columns"
-        draggable
-        node-key="prop"
-        :highlight-current="true"
-        :check-on-click-node="true"
-        @node-click="onClickTableHeader"
-      >
-      </el-tree>
+      <div class="table-column-design">
+        <ev-title>
+          列配置
+        </ev-title>
+        <div
+          class="tree-btn"
+          @click="onAddField"
+        >
+          <i class="iconfont icon-a-xinzengtianjia"></i>
+          新增字段
+        </div>
+        <el-tree 
+          :allow-drop="true"
+          :allow-drag="true"
+          :data="tableConfig.columns"
+          draggable
+          node-key="prop"
+          :highlight-current="true"
+          :check-on-click-node="true"
+          @node-click="onClickTableHeader"
+        >
+        </el-tree>
+      </div>
+      <div class="table-column-cfg">
+        <ev-title style="margin-top: 20px;">
+          当前列配置
+        </ev-title>
+        <table-cfg
+          :cfg="curTableColumn"
+        ></table-cfg>
+      </div>
     </div>
     <div class="table-container">
       <el-button
@@ -23,56 +40,22 @@
       >
         数据源配置
       </el-button>
-      <el-button
-        type="primary"
-        :icon="Plus"
-        @click="onAddField"
-      >
-        新增字段
-      </el-button>
-      <!-- <ev-title>
-        配置列
-      </ev-title>
-      <draggable
-        v-model="tableConfig.columns"
-        item-key="prop"
-        class="table-header"
-      >
-        <template #item="{element}">
-          <el-dropdown
-            trigger="contextmenu"
-            @command="onChangeByCommand"
-          >
-            <div
-              class="header-cell"
-              :class="activeColumn == element.prop? 'cur-column' :''"
-              :style="{
-                width:element.width ? element.width + 'px' :'auto' 
-              }"
-              @click="onClickTableHeader(element.prop)"
-            >
-              {{ element.label }}
-            </div>
-
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item
-                  command="delete"
-                  :field="element.prop"
-                >
-                  删除
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </template>
-      </draggable> -->
       <ev-title>
         预览区域  <span style="font-size: 10px;color: #ccc;">(注：只展示前10条数据)</span>
       </ev-title>
-      <div class="filter">
+      <div
+        v-if="globalCfg.filter.show"
+        class="filter"
+      >
+        <ev-form-id
+          :id="globalCfg.filter.id"
+        >
+        </ev-form-id>
       </div>
-      <div class="btns">
+      <div
+        class="btns"
+        style="margin-bottom: 20px;"
+      >
         <el-button
           v-if="globalCfg.add.show"
           type="primary"
@@ -87,17 +70,45 @@
         :table-config="tableConfig"
         :pag-config="globalCfg.pagConfig"
         border
-        height="680"
+        height="620"
         :loading="loading"
       >
         <template #opt="scope"> 
           <el-link
+            v-if="globalCfg.edit.show"
             type="primary"
+            style="margin-left: 10px;"
             @click="onEdit(scope)"
           >
             <i class="iconfont icon-bianji"></i>
             编辑
           </el-link>
+          <el-link
+            v-if="globalCfg.view.show"
+            type="success"
+            style="margin-left: 10px;"
+            @click="onView(scope)"
+          >
+            <i class="iconfont icon-keshihua"></i>
+            查看
+          </el-link>
+          <el-popconfirm
+            title="确定要删除吗?"
+            confirm-button-text="确认"
+            cancel-button-text="取消"
+            @confirm="onDelete(scope)"
+          >
+            <template #reference>
+              <el-link
+                v-if="globalCfg.delete.show"
+                type="danger"
+                style="margin-left: 10px;"
+              >
+                <i class="iconfont icon-a-shanchulajitong"></i>
+                删除
+              </el-link>
+            </template>
+          </el-popconfirm>
         </template>
       </ev-table>
     </div>
@@ -109,12 +120,6 @@
         :cfg="globalCfg"
       >
       </global-cfg>
-      <ev-title style="margin-top: 20px;">
-        当前列配置
-      </ev-title>
-      <table-cfg
-        :cfg="curTableColumn"
-      ></table-cfg>
     </div>
   </div>
 </template>
@@ -133,6 +138,7 @@ import formApi from '@/views/Form/service/api'
 import { ElMessage } from 'element-plus'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
+import EvFormId from './components/EvFormId.vue'
 
 const curTableColumn = ref<COMMON.commonColumnConfig>({
   label: '',
@@ -201,6 +207,17 @@ const globalCfg = ref({
     show: false,
     id: 32,
   },
+  delete: {
+    show: false,
+  },
+  view: {
+    show: false,
+    id: 32,
+  },
+  filter: {
+    show: false,
+    id: 33,
+  },
 })
 const onClickTableHeader = (info:COMMON.commonColumnConfig) => {
   const { prop: property } = info
@@ -230,13 +247,6 @@ const onAddField = () => {
     }
   })
 }
-const onChangeByCommand = (command:string, node:any) => {
-  const prop = node.attrs.field
-  const idx = tableConfig.columns.findIndex(e => (e.prop == prop))
-  if (idx != -1) {
-    tableConfig.columns.splice(idx, 1)
-  }
-}
 
 const loading = ref(false)
 const handleData = async () => {
@@ -265,58 +275,58 @@ const openDataSource = () => {
 }
 handleData()
 const onOpenAddDialog = () => {
-  formApi.getDetail({
-    id: Number(globalCfg.value.add.id),
-  }).then(res => {
-    const { code, data, msg } = res
-    if (code == 0) {
-      const dialog = useGuDialog({
-        title: '新增',
-        content: EvForm,
-        componentProps: {
-          formConfig: data,
-        },
-      })
-      dialog.open((dialogRes:any) => {
-        console.log(dialogRes.data.getFormData())
-        dialog.destroyed()
-      })
-    } else {
-      ElMessage.error(msg)
-    }
+  const dialog = useGuDialog({
+    title: '新增',
+    content: EvFormId,
+    componentProps: {
+      id: globalCfg.value.add.id,
+    },
+  })
+  dialog.open((dialogRes:any) => {
+    console.log(dialogRes.data.getFormData())
+    dialog.destroyed()
   })
 }
 const onEdit = (scope:any) => {
-  console.log(scope)
-  formApi.getDetail({
-    id: Number(globalCfg.value.edit.id),
-  }).then(res => {
-    const { code, data, msg } = res
-    if (code == 0) {
-      const dialog = useGuDialog({
-        title: '编辑',
-        content: EvForm,
-        componentProps: {
-          formConfig: data,
-          formData: scope.row,
-        },
-      })
-      dialog.open((dialogRes:any) => {
-        console.log(dialogRes.data.getFormData())
-        dialog.destroyed()
-      })
-    } else {
-      ElMessage.error(msg)
-    }
+  const dialog = useGuDialog({
+    title: '编辑',
+    content: EvFormId,
+    componentProps: {
+      id: globalCfg.value.edit.id,
+      formData: scope.row,
+    },
+  })
+  dialog.open((dialogRes:any) => {
+    console.log(dialogRes.data.getFormData())
+    dialog.destroyed()
   })
 }
+const onView = (scope:any) => {
+  const dialog = useGuDialog({
+    title: '查看',
+    content: EvFormId,
+    componentProps: {
+      id: globalCfg.value.edit.id,
+      formData: scope.row,
+    },
+  })
+  dialog.open((dialogRes:any) => {
+    console.log(dialogRes.data.getFormData())
+    dialog.destroyed()
+  })
+}
+const onDelete = (scope:any) => {
+  console.log(scope)
+}
 watchEffect(() => {
-  if (globalCfg.value.edit.show) {
+  if (globalCfg.value.edit.show || globalCfg.value.delete.show || globalCfg.value.view.show) {
     tableConfig.opt.show = true
   } else {
     tableConfig.opt.show = false
   }
 })
+
+
 </script>
 <style scoped lang='scss'>
 .table-design{
@@ -324,12 +334,35 @@ watchEffect(() => {
   height: 100%;
   display: flex;
   .table-data{
-    width: 200px;
+    width: 300px;
+    .table-column-design{
+      height: 400px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      .tree-btn{
+        color: var(--ev-active-color);
+        font-size: 12px;
+        cursor: pointer;
+        margin: 10px;
+        i{
+          font-size: 12px;
+        }
+      }
+    }
+    .table-column-cfg{
+      height: calc(100% - 440px);
+      margin-top: 20px;
+      overflow-y: auto;
+    }
   }
   .table-container{
     flex: 1;
-    max-width: calc(100% - 540px);
+    max-width: calc(100% - 640px);
     padding: 0 20px;
+    .filter{
+      height: 40px;
+      overflow: auto;
+    }
   }
   .table-cfg{
     width: 300px;

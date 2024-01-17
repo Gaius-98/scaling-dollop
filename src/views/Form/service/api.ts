@@ -42,4 +42,10 @@ export default {
       data,
     })
   },
+  getFormListInfo() {
+    return request<{id:number, name:string}[]>({
+      url: '/biz/form/listInfo',
+      method: 'post',
+    })
+  },
 }
