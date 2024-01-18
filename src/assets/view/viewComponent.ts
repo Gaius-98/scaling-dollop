@@ -11,8 +11,7 @@ export default [
     dataSetting: {
       type: 'static',
       data: '文本',
-      params: {
-      },
+      params: '',
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       handleFunc: `const { data } = resData
       return data.result.note
@@ -31,8 +30,7 @@ export default [
     dataSetting: {
       type: 'static',
       data: 'https://avatars.githubusercontent.com/u/59641156?v=4',
-      params: {
-      },
+      params: '',
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       handleFunc: `const { data } = resData
       return data.result.img
@@ -85,8 +83,7 @@ export default [
         ['Walnut Brownie', 72.4, 53.9, 39.1],
       ],
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  =  [
         ['product', '2015', '2016', '2017'],
         ['Matcha Latte', 43.3, 85.8, 93.7],
@@ -139,8 +136,7 @@ export default [
         ['Walnut Brownie', 72.4, 53.9, 39.1],
       ],
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  =  [
         ['product', '2015', '2016', '2017'],
         ['Matcha Latte', 43.3, 85.8, 93.7],
@@ -202,8 +198,7 @@ export default [
         { value: 300, name: 'Video Ads' },
       ],
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
-      params: {
-      },
+      params: '',
       handleFunc: `const { data } = resData
       return data.result.note
       `,
@@ -222,8 +217,7 @@ export default [
       type: 'static',
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       data: 'https://blog.csdn.net/weixin_47030180',
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  =  [
         ['product', '2015', '2016', '2017'],
         ['Matcha Latte', 43.3, 85.8, 93.7],
@@ -248,8 +242,7 @@ export default [
       type: 'static',
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       data: 'text',
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  =  'move'
       return data
       `,
@@ -283,8 +276,7 @@ export default [
         { value: 1, label: '男' },
         { value: 0, label: '女' },
       ],
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  =  [
         { value: 'test1', label: '静态' },
         { value: 'test2', label: '动态' },
@@ -309,8 +301,7 @@ export default [
       type: 'static',
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       data: '',
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  = '测试文本'
       return data
       `,
@@ -338,8 +329,7 @@ export default [
       type: 'static',
       interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
       data: 'text',
-      params: {
-      },
+      params: '',
       handleFunc: `const  data  =  'move'
       return data
       `,

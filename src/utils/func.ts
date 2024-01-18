@@ -355,17 +355,13 @@ export const transformCssVar = (obj:COMMON.obj) => {
  * @param cfg getDataCfg
  * @returns  data any
  */
-export const getData = async (cfg:getDataCfg):Promise<COMMON.obj> => {
+export const getData = async (cfg:DataSetting):Promise<COMMON.obj> => {
   const { type, data, params, handleFunc, interfaceUrl, reqType } = cfg
   const { pool } = useParamsPool()
   let newParams:COMMON.obj = {}
   if (params) {
-    newParams = cloneDeep(params)
-    Object.keys(newParams).forEach(key => {
-      if (pool[newParams[key]]) {
-        newParams[key] = pool[newParams[key]]
-      }
-    })
+    let handleParmas = new Function('params', params)
+    newParams = handleParmas(pool)
   }
   let p = new Promise<COMMON.obj>((resolve, reject) => {
     if (type == 'static') {

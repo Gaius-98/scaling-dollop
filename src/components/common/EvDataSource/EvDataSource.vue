@@ -56,13 +56,25 @@
           </template>
         </el-input>
       </div>
+    </el-form-item>
+    <el-form-item
+      v-if="cloneData.type == 'dev'"
+      label="处理请求参数"
+    >
       <div
-        v-if="cloneData.params"
         class="req-params"
       >
-        <req-table
-          v-model:data="cloneData.params"
-        />
+        <span class="code">
+          (params)=>{
+        </span>
+        <ev-code
+          v-model:code="cloneData.params"
+          style="width: 100%;height: 100px;"
+        >
+        </ev-code>
+        <span class="code">
+          }
+        </span>
       </div>
     </el-form-item>
     <el-form-item label="处理函数">
@@ -99,7 +111,6 @@
 
 <script lang='ts' setup name="EvDataSource">
 import { reactive, toRefs, ref } from 'vue'
-import ReqTable from '@/components/common/EvReq/components/ReqTable.vue'
 import { getData } from '@/utils/func'
 
 interface Props {

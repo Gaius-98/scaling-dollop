@@ -187,7 +187,7 @@ const dataSetting = ref<getDataCfg>({
     address: '上海市普陀区金沙江路 1516 弄',
   }],
   reqType: 'get',
-  params: {},
+  params: '',
   handleFunc: 'return resData',
   interfaceUrl: 'http://xxxx',
 })
@@ -325,7 +325,6 @@ watchEffect(() => {
     tableConfig.opt.show = false
   }
 })
-
 
 </script>
 <style scoped lang='scss'>

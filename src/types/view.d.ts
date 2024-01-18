@@ -107,7 +107,7 @@ declare interface DataSetting {
     type:dataSetType,
     data:any,
     interfaceUrl?:string,
-    params?:COMMON.obj,
+    params?:string,
     handleFunc?:string,
     reqType:ReqType
 }
