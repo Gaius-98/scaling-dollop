@@ -85,7 +85,7 @@
       :label="item.label"
     >
       <icon-select
-        :model-value="deepGetValue(item.ui.field)"
+        :value="deepGetValue(item.ui.field)"
         clearable
         filterable
         @change="deepSetValue($event,item.ui.field)"

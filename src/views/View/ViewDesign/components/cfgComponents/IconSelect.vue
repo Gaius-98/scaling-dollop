@@ -4,8 +4,18 @@
     v-bind="$attrs"
     :options="iconOptions"
     value-key="font_class"
+    :props="{
+      value:'font_class',
+      label:'name'
+    }"
     @change="onChangeValue"
   >
+    <template #prefix>
+      <div
+        class="iconfont"
+        :class="`icon-${value}`"
+      ></div>
+    </template>
     <template #default="{ item }">
       <span
         class="iconfont"
@@ -27,9 +37,12 @@ const props = withDefaults(defineProps<Props>(), {
   value: '',
 })
 const iconOptions = ref(iconJson.glyphs)
+console.log(iconOptions)
 const { value } = toRefs(props)
+console.log(value, props)
 const emits = defineEmits(['change'])
 const onChangeValue = (val:string) => {
+  console.log(val)
   emits('change', val)
 }
 </script>
