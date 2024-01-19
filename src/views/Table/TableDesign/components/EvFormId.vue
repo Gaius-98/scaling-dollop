@@ -1,9 +1,10 @@
 <template>
   <ev-form
     ref="evFrom"
+    v-model:form-data="formData"
     v-ev-loading="loading"
     :form-config="formConfig"
-    :form-data="formData"
+    :disabled="disabled"
   >
   </ev-form>
 </template>
@@ -15,11 +16,14 @@ import { ElMessage } from 'element-plus'
 
 interface Props {
     id:number,
-    formData?:{
+    formData:{
         [key:string]:any
-    }
+    },
+    disabled:boolean
 }
-const props = withDefaults(defineProps<Props>(), {})
+const props = withDefaults(defineProps<Props>(), {
+  disabled: false,
+})
 const { id, formData } = toRefs(props)
 const formConfig = reactive({
   list: [],

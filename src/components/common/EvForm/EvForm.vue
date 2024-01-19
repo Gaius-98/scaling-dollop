@@ -3,6 +3,7 @@
     v-bind="formConfig.formProp"
     ref="formRef"
     :model="formData"
+    :disabled="disabled"
   >
     <form-comp
       :list="formConfig.list"
@@ -13,7 +14,7 @@
 </template>
 
 <script lang='ts' setup name="EvForm">
-import { reactive, toRefs, ref, PropType } from 'vue'
+import { reactive, toRefs, ref, PropType, computed } from 'vue'
 import FormComp from './components/FormComp.vue'
 import type { FormInstance } from 'element-plus'
 
@@ -27,9 +28,14 @@ const props = defineProps({
     required: false,
     default: () => ({}),
   },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 const formRef = ref<FormInstance>()
-const { formConfig, formData } = toRefs(props)
+const { formConfig, formData, disabled } = toRefs(props)
 const getFormData = () => formData
 const resetForm = () => {
   if (!formRef.value) return

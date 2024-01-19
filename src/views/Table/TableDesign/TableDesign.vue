@@ -49,6 +49,7 @@
       >
         <ev-form-id
           :id="globalCfg.filter.id"
+          :form-data="filterData"
         >
         </ev-form-id>
       </div>
@@ -193,6 +194,8 @@ const dataSetting = ref<getDataCfg>({
 })
 const table = ref()
 const tableData = ref([])
+const filterData = reactive({})
+const addData = reactive({})
 const globalCfg = ref({
   pagConfig: {
     show: false,
@@ -265,7 +268,6 @@ const openDataSource = () => {
     },
   })
   dataSourceDialog.open(({ type, data }:{type:string, data:any}) => {
-    console.log(type, data, data.data)
     if (type == 'ok') {
       dataSetting.value = data.data
     }
@@ -280,6 +282,7 @@ const onOpenAddDialog = () => {
     content: EvFormId,
     componentProps: {
       id: globalCfg.value.add.id,
+      formData: addData,
     },
   })
   dialog.open((dialogRes:any) => {
@@ -308,6 +311,7 @@ const onView = (scope:any) => {
     componentProps: {
       id: globalCfg.value.edit.id,
       formData: scope.row,
+      disabled: true,
     },
   })
   dialog.open((dialogRes:any) => {
