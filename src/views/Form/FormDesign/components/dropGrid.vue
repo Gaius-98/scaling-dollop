@@ -1,5 +1,8 @@
 <template>
-  <el-row v-bind="$attrs">
+  <el-row
+    v-bind="$attrs"
+    class="drop-row"
+  >
     <el-col
       v-for="item in cols"
       :key="item.key"
@@ -25,8 +28,16 @@ const props = defineProps({
 const { cols } = toRefs(props)
 </script>
 <style scoped lang='scss'>
-.col{
-  min-height: 40px;
-  border-right:1px dashed var(--ev-active-tint-color) ;
+.drop-row{
+  border: 1px dashed var(--ev-active-tint-color);
+  .col{
+    border-right:  1px dashed var(--ev-active-tint-color);
+  }
+  .col:nth-last-child(1){
+    min-height: 40px;
+    border-right:none ;
+  }
+
 }
+
 </style>

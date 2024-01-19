@@ -71,7 +71,7 @@ declare interface formComp {
       list:any[]|formComp[],
       key:string,
       span:number
-    },
+    }[],
     gutter?:number,
     card?:{
       list?:any[]|formComp[],

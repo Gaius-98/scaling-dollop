@@ -12,7 +12,7 @@
     >
       <div
         class="drop-container-item"
-        :class="curFormItem.compId == element.compId ? 'drop-container-item-active' :''"
+        :class="curFormItem.compId == element.compId ? 'drop-container-item-active':''"
         @click.stop="onClickFormItem(element)"
       >
         <el-form-item
@@ -123,9 +123,21 @@
           </drop-collapse>
         </div>
         <div
-          class="drop-container-item-opt iconfont icon-a-shanchulajitong"
-          @click="onClickRemove(element)"
+          v-show="curFormItem.compId == element.compId"
+          class="drop-container-item-opt"
         >
+          <div
+            class="opt iconfont icon-queue"
+            title="复制"
+            @click="onClickCopy(element)"
+          >
+          </div>
+          <div
+            class="opt iconfont icon-a-shanchulajitong"
+            title="删除"
+            @click="onClickRemove(element)"
+          >
+          </div>
         </div>
       </div>
     </template>
@@ -140,6 +152,8 @@ import { useFormDesignStore } from '@/store/formDesign'
 import dropGrid from './dropGrid.vue'
 import dropCard from './dropCard.vue'
 import dropCollapse from './dropCollapse.vue'
+import { cloneDeep } from 'lodash'
+import { v4 as uuid } from 'uuid'
 
 const props = defineProps({
   list: {
@@ -164,6 +178,31 @@ const onClickRemove = (element:formComp) => {
   const idx = compList.value.findIndex((formItem) => formItem.compId == element.compId)
   compList.value.splice(idx, 1)
 }
+const handleDeepData = (element:formComp) => {
+  if (element.type == 'container') {
+    if (element.comp == 'grid') {
+      element.prop.cols!.forEach((col:{list:any[]}) => {
+        col.list = col.list.map((comp:formComp) => handleDeepData(comp))
+      })
+      return element
+    } if (element.comp == 'card') {
+      element.prop.card?.list!.map((comp:formComp) => handleDeepData(comp))
+      return element
+    } if (element.comp == 'collapse') {
+      element.prop.collapse?.list!.map((comp:formComp) => handleDeepData(comp))
+      return element
+    }
+    return element
+  } 
+  const cloneComp = cloneDeep(element)
+  cloneComp.compId = uuid()
+  cloneComp.prop.field = `field${(Math.random() * 10000).toFixed(0)}`
+  return cloneComp
+}
+const onClickCopy = (element:formComp) => {
+  const cloneComp = handleDeepData(cloneDeep(element))
+  compList.value.push(cloneComp)
+}
 const dropComp = (ev:DragEvent) => {
   if (ev && ev.dataTransfer) {
     const compJson = ev.dataTransfer.getData('comp') 
@@ -184,22 +223,24 @@ const dropComp = (ev:DragEvent) => {
     border: 1px dashed var(--ev-active-most-tint-color);
     padding: 0 1px;
     .drop-container-item-opt{
-      display: none;
+      display: flex;
       position: absolute;
       top: 1px;
       right: 1px;
-      font-size: 18px;
-      color: var(--ev-bg-color);
-      background: var(--ev-active-tint-color);
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 2px;
+      .opt{
+        cursor: pointer;
+        color: var(--ev-bg-color);
+        background: var(--ev-active-tint-color);
+        margin-right: 2px;
+        height: 16px;
+        line-height: 16px;
+        width: 16px;
+      }
     }
   }
   .drop-container-item-active {
     border: 1px solid var(--ev-active-color);
-    .drop-container-item-opt{
-      display: block;
-    }
   }
   :deep(.el-form-item){
     margin:5px 0;
