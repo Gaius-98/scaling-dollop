@@ -309,7 +309,7 @@ const onView = (scope:any) => {
     title: '查看',
     content: EvFormId,
     componentProps: {
-      id: globalCfg.value.edit.id,
+      id: globalCfg.value.view.id,
       formData: scope.row,
       disabled: true,
     },

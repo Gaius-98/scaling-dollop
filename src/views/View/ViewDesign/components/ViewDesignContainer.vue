@@ -34,18 +34,11 @@
         </component>
       </gu-drag-resize>
       <div
-        v-show="lineType.type == 'v'"
-        class="vertical-line"
+        v-for="lineItem in lines"
+        :key="lineItem.type + lineItem.line"
+        :class="lineItem.type == 'v' ? 'vertical-line':'horizontal-line'"
         :style="{
-          left:lineType.line + 'px'
-        }"
-      >
-      </div>
-      <div
-        v-show="lineType.type == 'h'"
-        class="horizontal-line"
-        :style="{
-          top:lineType.line+'px'
+          [lineItem.type == 'v'? 'left':'top']:lineItem.line + 'px'
         }"
       >
       </div>
@@ -100,27 +93,6 @@ const getContainerStyle = () => {
 }
 const dragResizeAfter = (data:dragResizeInfo) => {
   let { nodeKey, left, top, width, height } = data
-  if (lineType.type == 'h' && lineType.optType == 'drag') {
-    if (lineType.direction == 't2t' || lineType.direction == 't2b') {
-      top = lineType.line.toString()
-    } else if (lineType.direction == 'b2t' || lineType.direction == 'b2b') {
-      top = String(lineType.line - parseFloat(height))
-    }
-  } else if (lineType.type == 'h' && lineType.optType == 'resize') {
-    if (lineType.direction == 'b2t' || lineType.direction == 'b2b') {
-      height = String(lineType.line - parseFloat(top))
-    }
-  } else if (lineType.type == 'v' && lineType.optType == 'drag') {
-    if (lineType.direction == 'l2l' || lineType.direction == 'l2r') {
-      left = lineType.line.toString()
-    } else if (lineType.direction == 'r2r' || lineType.direction == 'r2l') {
-      left = String(lineType.line - parseFloat(width))
-    }
-  } else if (lineType.type == 'v' && lineType.optType == 'resize') {
-    if (lineType.direction == 'r2r' || lineType.direction == 'r2l') {
-      width = String(lineType.line - parseFloat(left))
-    }
-  }
   setComp({
     id: nodeKey,
     positionSize: {
@@ -131,39 +103,30 @@ const dragResizeAfter = (data:dragResizeInfo) => {
     },
   })
   // 隐藏辅助线
-  lineType.type = ''
-  lineType.line = 0
+  lines.length = 0
   setSnapshot()
 }
-const lineType = reactive({
-  type: '',
-  line: 0,
-  optType: '',
-  direction: '',
-})
+interface Line {
+  type:string,
+  line:number,
+  direction:string
+}
+const lines = reactive<Line[]|any[]>([])
 const showMarkLine = (curData:dragResizeInfo, optType:string) => {
-  let lineInfo 
+  let lineInfo = <Line[]|any[]>[]
   for (let i = 0; i < viewData.value.componentData.length; i++) {
     let item = viewData.value.componentData[i]
     if (item.id != curData.nodeKey) {
       let data = judgeShowLine(item, curData)
       if (data) {
-        lineInfo = data
-        break
+        lineInfo = [...lineInfo, ...data]
       }
     }
   }
-  if (lineInfo) {
-    const { type, line, direction } = lineInfo
-    lineType.type = type
-    lineType.line = line as number
-    lineType.optType = optType
-    lineType.direction = direction
+  if (lineInfo && lineInfo.length > 0) {
+    Object.assign(lines, lineInfo)
   } else {
-    lineType.type = ''
-    lineType.line = 0
-    lineType.optType = ''
-    lineType.direction = ''
+    lines.length = 0
   }
 }
 const judgeShowLine = (data:ViewComponent, cur:dragResizeInfo) => {
@@ -174,41 +137,88 @@ const judgeShowLine = (data:ViewComponent, cur:dragResizeInfo) => {
   let direction = ''
   const mistake = 3
   const judgeMisTake = (val1:number, val2:number) => Math.abs(val1 - val2) <= mistake
-
+  let arr:Line[] = []
   if (judgeMisTake(parseFloat(curTop), top)) {
     type = 'h'
     line = top
     direction = 't2t'
-  } else if (judgeMisTake(parseFloat(curTop), top + height)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curTop), top + height)) {
     type = 'h'
     line = top + height
     direction = 't2b'
-  } else if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top + height)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top + height)) {
     type = 'h'
     line = top + height
     direction = 'b2b'
-  } else if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curTop) + parseFloat(curHeight), top)) {
     type = 'h'
     line = top
     direction = 'b2t'
-  } else if (judgeMisTake(parseFloat(curLeft), left)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curLeft), left)) {
     type = 'v'
     line = left
     direction = 'l2l'
-  } else if (judgeMisTake(parseFloat(curLeft), left + width)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curLeft), left + width)) {
     type = 'v'
     line = left + width
     direction = 'l2r'
-  } else if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left + width)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left + width)) {
     type = 'v'
     line = left + width
     direction = 'r2r'
-  } else if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left)) {
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
+  } 
+  if (judgeMisTake(parseFloat(curLeft) + parseFloat(curWidth), left)) {
     type = 'v'
     line = left 
     direction = 'r2l'
+    arr.push({
+      type, 
+      line, 
+      direction,
+    })
   }
-  return type ? { type, line, direction } : false
+  return arr
 }
 const allowDrop = (ev:any) => {
   ev.preventDefault()
