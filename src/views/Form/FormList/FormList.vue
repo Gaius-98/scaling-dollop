@@ -86,7 +86,6 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item command="json">json</el-dropdown-item>
-                  <el-dropdown-item command="vue2">vue2</el-dropdown-item>
                   <el-dropdown-item command="vue3">vue3</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -142,7 +141,7 @@ import _ from 'lodash'
 import { Plus } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
+import { downloadFile } from '@/utils/func'
 
  enum downType {
   vue2='vue2',
@@ -231,7 +230,7 @@ const onEdit = (scope:COMMON.columnScope) => {
   })
 }
 
-const onExport = (scope:COMMON.columnScope, type:keyof typeof downType) => {
+const onExport = async (scope:COMMON.columnScope, type:keyof typeof downType) => {
   let form = {
     formProp: JSON.parse(scope.row.formProp),
     list: JSON.parse(scope.row.list),
@@ -240,10 +239,15 @@ const onExport = (scope:COMMON.columnScope, type:keyof typeof downType) => {
   }
   if (type == 'json') {
     downloadFile(JSON.stringify(form, null, 4), scope.row.name) 
-  } else if (type == 'vue2') {
-    downloadFile(createFormSfcV2(form), scope.row.name, 'vue')
   } else {
-    downloadFile(createFormSfc(form), scope.row.name, 'vue')
+    api.downloadForm({
+      config: form,
+    }).then(res => {
+      const { code, data, msg } = res
+      if (code == 0) {
+        downloadFile(data, scope.row.name, 'vue')
+      }
+    })
   }
 }
 const handleCommand = (scope:COMMON.columnScope, command:keyof typeof downType) => {

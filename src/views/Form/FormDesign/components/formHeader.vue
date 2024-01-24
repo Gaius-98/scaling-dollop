@@ -15,13 +15,13 @@
       <i class="iconfont icon-photo"></i>
       预览
     </el-button>
-    <!-- <el-button @click="onExportJson">
+    <el-button @click="onExportJson">
       <i class="iconfont icon-daochu"></i>
       导出JSON
-    </el-button> -->
+    </el-button>
     <el-button
       title="导出vue3文件"
-      @click="onExportVue(3)"
+      @click="onExportVue()"
     >
       <i class="iconfont icon-daochu"></i>
       导出
@@ -55,7 +55,7 @@
 import { reactive, toRefs, ref, createApp } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFormDesignStore } from '@/store/formDesign'
-import { createFormSfc, downloadFile, createFormSfcV2 } from '@/utils/func'
+import { downloadFile } from '@/utils/func'
 import { useGuDialog } from 'gaius-utils'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
 import api from '@/views/Form/service/api'
@@ -80,12 +80,15 @@ const viewDialog = useGuDialog({
 const onClickView = () => {
   viewDialog.open(viewDialog.destroyed)
 }
-const onExportVue = (version:number) => {
-  if (version == 2) {
-    downloadFile(createFormSfcV2(saveForm.value), saveForm.value.name, 'vue')
-  } else {
-    downloadFile(createFormSfc(saveForm.value), saveForm.value.name, 'vue')
-  }
+const onExportVue = () => {
+  api.downloadForm({
+    config: saveForm.value,
+  }).then(res => {
+    const { code, data, msg } = res
+    if (code == 0) {
+      downloadFile(data, saveForm.value.name, 'vue')
+    }
+  })
 }
 
 const dialogJson = ref(false)

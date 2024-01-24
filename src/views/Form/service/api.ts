@@ -48,4 +48,11 @@ export default {
       method: 'post',
     })
   },
+  downloadForm(data:{config:formConfig}) {
+    return request<string>({
+      url: '/biz/form/downloadForm',
+      method: 'post',
+      data,
+    })
+  },
 }
