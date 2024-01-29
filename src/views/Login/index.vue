@@ -1,6 +1,17 @@
 <template>  
   <div class="login">
-    <div class="login-form">  
+    <!-- login页后续自己写一个 -->
+    <iframe
+      src="http://www.yanhuangxueyuan.com/threejs/examples/webgl_points_billboards.html"
+      frameborder="0"
+      width="100%"
+      height="100%"
+      class="iframe"
+    ></iframe>
+    <div class="login-form">
+      <div class="title">
+        scaling-dollop
+      </div>
       <el-form
         ref="ruleForm"
         :model="form"
@@ -45,15 +56,13 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item>  
-          <el-button
-            type="primary"
-            @click="login"
-          >
-            登录
-          </el-button>  
-        </el-form-item>  
       </el-form>  
+      <div
+        class="btn"
+        @click="login"
+      >
+        登录
+      </div>  
     </div> 
   </div>
 </template>  
@@ -63,7 +72,6 @@ import { reactive, ref, onMounted } from 'vue'
 import type { LoginData } from './service/api'
 import api from './service/api'
 import type { FormInstance, FormRules } from 'element-plus'
-import { setCookie } from '@/utils/cookie'
 import { useRouter } from 'vue-router'
 import md5 from 'md5'
 import _ from 'lodash'
@@ -123,19 +131,53 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .login{
+    position: relative;
     width: 100%;
     height:100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: url('../../assets/images/bg.png') no-repeat;
+    .iframe{
+      position: absolute;
+      top:0;
+      left:0;
+    }
     .login-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 400px;
-        height: 300px;
+        height: 260px;
+        border-radius: 8px;
+        background: rgba($color: #fff, $alpha: .6);
+        backdrop-filter:blur(10px);
+        padding: 10px;
+        .title{
+          color: #6A57F5;
+          font-size: 25px;
+          font-weight: 600;
+          width: 100%;
+          margin-bottom: 30px;
+        }
         .captcha{
             height: 32px;
             svg{
                 height: 32px;
             }
+        }
+        .btn{
+          width: 120px;
+          padding: 10px 12px;
+          text-align: center;
+          border-radius: 8px;
+          color:#f0f2f5;
+          background: #5D4AF4;
+          cursor: pointer;
+          &:hover{
+            color:#fff;
+            background: #6A57F5;
+          }
         }
     }
 }

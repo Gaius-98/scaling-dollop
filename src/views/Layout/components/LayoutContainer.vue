@@ -24,7 +24,8 @@ import { reactive, toRefs, ref } from 'vue'
 <style scoped lang='scss'>
 .layout-container{
   box-sizing: border-box;
-  background: var(--ev-bg-color);
+  background: rgba($color: #fff, $alpha: .9);
+  backdrop-filter:blur(10px);
   padding: 10px;
   height: calc(100vh - 52px);
   border-radius: 5px;

@@ -53,9 +53,9 @@ const onClickMenu = (value:any) => {
     flex: 1;
     .layout-main-menu{
       max-width:240px ;
-      height: calc(100% - 40px);
-      background: var(--ev-bg-color);
       padding-top: 10px;
+      background: url('../../assets/images/layout-side.png') no-repeat;
+      background-size: 100% 100%;
       :deep(.el-menu){
         border-right: 0!important;
       }
@@ -73,7 +73,8 @@ const onClickMenu = (value:any) => {
       }
     }
     .layout-main-container{
-      background: var(--ev-bg-tint-color);
+      background-color: rgba($color: #5D4AF4, $alpha: .6);
+      background-size: 100% 100%;
       padding: 10px 10px;
       flex: 1;
       overflow-x: hidden;
