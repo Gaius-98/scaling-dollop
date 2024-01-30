@@ -73,7 +73,7 @@ const onClickMenu = (value:any) => {
       }
     }
     .layout-main-container{
-      background-color: rgba($color: #5D4AF4, $alpha: .6);
+      background-color: rgba($color: #c3c1d1, $alpha: .6);
       background-size: 100% 100%;
       padding: 10px 10px;
       flex: 1;

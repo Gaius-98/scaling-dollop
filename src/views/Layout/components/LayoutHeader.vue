@@ -15,7 +15,7 @@
     </div>
 
     <div class="layout-header-sys-opt">
-      <toggle-theme></toggle-theme>
+      <!-- <toggle-theme></toggle-theme> -->
     </div>
   </header>
 </template>
@@ -35,8 +35,8 @@ import { reactive, toRefs, ref } from 'vue'
     height: 100%;
     justify-content: space-around;
     align-items: center;
-
-    background: var(--ev-active-color);
+    border-radius: 4px;
+    background-color: var(--ev-active-color);
     .layout-header-sys-logo{
       width: 30px;
       height: 30px;

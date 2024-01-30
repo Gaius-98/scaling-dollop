@@ -30,7 +30,7 @@ if (localTheme) {
     theme: localTheme,
   })
 }
-document.documentElement.classList.add(theme.value)
+
 </script>
 <style scoped lang='scss'>
 </style>

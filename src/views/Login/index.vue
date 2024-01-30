@@ -1,13 +1,7 @@
 <template>  
   <div class="login">
     <!-- login页后续自己写一个 -->
-    <iframe
-      src="http://www.yanhuangxueyuan.com/threejs/examples/webgl_points_billboards.html"
-      frameborder="0"
-      width="100%"
-      height="100%"
-      class="iframe"
-    ></iframe>
+    <login-bg class="bg"></login-bg>
     <div class="login-form">
       <div class="title">
         scaling-dollop
@@ -67,7 +61,8 @@
   </div>
 </template>  
     
-<script lang="ts" setup>  
+<script lang="ts" setup> 
+import LoginBg from '@/views/Login/components/LoginBg.vue' 
 import { reactive, ref, onMounted } from 'vue'  
 import type { LoginData } from './service/api'
 import api from './service/api'
@@ -138,7 +133,7 @@ onMounted(() => {
     align-items: center;
     justify-content: center;
     background: url('../../assets/images/bg.png') no-repeat;
-    .iframe{
+    .bg{
       position: absolute;
       top:0;
       left:0;

@@ -2,6 +2,7 @@
 
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
+document.documentElement.classList.add('light')
 </script>
 
 <template>
