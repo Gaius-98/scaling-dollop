@@ -13,14 +13,24 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Camera, Renderer } from 'three'
 
+interface Props {
+    loading:boolean,
+}
+const props = withDefaults(defineProps<Props>(), {
+})
 const container = ref('')
-
+const { loading } = toRefs(props)
+watch(() => loading.value, () => {
+  if (loading.value) {
+    enterAnimate()
+  }
+})
 let scene = new THREE.Scene()
 scene.background = new THREE.Color(0x000000) // 设置为黑色
-scene.background.a = 0.5 // 设置透明度为 0.5
+
 let renderer:Renderer
 let camera:Camera 
-let cube 
+const timer = ref(0)
 const load = ref(false)
 // 初始化
 const init = () => {
@@ -47,29 +57,33 @@ const init = () => {
     }) // 监听鼠标、键盘事件
 }
 const initModel = () => {
-  for (let index = 0; index < 20; index++) {
+  for (let index = 0; index < 40; index++) {
     let cube = createCube()
     scene.add(cube)
   }
 }
 const createCube = () => {
-  let size = Math.random() * 2 + 1
+  let size = Math.random() * 3 + 1
   let geometry = new THREE.BoxGeometry(size, size, size)
   let color = new THREE.Color(Math.random(), Math.random(), Math.random())
   let material = new THREE.MeshBasicMaterial({ color })
   let cube = new THREE.Mesh(geometry, material)
-  cube.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5)
+  cube.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 20 - 10)
   return cube
 }
 const animate = () => {
-  requestAnimationFrame(animate)
-
-  scene.children.forEach((cube) => {
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
-  })
-
+  timer.value = requestAnimationFrame(animate)
+  camera.rotation.z += 0.01
   // 渲染场景
+  renderer.render(scene, camera)
+}
+const enterAnimate = () => {
+  if (timer.value) {
+    cancelAnimationFrame(timer.value)
+    timer.value = 0
+  }
+  camera.position.z -= 0.01
+  requestAnimationFrame(enterAnimate)
   renderer.render(scene, camera)
 }
 onMounted(() => {

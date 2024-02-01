@@ -1,7 +1,10 @@
 <template>  
   <div class="login">
     <!-- login页后续自己写一个 -->
-    <login-bg class="bg"></login-bg>
+    <login-bg
+      class="bg"
+      :loading="loading"
+    ></login-bg>
     <div class="login-form">
       <div class="title">
         scaling-dollop
@@ -51,12 +54,12 @@
           </el-input>
         </el-form-item>
       </el-form>  
-      <div
-        class="btn"
+      <el-button
+        v-loading="loading"
         @click="login"
       >
         登录
-      </div>  
+      </el-button>  
     </div> 
   </div>
 </template>  
@@ -71,6 +74,7 @@ import { useRouter } from 'vue-router'
 import md5 from 'md5'
 import _ from 'lodash'
 
+const loading = ref(false)
 const router = useRouter()
 const form = reactive({
   username: 'test',
@@ -100,8 +104,10 @@ const login = () => {
     if (valid) {
       reqForm = _.cloneDeep(form)
       reqForm.password = md5(reqForm.password)
+      loading.value = true
       api.login(reqForm).then(res => {
         const { code, data } = res
+        loading.value = false
         api.record()
         if (code == 0) {
           router.push({
