@@ -1,29 +1,33 @@
 <template>
   <div class="view-list">
     <div class="filter">
-      <el-row align="middle">
-        <el-col :span="1">
-          页面名称
+      <el-row :gutter="20">
+        <el-col :span="4">
+          <el-form-item label="页面名称">
+            <el-input
+              v-model="params.keyword"
+              clearable
+            >
+            </el-input>
+          </el-form-item>
         </el-col>
         <el-col
-          :span="3"
+          :span="4"
         >
-          <el-input
-            v-model="params.keyword"
-          >
-          </el-input>
+          <el-form-item>
+            <el-button
+              :icon="Search"
+              @click="getList"
+            >
+              搜索
+            </el-button>
+          </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col
-          :span="2"
-          :offset="1"
-        >
-          <el-button @click="getList">
-            搜索
-          </el-button>
-        </el-col>
-        <el-col
-          :span="1"
-          :offset="15"
+          :span="4"
+          :offset="20"
         >
           <el-button
             :icon="Plus"
@@ -45,7 +49,10 @@
         class="page-item"
       >
         <div class="header">
-          <div class="title">
+          <div
+            class="title"
+            :title="item.name"
+          >
             {{ item.name }}
           </div>
           <div class="opt">
@@ -107,7 +114,7 @@
 import { reactive, toRefs, ref } from 'vue'
 import api from '@/views/View/service/api'
 import { useRouter } from 'vue-router'
-import { Plus, Delete } from '@element-plus/icons-vue'
+import { Plus, Delete, Search } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
 const list = ref<ViewData[]>()
@@ -199,6 +206,10 @@ const onDel = (row:ViewData) => {
                     line-height: 40px;
                     font-size: 14px;
                     font-weight: 600;
+                    max-width: 150px;
+                    white-space: nowrap; 
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     color: var(--ev-bg-color);
                 }
                 .opt{

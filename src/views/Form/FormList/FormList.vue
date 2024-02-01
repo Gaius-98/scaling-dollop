@@ -1,31 +1,33 @@
 <template>
   <div class="form-list">
     <div class="filter">
-      <el-row align="middle">
-        <el-col :span="1">
-          表单名称
+      <el-row :gutter="20">
+        <el-col :span="4">
+          <el-form-item label="表单名称">
+            <el-input
+              v-model="pageCfg.keyword"
+              clearable
+            >
+            </el-input>
+          </el-form-item>
         </el-col>
         <el-col
-          :span="3"
+          :span="4"
         >
-          <el-input
-            v-model="pageCfg.keyword"
-          >
-          </el-input>
+          <el-form-item>
+            <el-button
+              :icon="Search"
+              @click="getList"
+            >
+              搜索
+            </el-button>
+          </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col
-          :span="2"
-          :offset="1"
-        >
-          <el-button
-            @click="getList"
-          >
-            搜索
-          </el-button>
-        </el-col>
-        <el-col
-          :span="1"
-          :offset="15"
+          :span="4"
+          :offset="20"
         >
           <el-button
             :icon="Plus"
@@ -138,7 +140,7 @@ import api from '@/views/Form/service/api'
 import { useGuDialog } from 'gaius-utils'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
 import _ from 'lodash'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Search } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { downloadFile } from '@/utils/func'
