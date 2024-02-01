@@ -37,12 +37,9 @@ const props = withDefaults(defineProps<Props>(), {
   value: '',
 })
 const iconOptions = ref(iconJson.glyphs)
-console.log(iconOptions)
 const { value } = toRefs(props)
-console.log(value, props)
 const emits = defineEmits(['change'])
 const onChangeValue = (val:string) => {
-  console.log(val)
   emits('change', val)
 }
 </script>

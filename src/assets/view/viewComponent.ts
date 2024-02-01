@@ -286,28 +286,6 @@ export default [
     },
   },
   {
-    name: 'ev-Input',
-    id: '8',
-    type: 'input',
-    label: 'Input',
-    icon: 'icon-tongyi-shuju-huiju',
-    props: {
-      value: '',
-      paramsField: {
-        paramsValue: 'paramsLabel',
-      },
-    },
-    dataSetting: {
-      type: 'static',
-      interfaceUrl: 'https://api.oioweb.cn/api/common/OneDayEnglish',
-      data: '',
-      params: '',
-      handleFunc: `const  data  = '测试文本'
-      return data
-      `,
-    },
-  },
-  {
     name: 'ev-color-box',
     id: '9',
     type: 'colorBox',

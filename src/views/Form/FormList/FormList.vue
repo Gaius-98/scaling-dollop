@@ -146,7 +146,6 @@ import { ElMessage } from 'element-plus'
 import { downloadFile } from '@/utils/func'
 
  enum downType {
-  vue2='vue2',
   vue3='vue3',
   json='json'
 }
