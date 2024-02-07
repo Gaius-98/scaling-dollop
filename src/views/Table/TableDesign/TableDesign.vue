@@ -46,12 +46,28 @@
       <div
         v-if="globalCfg.filter.show"
         class="filter"
+        :style="{
+          height:filterExpandStatus ? '40px':'auto'
+        }"
       >
-        <ev-form-id
-          :id="globalCfg.filter.id"
-          :form-data="filterData"
+        <div class="form">
+          <ev-form-id
+            :id="globalCfg.filter.id"
+            :form-data="filterData"
+          >
+          </ev-form-id>
+        </div>
+        <div
+          class="expand iconfont "
+          :class="filterExpandStatus ? 'icon-order-descending':'icon-order-ascending'"
+          @click="onClickFilterIcon"
         >
-        </ev-form-id>
+        </div>
+        <div class="btn">
+          <el-button @click="onChangeParams">
+            搜索
+          </el-button>
+        </div>
       </div>
       <div
         class="btns"
@@ -73,6 +89,7 @@
         border
         height="620"
         :loading="loading"
+        @on-page-change="onChangeParams"
       >
         <template #opt="scope"> 
           <el-link
@@ -140,6 +157,7 @@ import { ElMessage } from 'element-plus'
 import EvForm from '@/components/common/EvForm/EvForm.vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 import EvFormId from './components/EvFormId.vue'
+import useParamsPool from '@/hooks/useParamsPool'
 
 const curTableColumn = ref<COMMON.commonColumnConfig>({
   label: '',
@@ -150,16 +168,28 @@ const tableConfig = reactive(
   {
     columns: [
       {
-        label: '日期',
-        prop: 'date',
+        label: '字典类型',
+        prop: 'dictType',
       },
       {
-        label: '姓名',
-        prop: 'name',
+        label: '字典类型翻译',
+        prop: 'dictTypeChdesc',
       },
       {
-        label: '地址',
-        prop: 'address',
+        label: '字典值',
+        prop: 'value',
+      },
+      {
+        label: '字典翻译',
+        prop: 'label',
+      },
+      {
+        label: '排序号',
+        prop: 'orderNum',
+      },
+      {
+        label: '描述',
+        prop: 'description',
       },
     ],
     opt: {
@@ -169,28 +199,16 @@ const tableConfig = reactive(
 
 )
 const dataSetting = ref<getDataCfg>({
-  type: 'static',
-  data: [{
-    date: '2016-05-02',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1518 弄',
-  }, {
-    date: '2016-05-04',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1517 弄',
-  }, {
-    date: '2016-05-01',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1519 弄',
-  }, {
-    date: '2016-05-03',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1516 弄',
-  }],
-  reqType: 'get',
-  params: '',
-  handleFunc: 'return resData',
-  interfaceUrl: 'http://xxxx',
+  type: 'dev',
+  data: [],
+  reqType: 'post',
+  params: `return {
+        pageNumber:params.pageNumber || 1,
+        pageSize:params.pageSize || 10,
+        keyword:params.keyword || ''
+      }`,
+  handleFunc: 'return resData.data.data.rows',
+  interfaceUrl: 'http://123.57.2.173:3000/sys/dict/list',
 })
 const table = ref()
 const tableData = ref([])
@@ -200,18 +218,54 @@ const globalCfg = ref({
   pagConfig: {
     show: false,
     pageSize: 10,
-    total: 10,
+    total: 100,
+    pageNumber: 1,
   },
   add: {
-    show: false,
-    id: 32,
+    show: true,
+    id: 20,
+    reqSetting: {
+      interfaceUrl: 'http://123.57.2.173:3000/sys/dict/save',
+      reqType: 'post',
+      params: `return {
+        dictType:params.formData.dictType,
+        dictTypeChdesc:params.formData.dictTypeChdesc,
+        value:params.formData.value,
+        orderNum:params.formData.orderNum,
+        label:params.formData.label,
+        description:params.formData.description
+      }`,
+      handleFunc: 'return resData',
+    },
   },
   edit: {
-    show: false,
-    id: 32,
+    show: true,
+    id: 20,
+    reqSetting: {
+      interfaceUrl: 'http://123.57.2.173:3000/sys/dict/update',
+      reqType: 'post',
+      params: `return {
+        dictType:params.formData.dictType,
+        dictTypeChdesc:params.formData.dictTypeChdesc,
+        value:params.formData.value,
+        orderNum:params.formData.orderNum,
+        label:params.formData.label,
+        description:params.formData.description,
+        id:params.formData.id
+      }`,
+      handleFunc: 'return resData',
+    },
   },
   delete: {
     show: false,
+    reqSetting: {
+      interfaceUrl: 'http://123.57.2.173:3000/sys/dict/delete',
+      reqType: 'post',
+      params: `return {
+        id:params.formData.id
+      }`,
+      handleFunc: 'return resData',
+    },
   },
   view: {
     show: false,
@@ -286,7 +340,13 @@ const onOpenAddDialog = () => {
     },
   })
   dialog.open((dialogRes:any) => {
-    console.log(dialogRes.data.getFormData())
+    let formData = dialogRes.data.getFormData()
+    setParams({
+      formData: {
+        ...formData.value,
+      },
+    })
+    getData(globalCfg.value.add.reqSetting as reqSetting)
     dialog.destroyed()
   })
 }
@@ -300,7 +360,13 @@ const onEdit = (scope:any) => {
     },
   })
   dialog.open((dialogRes:any) => {
-    console.log(dialogRes.data.getFormData())
+    let formData = dialogRes.data.getFormData()
+    setParams({
+      formData: {
+        ...formData.value,
+      },
+    })
+    getData(globalCfg.value.edit.reqSetting as reqSetting)
     dialog.destroyed()
   })
 }
@@ -314,13 +380,17 @@ const onView = (scope:any) => {
       disabled: true,
     },
   })
-  dialog.open((dialogRes:any) => {
-    console.log(dialogRes.data.getFormData())
+  dialog.open(() => {
     dialog.destroyed()
   })
 }
 const onDelete = (scope:any) => {
-  console.log(scope)
+  setParams({
+    formData: {
+      ...scope.row,
+    },
+  })
+  getData(globalCfg.value.delete.reqSetting as reqSetting)
 }
 watchEffect(() => {
   if (globalCfg.value.edit.show || globalCfg.value.delete.show || globalCfg.value.view.show) {
@@ -329,7 +399,18 @@ watchEffect(() => {
     tableConfig.opt.show = false
   }
 })
-
+const { setParams } = useParamsPool()
+const onChangeParams = () => {
+  setParams({
+    ...globalCfg.value.pagConfig,
+    ...filterData,
+  })
+  handleData()
+}
+const filterExpandStatus = ref(false)
+const onClickFilterIcon = () => {
+  filterExpandStatus.value = !filterExpandStatus.value
+}
 </script>
 <style scoped lang='scss'>
 .table-design{
@@ -363,8 +444,21 @@ watchEffect(() => {
     max-width: calc(100% - 640px);
     padding: 0 20px;
     .filter{
-      height: 40px;
-      overflow: auto;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      .form{
+        flex: 8;
+      }
+      .expand{
+        width: 16px;
+        height: 16px;
+        margin-top:8px;
+        cursor: pointer;
+      }
+      .button{
+        flex: 2;
+      }
     }
   }
   .table-cfg{

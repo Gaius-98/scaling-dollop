@@ -3,33 +3,7 @@
     label-width="100px"
     :model="cloneData"
   >
-    <el-form-item label="数据源类型">
-      <el-radio
-        v-model="cloneData.type"
-        label="static"
-      >
-        静态数据
-      </el-radio>
-      <el-radio
-        v-model="cloneData.type"
-        label="dev"
-      >
-        动态数据
-      </el-radio>
-    </el-form-item>
     <el-form-item
-      v-if="cloneData.type == 'static'"
-      label="数据"
-    >
-      <ev-code
-        style="width: 100%;height: 200px;"
-        :code="JSON.stringify(cloneData.data,null,4)"
-        @change="changeJsonData"
-      >
-      </ev-code>
-    </el-form-item>
-    <el-form-item
-      v-if="cloneData.type == 'dev'"
       label="请求配置"
     >
       <div class="req-header">
@@ -58,7 +32,6 @@
       </div>
     </el-form-item>
     <el-form-item
-      v-if="cloneData.type == 'dev'"
       label="处理请求参数"
     >
       <div
@@ -108,29 +81,25 @@
     </el-form-item>
   </el-form>
 </template>
-
-<script lang='ts' setup name="EvDataSource">
+  
+<script lang='ts' setup name="evSimpleDataSource">
 import { reactive, toRefs, ref } from 'vue'
 import { getData } from '@/utils/func'
-
+  
 interface Props {
-    data:DataSetting
+    data:reqSetting
 }
 const props = withDefaults(defineProps<Props>(), {
   data: () => ({
-    type: 'static',
-    data: {},
-    reqType: 'get',
+    reqType: 'post',
   }),   
 })
 const { data } = toRefs(props)
-const cloneData = reactive<DataSetting>({
+const cloneData = reactive<reqSetting>({
   ...data.value,
 })
+console.log(cloneData, data.value)
 const result = ref('')
-const changeJsonData = (code:string) => {
-  cloneData.data = JSON.parse(code)
-}
 const onClickSendReq = () => {
   getData(cloneData).then((data) => {
     result.value = typeof data == 'string' ? data : JSON.stringify(data, null, 4)

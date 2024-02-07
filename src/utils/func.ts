@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { getUpperCase } from 'gaius-utils'
 import axios from 'axios'
 import useParamsPool from '@/hooks/useParamsPool'
+import { ElMessage } from 'element-plus'
 /**
  * 对象扁平化
  * @params {object} 要扁平化的对象
@@ -188,8 +189,8 @@ export const transformCssVar = (obj:COMMON.obj) => {
  * @param cfg getDataCfg
  * @returns  data any
  */
-export const getData = async (cfg:DataSetting):Promise<COMMON.obj> => {
-  const { type, data, params, handleFunc, interfaceUrl, reqType } = cfg
+export const getData = async (cfg:reqSetting|DataSetting):Promise<COMMON.obj> => {
+  const { params, handleFunc, interfaceUrl, reqType } = cfg
   const { pool } = useParamsPool()
   let newParams:COMMON.obj = {}
   if (params) {
@@ -197,13 +198,13 @@ export const getData = async (cfg:DataSetting):Promise<COMMON.obj> => {
     newParams = handleParmas(pool)
   }
   let p = new Promise<COMMON.obj>((resolve, reject) => {
-    if (type == 'static') {
+    if ('type' in cfg && cfg.type == 'static') {
       let realdata
       if (handleFunc) {
         let fn = new Function('resData', handleFunc)
-        realdata = fn(data)
+        realdata = fn(cfg.data)
       } else {
-        realdata = data
+        realdata = cfg.data
       }
       resolve(realdata) 
     } else {
@@ -220,8 +221,8 @@ export const getData = async (cfg:DataSetting):Promise<COMMON.obj> => {
         let data = res
         if (handleFunc) {
           try {
-            let fn = new Function('resData', handleFunc)
-            data = fn(res)
+            let fn = new Function('resData', 'msgServer', handleFunc)
+            data = fn(res, ElMessage)
           } catch (error) {
             console.warn('处理函数执行失败', error)
           }

@@ -32,7 +32,7 @@
     
             <el-form-item
               prop="filter.id"
-              label="表单ID"
+              label="表单"
             >
               <el-select v-model="formData.filter.id">
                 <el-option
@@ -112,7 +112,7 @@
     
             <el-form-item
               prop="add.id"
-              label="表单ID"
+              label="表单"
             >
               <el-select v-model="formData.add.id">
                 <el-option
@@ -125,6 +125,9 @@
                 </el-option>
               </el-select>
             </el-form-item>
+            <el-button @click="onOpenReqSettingModal(formData.add.reqSetting,'add')">
+              保存接口配置
+            </el-button>
           </el-collapse-item>
         </el-collapse>
     
@@ -148,7 +151,7 @@
     
             <el-form-item
               prop="edit.id"
-              label="表单ID"
+              label="表单"
             >
               <el-select v-model="formData.edit.id">
                 <el-option
@@ -161,6 +164,9 @@
                 </el-option>
               </el-select>
             </el-form-item>
+            <el-button @click="onOpenReqSettingModal(formData.edit.reqSetting,'edit')">
+              编辑接口配置
+            </el-button>
           </el-collapse-item>
         </el-collapse>
     
@@ -184,7 +190,7 @@
     
             <el-form-item
               prop="view.id"
-              label="表单ID"
+              label="表单"
             >
               <el-select v-model="formData.view.id">
                 <el-option
@@ -217,6 +223,9 @@
               >
               </el-switch>
             </el-form-item>
+            <el-button @click="onOpenReqSettingModal(formData.delete.reqSetting,'delete')">
+              删除接口配置
+            </el-button>
           </el-collapse-item>
         </el-collapse>
       </el-collapse-item>
@@ -227,6 +236,8 @@
 import { reactive, toRefs, ref, PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
 import formApi from '@/views/Form/service/api'
+import EvSimpleDataSource from '@/components/common/EvSimpleDataSource/EvSimpleDataSource.vue'
+import { useGuDialog } from 'gaius-utils'
 
 interface obj {
   [key:string]:any
@@ -261,6 +272,22 @@ const getFormDict = () => {
   })
 }
 getFormDict()
+const onOpenReqSettingModal = (data:reqSetting, type:'add'|'edit'|'delete') => {
+  console.log(data)
+  const dialog = useGuDialog({
+    title: '请求配置',
+    content: EvSimpleDataSource,
+    componentProps: {
+      data,
+    },
+  })
+  dialog.open(({ type: optType, data: modalData }:{type:string, data:any}) => {
+    if (optType == 'ok') {
+      formData.value[type].reqSetting = { ...modalData.data }
+    }
+    dialog.destroyed()
+  })
+}
 defineExpose({ getFormData, resetForm })
 </script>
   <style scoped lang='scss'>

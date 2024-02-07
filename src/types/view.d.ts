@@ -101,13 +101,18 @@ declare interface ViewCompCfg {
 type dataSetType = 'static' | 'dev'
 type ReqType = 'get'|'post'
 /**
+ * 请求配置
+ */
+declare interface reqSetting{
+    interfaceUrl?:string,
+    reqType:ReqType,
+    params?:string,
+    handleFunc?:string
+}
+/**
  * 数据源配置
  */ 
-declare interface DataSetting {
+declare interface DataSetting extends reqSetting {
     type:dataSetType,
     data:any,
-    interfaceUrl?:string,
-    params?:string,
-    handleFunc?:string,
-    reqType:ReqType
 }

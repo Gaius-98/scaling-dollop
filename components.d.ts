@@ -72,6 +72,7 @@ declare module '@vue/runtime-core' {
     EvPager: typeof import('./src/components/common/EvPager/EvPager.vue')['default']
     EvReq: typeof import('./src/components/common/EvReq/EvReq.vue')['default']
     EvSelect: typeof import('./src/components/common/EvSelect/EvSelect.vue')['default']
+    EvSimpleDataSource: typeof import('./src/components/common/EvSimpleDataSource/EvSimpleDataSource.vue')['default']
     EvTable: typeof import('./src/components/common/EvTable/EvTable.vue')['default']
     EvText: typeof import('./src/components/common/EvText/EvText.vue')['default']
     EvTitle: typeof import('./src/components/common/EvTitle/EvTitle.vue')['default']
