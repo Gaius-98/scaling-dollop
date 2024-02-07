@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "start": "vite --host -m production",
+    "dev": "vue-tsc && vite --host",
+    "start": " vue-tsc && vite --host -m production",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
