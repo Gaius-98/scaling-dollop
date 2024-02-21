@@ -83,4 +83,13 @@ declare namespace COMMON{
     type?:'selection' | 'index' | 'expand' | null,
     children?:commonColumnConfig[]
   }
+  declare interface TableCfg {
+    columns:commonColumnConfig[],
+    opt:{
+      fixed?:string|boolean,
+      width?:string|number,
+      label?:string,
+      show?:boolean
+    }
+  }
 }

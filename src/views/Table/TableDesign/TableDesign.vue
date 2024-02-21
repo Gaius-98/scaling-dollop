@@ -1,5 +1,8 @@
 <template>
-  <div class="table-design">
+  <div
+    v-ev-loading="evLoaindg"
+    class="table-design"
+  >
     <div class="table-data">
       <div class="table-column-design">
         <ev-title>
@@ -34,101 +37,36 @@
       </div>
     </div>
     <div class="table-container">
-      <el-button
-        type="primary"
-        @click="openDataSource"
-      >
-        数据源配置
-      </el-button>
+      <div class="table-container-header f-rb">
+        <el-button
+          type="primary"
+          @click="openDataSource"
+        >
+          数据源配置
+        </el-button>
+        <div class="f-ra">
+          <span style="width: 100px;">
+            列表名称
+          </span>
+          <el-input
+            v-model="TableName"
+            style="width:200px"
+          >
+          </el-input>
+        </div>
+        <el-button @click="onSave">
+          保存
+        </el-button>
+      </div>
       <ev-title>
         预览区域  <span style="font-size: 10px;color: #ccc;">(注：只展示前10条数据)</span>
       </ev-title>
-      <div
-        v-if="globalCfg.filter.show"
-        class="filter"
-        :style="{
-          height:filterExpandStatus ? '40px':'auto'
-        }"
-      >
-        <div class="form">
-          <ev-form-id
-            :id="globalCfg.filter.id"
-            :form-data="filterData"
-          >
-          </ev-form-id>
-        </div>
-        <div
-          class="expand iconfont "
-          :class="filterExpandStatus ? 'icon-order-descending':'icon-order-ascending'"
-          @click="onClickFilterIcon"
-        >
-        </div>
-        <div class="btn">
-          <el-button @click="onChangeParams">
-            搜索
-          </el-button>
-        </div>
-      </div>
-      <div
-        class="btns"
-        style="margin-bottom: 20px;"
-      >
-        <el-button
-          v-if="globalCfg.add.show"
-          type="primary"
-          @click="onOpenAddDialog"
-        >
-          新增
-        </el-button>
-      </div>
-      <ev-table 
-        ref="table"
-        :data="tableData"
+      <ev-auto-table
+        :global-cfg="globalCfg"
+        :data-setting="dataSetting"
         :table-config="tableConfig"
-        :pag-config="globalCfg.pagConfig"
-        border
-        height="620"
-        :loading="loading"
-        @on-page-change="onChangeParams"
       >
-        <template #opt="scope"> 
-          <el-link
-            v-if="globalCfg.edit.show"
-            type="primary"
-            style="margin-left: 10px;"
-            @click="onEdit(scope)"
-          >
-            <i class="iconfont icon-bianji"></i>
-            编辑
-          </el-link>
-          <el-link
-            v-if="globalCfg.view.show"
-            type="success"
-            style="margin-left: 10px;"
-            @click="onView(scope)"
-          >
-            <i class="iconfont icon-keshihua"></i>
-            查看
-          </el-link>
-          <el-popconfirm
-            title="确定要删除吗?"
-            confirm-button-text="确认"
-            cancel-button-text="取消"
-            @confirm="onDelete(scope)"
-          >
-            <template #reference>
-              <el-link
-                v-if="globalCfg.delete.show"
-                type="danger"
-                style="margin-left: 10px;"
-              >
-                <i class="iconfont icon-a-shanchulajitong"></i>
-                删除
-              </el-link>
-            </template>
-          </el-popconfirm>
-        </template>
-      </ev-table>
+      </ev-auto-table>
     </div>
     <div class="table-cfg">
       <ev-title>
@@ -144,7 +82,6 @@
 
 <script lang='ts' setup>
 import { reactive, toRefs, ref, watchEffect } from 'vue'
-import draggable from 'vuedraggable'
 import { useGuDialog } from 'gaius-utils'
 import TableField from '@/views/Table/TableDesign/dialog/TableField.vue'
 import TableCfg from '@/views/Table/TableDesign/components/TableCfg.vue'
@@ -152,19 +89,38 @@ import GlobalCfg from './components/GlobalCfg.vue'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import EvDataSource from '@/components/common/EvDataSource/EvDataSource.vue'
 import { getData } from '@/utils/func'
-import formApi from '@/views/Form/service/api'
 import { ElMessage } from 'element-plus'
-import EvForm from '@/components/common/EvForm/EvForm.vue'
-import type Node from 'element-plus/es/components/tree/src/model/node'
-import EvFormId from './components/EvFormId.vue'
-import useParamsPool from '@/hooks/useParamsPool'
+import EvAutoTable from '@/components/common/EvAutoTable/EvAutoTable.vue'
+import api from '../service/api'
+import { useRoute } from 'vue-router'
 
+const id = ref()
+const route = useRoute()
+const evLoaindg = ref(false)
+const getTableDetail = () => {
+  evLoaindg.value = true
+  api.getDetail({ id: id.value })
+  .then(res => {
+    const { code, data, msg } = res
+    if (code == 0) {
+      Object.assign(tableConfig, data.tableCfg)
+      dataSetting.value = data.dataSetting
+      globalCfg.value = data.globalCfg
+      TableName.value = data.name
+    }
+    evLoaindg.value = false
+  })
+}
+if (route.query.id) {
+  id.value = route.query.id
+  getTableDetail()
+}
 const curTableColumn = ref<COMMON.commonColumnConfig>({
   label: '',
   prop: '',
 })
 const activeColumn = ref('')
-const tableConfig = reactive(
+const tableConfig = reactive<COMMON.TableCfg>(
   {
     columns: [
       {
@@ -210,11 +166,9 @@ const dataSetting = ref<getDataCfg>({
   handleFunc: 'return resData.data.data.rows',
   interfaceUrl: 'http://123.57.2.173:3000/sys/dict/list',
 })
-const table = ref()
+
 const tableData = ref([])
-const filterData = reactive({})
-const addData = reactive({})
-const globalCfg = ref({
+const globalCfg = ref<TableGlobalCfg>({
   pagConfig: {
     show: false,
     pageSize: 10,
@@ -276,6 +230,7 @@ const globalCfg = ref({
     id: 33,
   },
 })
+const TableName = ref('')
 const onClickTableHeader = (info:COMMON.commonColumnConfig) => {
   const { prop: property } = info
   activeColumn.value = property
@@ -329,69 +284,6 @@ const openDataSource = () => {
     dataSourceDialog.destroyed()
   })
 }
-handleData()
-const onOpenAddDialog = () => {
-  const dialog = useGuDialog({
-    title: '新增',
-    content: EvFormId,
-    componentProps: {
-      id: globalCfg.value.add.id,
-      formData: addData,
-    },
-  })
-  dialog.open((dialogRes:any) => {
-    let formData = dialogRes.data.getFormData()
-    setParams({
-      formData: {
-        ...formData.value,
-      },
-    })
-    getData(globalCfg.value.add.reqSetting as reqSetting)
-    dialog.destroyed()
-  })
-}
-const onEdit = (scope:any) => {
-  const dialog = useGuDialog({
-    title: '编辑',
-    content: EvFormId,
-    componentProps: {
-      id: globalCfg.value.edit.id,
-      formData: scope.row,
-    },
-  })
-  dialog.open((dialogRes:any) => {
-    let formData = dialogRes.data.getFormData()
-    setParams({
-      formData: {
-        ...formData.value,
-      },
-    })
-    getData(globalCfg.value.edit.reqSetting as reqSetting)
-    dialog.destroyed()
-  })
-}
-const onView = (scope:any) => {
-  const dialog = useGuDialog({
-    title: '查看',
-    content: EvFormId,
-    componentProps: {
-      id: globalCfg.value.view.id,
-      formData: scope.row,
-      disabled: true,
-    },
-  })
-  dialog.open(() => {
-    dialog.destroyed()
-  })
-}
-const onDelete = (scope:any) => {
-  setParams({
-    formData: {
-      ...scope.row,
-    },
-  })
-  getData(globalCfg.value.delete.reqSetting as reqSetting)
-}
 watchEffect(() => {
   if (globalCfg.value.edit.show || globalCfg.value.delete.show || globalCfg.value.view.show) {
     tableConfig.opt.show = true
@@ -399,17 +291,23 @@ watchEffect(() => {
     tableConfig.opt.show = false
   }
 })
-const { setParams } = useParamsPool()
-const onChangeParams = () => {
-  setParams({
-    ...globalCfg.value.pagConfig,
-    ...filterData,
+const onSave = () => {
+  let saveApi = api.save
+  if (id.value) {
+    saveApi = api.update
+  }
+  saveApi({
+    id: id.value,
+    name: TableName.value,
+    globalCfg: globalCfg.value,
+    dataSetting: dataSetting.value,
+    tableCfg: tableConfig,
+  }).then(res => {
+    const { code, data, msg } = res
+    if (code == 0) {
+      ElMessage.success('保存成功')
+    }
   })
-  handleData()
-}
-const filterExpandStatus = ref(false)
-const onClickFilterIcon = () => {
-  filterExpandStatus.value = !filterExpandStatus.value
 }
 </script>
 <style scoped lang='scss'>

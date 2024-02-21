@@ -15,14 +15,17 @@
 }
 .f-ra{
   display: flex;
+  align-items: center;
   justify-content: space-around;
 }
 .f-rb{
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .f-rs{
   display: flex;
+  align-items: center;
   justify-content: start;
 }
 
