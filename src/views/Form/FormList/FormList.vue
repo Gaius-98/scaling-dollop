@@ -47,7 +47,7 @@
         :data="tableData"
         :table-config="config"
         :pag-config="pageCfg"
-        :height="750"
+        :height="700"
         @on-page-change="getList"
       >   
         <template #formImg="scope">
