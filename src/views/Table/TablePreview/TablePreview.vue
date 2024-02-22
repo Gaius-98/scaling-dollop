@@ -1,6 +1,7 @@
 <template>
   <div class="table-preview">
     <ev-auto-table
+      v-if="show"
       :global-cfg="globalCfg"
       :data-setting="dataSetting"
       :table-config="tableConfig"
@@ -19,8 +20,10 @@ const route = useRoute()
 const globalCfg = ref({})
 const dataSetting = ref({})
 const tableConfig = ref({})
+const show = ref(false)
 if (route.query.id) {
   let id = route.query.id as string
+  show.value = false
   api.getDetail({ id: Number(id) }).then(res => {
     const { code, data, msg } = res
     if (code == 0) {
@@ -28,6 +31,7 @@ if (route.query.id) {
       dataSetting.value = data.dataSetting
       tableConfig.value = data.tableCfg
     }
+    show.value = true
   })
 }
 
