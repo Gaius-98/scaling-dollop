@@ -138,9 +138,10 @@ const onOpenAddDialog = () => {
         ...formData.value,
       },
     })
-    getData(globalCfg.value.add.reqSetting as reqSetting)
-    getTableData()
-    dialog.destroyed()
+    getData(globalCfg.value.add.reqSetting as reqSetting).then(() => {
+      getTableData()
+      dialog.destroyed()
+    })
   })
 }
 const onEdit = (scope:any) => {
@@ -159,9 +160,10 @@ const onEdit = (scope:any) => {
         ...formData.value,
       },
     })
-    getData(globalCfg.value.edit.reqSetting as reqSetting)
-    getTableData()
-    dialog.destroyed()
+    getData(globalCfg.value.edit.reqSetting as reqSetting).then(() => {
+      getTableData()
+      dialog.destroyed()
+    })
   })
 }
 const onView = (scope:any) => {
@@ -184,8 +186,9 @@ const onDelete = (scope:any) => {
       ...scope.row,
     },
   })
-  getData(globalCfg.value.delete.reqSetting as reqSetting)
-  getTableData()
+  getData(globalCfg.value.delete.reqSetting as reqSetting).then(() => {
+    getTableData()
+  })
 }
 const filterExpandStatus = ref(false)
 const onClickFilterIcon = () => {
