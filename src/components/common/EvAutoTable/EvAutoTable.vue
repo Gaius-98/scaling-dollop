@@ -103,13 +103,13 @@ interface Props {
 const props = defineProps<Props>()
 const { globalCfg, dataSetting, tableConfig } = toRefs(props)
 const loading = ref(false)
-const tableData = reactive([])
+const tableData = ref<COMMON.obj[]>([])
 const filterData = reactive({})
 
 const getTableData = async () => {
   loading.value = true
   const data = await getData(dataSetting.value as reqSetting)
-  Object.assign(tableData, data)
+  tableData.value = data as COMMON.obj[]
   loading.value = false
 }
 getTableData()
