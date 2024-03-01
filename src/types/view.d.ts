@@ -43,7 +43,7 @@ declare interface ViewComponent {
     /**
      * 组件的props
      */
-    props:COMMON.obj,
+    props:COMMON.Obj,
     /**
      * 每个组件对应一个id
      */
@@ -64,7 +64,7 @@ declare interface ViewComponent {
     },
 }
 
-enum cfgComp {
+enum CompType {
     collapse='collapse',
     number='number',
     input='input',
@@ -85,9 +85,9 @@ enum cfgComp {
 declare interface ViewCompCfg {
     label:string,
     ui:{
-        type:keyof typeof cfgComp,
+        type:keyof typeof CompType,
         field:string,
-        props:COMMON.obj,
+        props:COMMON.Obj,
         children?:ViewCompCfg[],
         connectShow?:{
             field:string,
@@ -98,12 +98,12 @@ declare interface ViewCompCfg {
 /**
  * 数据源类型 static dev
  */
-type dataSetType = 'static' | 'dev'
+type DataSetType = 'static' | 'dev'
 type ReqType = 'get'|'post'
 /**
  * 请求配置
  */
-declare interface reqSetting{
+declare interface ReqSetting{
     interfaceUrl?:string,
     reqType:ReqType,
     params?:string,
@@ -112,7 +112,7 @@ declare interface reqSetting{
 /**
  * 数据源配置
  */ 
-declare interface DataSetting extends reqSetting {
-    type:dataSetType,
+declare interface DataSetting extends ReqSetting {
+    type:DataSetType,
     data:any,
 }

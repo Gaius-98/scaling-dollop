@@ -87,7 +87,7 @@ import { reactive, toRefs, ref } from 'vue'
 import { getData } from '@/utils/func'
   
 interface Props {
-    data:reqSetting
+    data:ReqSetting
 }
 const props = withDefaults(defineProps<Props>(), {
   data: () => ({
@@ -95,7 +95,7 @@ const props = withDefaults(defineProps<Props>(), {
   }),   
 })
 const { data } = toRefs(props)
-const cloneData = reactive<reqSetting>({
+const cloneData = reactive<ReqSetting>({
   ...data.value,
 })
 console.log(cloneData, data.value)

@@ -21,11 +21,11 @@ import { reactive, toRefs, ref, PropType } from 'vue'
 
 const props = defineProps({
   cols: {
-    type: Array as PropType<COMMON.obj[]>,
+    type: Array as PropType<COMMON.Obj[]>,
     required: true,
   },
   data: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: true,
   },
 })

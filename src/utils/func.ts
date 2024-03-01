@@ -11,8 +11,8 @@ import { ElMessage } from 'element-plus'
  * @params {object} 要扁平化的对象
  * @return {object} 扁平化后的对象
  */
-export const flat = (obj:COMMON.obj) => {
-  const flatten = (res:COMMON.obj, curObj:any, curKey:string) => {
+export const flat = (obj:COMMON.Obj) => {
+  const flatten = (res:COMMON.Obj, curObj:any, curKey:string) => {
     // 判断当前项是否为数组
     if (Array.isArray(curObj)) {
       curObj.forEach((item, idx) => {
@@ -34,7 +34,7 @@ export const flat = (obj:COMMON.obj) => {
       })
     }
   }
-  const res:COMMON.obj = {}
+  const res:COMMON.Obj = {}
   Object.keys(obj).forEach(key => {
     if (typeof obj[key] === 'object' && obj[key] !== null) {
       flatten(res, obj[key], key)
@@ -49,8 +49,8 @@ export const flat = (obj:COMMON.obj) => {
  * @params {object} 扁平化的对象
  * @return {object} 反扁平化的对象
  */
-export const unflat = (obj:COMMON.obj) => {
-  const unflatten = (key:string, value:any, res:COMMON.obj) => {
+export const unflat = (obj:COMMON.Obj) => {
+  const unflatten = (key:string, value:any, res:COMMON.Obj) => {
     const arr = key.split('.')
     let tmp = res
     for (let i = 0; i < arr.length; i++) {
@@ -97,7 +97,7 @@ export const unflat = (obj:COMMON.obj) => {
       }
     }
   }
-  const res:COMMON.obj = {}
+  const res:COMMON.Obj = {}
   Object.keys(obj).forEach(key => {
     unflatten(key, obj[key], res)
   })
@@ -166,10 +166,10 @@ export const downloadFile = (content:string, fileName?:string, fileType = 'json'
  * @example { input:{ color :'#fff'} } =>  { --inputColor:'#fff' }
  * @returns obj
  */
-export const transformCssVar = (obj:COMMON.obj) => {
-  const result = {} as COMMON.obj
+export const transformCssVar = (obj:COMMON.Obj) => {
+  const result = {} as COMMON.Obj
 
-  function traverse(obj:COMMON.obj, path = '') {
+  function traverse(obj:COMMON.Obj, path = '') {
     for (const key in obj) {
       const newPath = path ? `${path}${getUpperCase(key)}` : `--${key}`
       if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
@@ -186,18 +186,18 @@ export const transformCssVar = (obj:COMMON.obj) => {
 
 /**
  * 公共请求数据方法
- * @param cfg getDataCfg
+ * @param cfg ProxyDataParams
  * @returns  data any
  */
-export const getData = async (cfg:reqSetting|DataSetting):Promise<COMMON.obj> => {
+export const getData = async (cfg:ReqSetting|DataSetting):Promise<COMMON.Obj> => {
   const { params, handleFunc, interfaceUrl, reqType } = cfg
   const { pool } = useParamsPool()
-  let newParams:COMMON.obj = {}
+  let newParams:COMMON.Obj = {}
   if (params) {
     let handleParmas = new Function('params', params)
     newParams = handleParmas(pool)
   }
-  let p = new Promise<COMMON.obj>((resolve, reject) => {
+  let p = new Promise<COMMON.Obj>((resolve, reject) => {
     if ('type' in cfg && cfg.type == 'static') {
       let realdata
       if (handleFunc) {
@@ -235,7 +235,7 @@ export const getData = async (cfg:reqSetting|DataSetting):Promise<COMMON.obj> =>
   return p
 }
 
-interface resCompData {
+interface ResCompData {
   id:string,
   data:any
 }
@@ -244,10 +244,10 @@ interface resCompData {
  * @param compCfg 
  * @returns 
  */
-export const getViewData = async (compCfg:ViewComponent):Promise<resCompData> => {
+export const getViewData = async (compCfg:ViewComponent):Promise<ResCompData> => {
   const { dataSetting, id } = compCfg
   const data = await getData(dataSetting)
-  let p = new Promise<resCompData>((resolve, reject) => {
+  let p = new Promise<ResCompData>((resolve, reject) => {
     resolve({
       id,
       data,

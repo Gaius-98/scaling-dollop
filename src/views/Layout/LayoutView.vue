@@ -35,7 +35,7 @@ import { routerPush } from '@/utils/func'
 import data from '@/assets/menu/menu'
 import { ref } from 'vue'
 
-const menuList = ref<sysMenu[]>(data)
+const menuList = ref<SysMenu[]>(data)
 const active = ref('home')
 const onClickMenu = (value:any) => {
   active.value = value

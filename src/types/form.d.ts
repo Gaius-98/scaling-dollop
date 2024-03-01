@@ -1,7 +1,7 @@
 /**
  * 表单组件类别
  */
-declare enum comp {
+declare enum Comp {
   'number',
   'input',
   'textarea',
@@ -18,7 +18,7 @@ declare enum comp {
 /**
  * 表单尺寸
  */
-declare enum size{
+declare enum Size{
   'default',
   'large',
   'small'
@@ -26,7 +26,7 @@ declare enum size{
 /**
  * 表单文本位置
  */
-declare enum labelPosition{
+declare enum LabelPosition{
   'left',
   'right',
   'top'
@@ -34,8 +34,8 @@ declare enum labelPosition{
 /**
  * 每个form组件对应的配置
  */ 
-declare interface formComp {
-  comp:keyof typeof comp,
+declare interface FormComp {
+  comp:keyof typeof Comp,
   compId:string,
   name:string,
   prop:{
@@ -47,7 +47,7 @@ declare interface formComp {
     showPassword?:boolean,
     type?: string,
     rows?: number|string,
-    options?:COMMON.obj[],
+    options?:COMMON.Obj[],
     filterable?:boolean,
     valueFormat?: string,
     format?: string,
@@ -68,16 +68,16 @@ declare interface formComp {
     size?: string,
     clickEvent?: string,
     cols?:{
-      list:any[]|formComp[],
+      list:any[]|FormComp[],
       key:string,
       span:number
     }[],
     gutter?:number,
     card?:{
-      list?:any[]|formComp[],
+      list?:any[]|FormComp[],
     },
     collapse?: {
-      list: any[]|formComp[],
+      list: any[]|FormComp[],
     },
     header?: string,
     shadow?: string,
@@ -96,11 +96,11 @@ declare interface formComp {
 /**
  * 整个form表单对应的配置
  */
-declare interface formConfig{
-  list: formComp[]|any[],
+declare interface FormConfig{
+  list: FormComp[]|any[],
   formProp: {
     size: keyof typeof size,
-    labelPosition: keyof typeof labelPosition,
+    labelPosition: keyof typeof LabelPosition,
     labelWidth: number,
   },
   name?: string,

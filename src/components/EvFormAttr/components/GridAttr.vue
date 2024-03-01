@@ -27,7 +27,7 @@ import { useFormDesignStore } from '@/store/formDesign'
 
 const store = useFormDesignStore()
 const { curFormItem } = storeToRefs(store)
-const columnConfig = reactive<COMMON.columnConfig[]>([
+const columnConfig = reactive<COMMON.ColumnConfig[]>([
   {
     field: 'span',
     label: '栅格占据的列数',

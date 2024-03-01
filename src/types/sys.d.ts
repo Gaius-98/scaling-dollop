@@ -1,7 +1,7 @@
 /**
  * 系统配置信息
  */
-declare interface sysConfig extends COMMON.obj {
+declare interface SysConfig extends COMMON.Obj {
   sysName:string,
   sysLoginBackground:string,
   sysLogo:string
@@ -10,7 +10,7 @@ declare interface sysConfig extends COMMON.obj {
 /**
  * 系统菜单列表
  */
-declare interface sysMenu {
+declare interface SysMenu {
   id:number,
   appName:string,
   appId:string,
@@ -18,27 +18,15 @@ declare interface sysMenu {
   orderNum:number,
   pid:string,
   description:string,
-  children?:sysMenu[],
+  children?:SysMenu[],
   icon:string,
 }
 
 /**
- * 系统字典
- */
-declare interface sysDict {
-  id:number,
-  dictType:string,
-  dictTypeChdesc:string,
-  value:string|number,
-  label:string,
-  orderNum:number,
-  description:string
-}
-/**
  * 系统请求外部数据配置
  */
-declare interface getDataCfg {
-  type: dataSetType,
+declare interface ProxyDataParams {
+  type: DataSetType,
   data:any,
   interfaceUrl?:string,
   params?:string,

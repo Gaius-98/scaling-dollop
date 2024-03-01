@@ -65,7 +65,7 @@ import { v1 as uuid } from 'uuid'
 import { getViewData } from '@/utils/func'
 import useParamsPool from '@/hooks/useParamsPool'
 
-interface dragResizeInfo {
+interface DragResizeInfo {
   nodeKey:string,
   height:string,
   width:string,
@@ -91,7 +91,7 @@ const getContainerStyle = () => {
     height: '100%',
   }
 }
-const dragResizeAfter = (data:dragResizeInfo) => {
+const dragResizeAfter = (data:DragResizeInfo) => {
   let { nodeKey, left, top, width, height } = data
   setComp({
     id: nodeKey,
@@ -112,7 +112,7 @@ interface Line {
   direction:string
 }
 const lines = reactive<Line[]|any[]>([])
-const showMarkLine = (curData:dragResizeInfo, optType:string) => {
+const showMarkLine = (curData:DragResizeInfo, optType:string) => {
   let lineInfo = <Line[]|any[]>[]
   for (let i = 0; i < viewData.value.componentData.length; i++) {
     let item = viewData.value.componentData[i]
@@ -129,7 +129,7 @@ const showMarkLine = (curData:dragResizeInfo, optType:string) => {
     lines.length = 0
   }
 }
-const judgeShowLine = (data:ViewComponent, cur:dragResizeInfo) => {
+const judgeShowLine = (data:ViewComponent, cur:DragResizeInfo) => {
   const { positionSize: { top, left, width, height } } = data
   const { top: curTop, left: curLeft, width: curWidth, height: curHeight } = cur
   let type = null
@@ -329,7 +329,7 @@ const changeByParams = (keys:string[]) => {
     }
   })
 }
-const findChangeParamsKey = (oldParams:COMMON.obj, newParams:COMMON.obj) => {
+const findChangeParamsKey = (oldParams:COMMON.Obj, newParams:COMMON.Obj) => {
   let differentKey:string[] = []
   let newKeys = Object.keys(newParams)
   let oldKeys = Object.keys(oldParams)

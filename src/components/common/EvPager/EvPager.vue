@@ -14,7 +14,7 @@
 <script lang='ts' setup name="EvPager">
 import { reactive, toRefs, ref, PropType } from 'vue'
 
-interface pagConfig {
+interface PagConfig {
   total:number,
   pageSize:number,
   pageNumber:number,
@@ -23,7 +23,7 @@ interface pagConfig {
 }
 defineProps({
   pagConfig: {
-    type: Object as PropType<pagConfig>,
+    type: Object as PropType<PagConfig>,
     default: () => ({
             
     }),

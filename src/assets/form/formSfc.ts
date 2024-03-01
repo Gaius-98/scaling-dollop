@@ -1,7 +1,7 @@
 import { getUpperCase } from 'gaius-utils'
 
-export const formComp:COMMON.obj = {
-  input: (element:COMMON.obj) => `
+export const formComp:COMMON.Obj = {
+  input: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -17,7 +17,7 @@ export const formComp:COMMON.obj = {
     </el-input>
   </el-form-item>
     `,
-  textarea: (element:COMMON.obj) => `
+  textarea: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -33,7 +33,7 @@ export const formComp:COMMON.obj = {
     </el-input>
   </el-form-item>
     `,
-  select: (element:COMMON.obj) => `
+  select: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -56,7 +56,7 @@ export const formComp:COMMON.obj = {
     </el-select>
   </el-form-item>
     `,
-  checkbox: (element:COMMON.obj) => `
+  checkbox: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -78,7 +78,7 @@ export const formComp:COMMON.obj = {
     </el-checkbox-group>
   </el-form-item>
     `,
-  color: (element:COMMON.obj) => `
+  color: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -91,7 +91,7 @@ export const formComp:COMMON.obj = {
     </el-color-picker>
   </el-form-item>
   `,
-  date: (element:COMMON.obj) => `
+  date: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -108,7 +108,7 @@ export const formComp:COMMON.obj = {
     </el-date-picker>
   </el-form-item>
   `,
-  number: (element:COMMON.obj) => `
+  number: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -126,7 +126,7 @@ export const formComp:COMMON.obj = {
     </el-input-number>
   </el-form-item>
   `,
-  switch: (element:COMMON.obj) => `
+  switch: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -140,7 +140,7 @@ export const formComp:COMMON.obj = {
     </el-switch>
   </el-form-item>
   `,
-  time: (element:COMMON.obj) => `
+  time: (element:COMMON.Obj) => `
   <el-form-item
     prop="${element.prop.field}"
     label="${element.form_config.label}"
@@ -159,7 +159,7 @@ export const formComp:COMMON.obj = {
     </el-time-picker>
   </el-form-item>
     `,   
-  button: (element:COMMON.obj) => `
+  button: (element:COMMON.Obj) => `
   <el-form-item>
     <el-button
     :round="${element.prop.round}"
@@ -176,12 +176,12 @@ export const formComp:COMMON.obj = {
     </el-button>
   </el-form-item>
   `, 
-  grid: (element:COMMON.obj) => {
+  grid: (element:COMMON.Obj) => {
     let col = ''
     const { prop: { cols, gutter } } = element
-    cols.forEach((item:COMMON.obj) => {
+    cols.forEach((item:COMMON.Obj) => {
       if (item.list instanceof Array) {
-        item.list.forEach((com:COMMON.obj) => {
+        item.list.forEach((com:COMMON.Obj) => {
           col += `
           <el-col :span='${item.span}'>
               ${formComp[com.comp](com)}
@@ -197,10 +197,10 @@ export const formComp:COMMON.obj = {
     </el-row>`
     return rowTemplate
   },
-  card(element:COMMON.obj) {
+  card(element:COMMON.Obj) {
     const { header, card: { list }, shadow } = element.prop
     let formStr = ''
-    list.forEach((com:COMMON.obj) => {
+    list.forEach((com:COMMON.Obj) => {
       formStr += `
       ${formComp[com.comp](com)}
       `
@@ -212,10 +212,10 @@ export const formComp:COMMON.obj = {
     `
     return cardTemplate
   },
-  collapse(element:COMMON.obj) {
+  collapse(element:COMMON.Obj) {
     const { title, collapse: { list } } = element.prop
     let formStr = ''
-    list.forEach((com:COMMON.obj) => {
+    list.forEach((com:COMMON.Obj) => {
       formStr += `
       ${formComp[com.comp](com)}
       `
@@ -232,10 +232,10 @@ export const formComp:COMMON.obj = {
     `
     return cardTemplate
   },
-  createOptions: (element:COMMON.obj) => {
+  createOptions: (element:COMMON.Obj) => {
     let optionsObj = ''
     const { prop: { options, field } } = element
-    options.forEach((item:COMMON.obj) => {
+    options.forEach((item:COMMON.Obj) => {
       const objStr = `
         {
           label:'${item.label}',
@@ -250,7 +250,7 @@ export const formComp:COMMON.obj = {
     `
     return optionSfc
   },
-  createRuleFunc: (element:COMMON.obj) => {
+  createRuleFunc: (element:COMMON.Obj) => {
     const { prop: { field }, form_config: { rules: { required, regular, message }, label } } = element
     if (required && regular) {
       const fnSfc = `
@@ -268,7 +268,7 @@ export const formComp:COMMON.obj = {
     }
     return ''
   },
-  createRules: (element:COMMON.obj) => {
+  createRules: (element:COMMON.Obj) => {
     const { prop: { field }, form_config: { rules: { required, regular, message, trigger } } } = element
     if (required) {
       const ruleListSfc = `${field}:[{
@@ -281,7 +281,7 @@ export const formComp:COMMON.obj = {
     }
     return ''
   },
-  createFunction: (element:COMMON.obj) => {
+  createFunction: (element:COMMON.Obj) => {
     const { prop: { field, clickEvent } } = element
     if (clickEvent) {
       return `
@@ -291,7 +291,7 @@ export const formComp:COMMON.obj = {
       `
     }
   },
-  createRulesV2: (element:COMMON.obj) => {
+  createRulesV2: (element:COMMON.Obj) => {
     const { prop: { field }, form_config: { rules: { required, regular, message, trigger } } } = element
     if (required) {
       const ruleListSfc = `${field}:[{
@@ -304,7 +304,7 @@ export const formComp:COMMON.obj = {
     }
     return ''
   },
-  createFunctionV2: (element:COMMON.obj) => {
+  createFunctionV2: (element:COMMON.Obj) => {
     const { prop: { field, clickEvent } } = element
     if (clickEvent) {
       return `
@@ -314,7 +314,7 @@ export const formComp:COMMON.obj = {
       `
     }
   },
-  createRuleFuncV2: (element:COMMON.obj) => {
+  createRuleFuncV2: (element:COMMON.Obj) => {
     const { prop: { field }, form_config: { rules: { required, regular, message }, label } } = element
     if (required && regular) {
       const fnSfc = `
@@ -332,10 +332,10 @@ export const formComp:COMMON.obj = {
     }
     return ''
   },
-  createOptionsV2: (element:COMMON.obj) => {
+  createOptionsV2: (element:COMMON.Obj) => {
     let optionsObj = ''
     const { prop: { options, field } } = element
-    options.forEach((item:COMMON.obj) => {
+    options.forEach((item:COMMON.Obj) => {
       const objStr = `
         {
           label:'${item.label}',

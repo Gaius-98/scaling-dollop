@@ -44,8 +44,8 @@ import { ref } from 'vue'
 import { v4 as uuid } from 'uuid'
 import list from '@/assets/form/compList'
 
-const compList = ref<formComp[]>([])
-const containerList = ref<formComp[]>([])
+const compList = ref<FormComp[]>([])
+const containerList = ref<FormComp[]>([])
 list.forEach(item => {
   if (item.type == 'component') {
     compList.value.push(item)

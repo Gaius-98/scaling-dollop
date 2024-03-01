@@ -127,7 +127,7 @@ const changeByParams = (keys:string[]) => {
     }
   })
 }
-const findChangeParamsKey = (oldParams:COMMON.obj, newParams:COMMON.obj) => {
+const findChangeParamsKey = (oldParams:COMMON.Obj, newParams:COMMON.Obj) => {
   let differentKey:string[] = []
   let newKeys = Object.keys(newParams)
   let oldKeys = Object.keys(oldParams)

@@ -42,7 +42,7 @@ export const useViewStore = defineStore('viewStore', () => {
   /**
    * 修改组件配置
    */
-  const setComp = (data:COMMON.obj) => {
+  const setComp = (data:COMMON.Obj) => {
     const { id } = data
     let curComp = viewData.componentData.find(e => e.id == id)
     if (curComp) {

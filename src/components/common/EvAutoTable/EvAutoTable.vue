@@ -96,20 +96,20 @@ import { getData } from '@/utils/func'
 import EvFormId from '@/views/Table/TableDesign/components/EvFormId.vue'
 
 interface Props {
-    dataSetting:reqSetting|COMMON.obj,
-    globalCfg:TableGlobalCfg|COMMON.obj,
-    tableConfig:COMMON.TableCfg|COMMON.obj
+    dataSetting:ReqSetting|COMMON.Obj,
+    globalCfg:TableGlobalCfg|COMMON.Obj,
+    tableConfig:COMMON.TableCfg|COMMON.Obj
 }
 const props = defineProps<Props>()
 const { globalCfg, dataSetting, tableConfig } = toRefs(props)
 const loading = ref(false)
-const tableData = ref<COMMON.obj[]>([])
+const tableData = ref<COMMON.Obj[]>([])
 const filterData = reactive({})
 
 const getTableData = async () => {
   loading.value = true
-  const data = await getData(dataSetting.value as reqSetting)
-  tableData.value = data as COMMON.obj[]
+  const data = await getData(dataSetting.value as ReqSetting)
+  tableData.value = data as COMMON.Obj[]
   loading.value = false
 }
 getTableData()
@@ -138,7 +138,7 @@ const onOpenAddDialog = () => {
         ...formData.value,
       },
     })
-    getData(globalCfg.value.add.reqSetting as reqSetting).then(() => {
+    getData(globalCfg.value.add.ReqSetting as ReqSetting).then(() => {
       getTableData()
       dialog.destroyed()
     })
@@ -160,7 +160,7 @@ const onEdit = (scope:any) => {
         ...formData.value,
       },
     })
-    getData(globalCfg.value.edit.reqSetting as reqSetting).then(() => {
+    getData(globalCfg.value.edit.ReqSetting as ReqSetting).then(() => {
       getTableData()
       dialog.destroyed()
     })
@@ -186,7 +186,7 @@ const onDelete = (scope:any) => {
       ...scope.row,
     },
   })
-  getData(globalCfg.value.delete.reqSetting as reqSetting).then(() => {
+  getData(globalCfg.value.delete.ReqSetting as ReqSetting).then(() => {
     getTableData()
   })
 }

@@ -116,7 +116,7 @@ import { reactive, toRefs, ref, PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
 
 interface Props {
-  cfg:COMMON.commonColumnConfig
+  cfg:COMMON.CommonColumnConfig
 }
 const props = withDefaults(defineProps<Props>(), {
   cfg: () => ({
@@ -124,13 +124,10 @@ const props = withDefaults(defineProps<Props>(), {
     prop: '',
   }),
 })
-interface obj {
-  [key:string]:any
-}
 const formRef = ref<FormInstance>()
 const { cfg: formData } = toRefs(props)
   
-const rules = reactive<obj>({})
+const rules = reactive<COMMON.Obj>({})
 const getFormData = () => formData
   
 const optionsFixed = reactive([

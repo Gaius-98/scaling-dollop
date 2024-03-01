@@ -150,7 +150,7 @@ import { downloadFile } from '@/utils/func'
   json='json'
 }
 const loading = ref(true)
-const tableData = ref<formConfig[]>([])
+const tableData = ref<FormConfig[]>([])
 const config = ref({
   columns: [
     {
@@ -199,7 +199,7 @@ onMounted(() => {
   getList()
 })
 
-const onView = (scope:COMMON.columnScope) => {
+const onView = (scope:COMMON.ColumnScope) => {
   const form = _.cloneDeep(scope.row)
   form.list = JSON.parse(form.list)
   form.formProp = JSON.parse(form.formProp)
@@ -221,7 +221,7 @@ const onAdd = () => {
     },
   })
 }
-const onEdit = (scope:COMMON.columnScope) => {
+const onEdit = (scope:COMMON.ColumnScope) => {
   router.push({
     name: 'formDesign',
     query: {
@@ -231,7 +231,7 @@ const onEdit = (scope:COMMON.columnScope) => {
   })
 }
 
-const onExport = async (scope:COMMON.columnScope, type:keyof typeof downType) => {
+const onExport = async (scope:COMMON.ColumnScope, type:keyof typeof downType) => {
   let form = {
     formProp: JSON.parse(scope.row.formProp),
     list: JSON.parse(scope.row.list),
@@ -251,10 +251,10 @@ const onExport = async (scope:COMMON.columnScope, type:keyof typeof downType) =>
     })
   }
 }
-const handleCommand = (scope:COMMON.columnScope, command:keyof typeof downType) => {
+const handleCommand = (scope:COMMON.ColumnScope, command:keyof typeof downType) => {
   onExport(scope, command)
 }
-const onDel = (scope:COMMON.columnScope) => {
+const onDel = (scope:COMMON.ColumnScope) => {
   api.deleteForm({
     id: scope.row.id,
   }).then(res => {

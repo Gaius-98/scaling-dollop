@@ -68,7 +68,7 @@ import ReqTable from './components/ReqTable.vue'
 
 const props = defineProps({
   reqForm: {
-    type: Object as PropType<COMMON.reqForm>,
+    type: Object as PropType<COMMON.ReqForm>,
     required: true,
   },
 })

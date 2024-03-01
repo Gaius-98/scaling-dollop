@@ -20,11 +20,11 @@ import type { FormInstance } from 'element-plus'
 
 const props = defineProps({
   formConfig: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: true,
   },
   formData: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: false,
     default: () => ({}),
   },

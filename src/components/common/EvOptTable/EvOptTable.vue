@@ -47,11 +47,11 @@ import { cloneDeep } from 'lodash-es'
 
 const props = defineProps({
   data: {
-    type: Array as PropType<COMMON.obj[]>,
+    type: Array as PropType<COMMON.Obj[]>,
     required: true,
   },
   columnConfig: {
-    type: Array as PropType<COMMON.columnConfig[]>,
+    type: Array as PropType<COMMON.ColumnConfig[]>,
     required: true,
   },
 })
@@ -75,8 +75,8 @@ const onAdd = () => {
   tableData.value.push(cloneTable)
   tableKey.value = uuidv4()
 }
-const onDelete = (row:COMMON.obj) => {
-  const idx = tableData.value.findIndex((item:COMMON.obj) => item.key == row.key)
+const onDelete = (row:COMMON.Obj) => {
+  const idx = tableData.value.findIndex((item:COMMON.Obj) => item.key == row.key)
   tableData.value.splice(idx, 1)
   tableKey.value = uuidv4()
 }

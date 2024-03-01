@@ -115,7 +115,7 @@ if (route.query.id) {
   id.value = route.query.id
   getTableDetail()
 }
-const curTableColumn = ref<COMMON.commonColumnConfig>({
+const curTableColumn = ref<COMMON.CommonColumnConfig>({
   label: '',
   prop: '',
 })
@@ -154,7 +154,7 @@ const tableConfig = reactive<COMMON.TableCfg>(
   },
 
 )
-const dataSetting = ref<getDataCfg>({
+const dataSetting = ref<ProxyDataParams>({
   type: 'dev',
   data: [],
   reqType: 'post',
@@ -231,10 +231,10 @@ const globalCfg = ref<TableGlobalCfg>({
   },
 })
 const TableName = ref('')
-const onClickTableHeader = (info:COMMON.commonColumnConfig) => {
+const onClickTableHeader = (info:COMMON.CommonColumnConfig) => {
   const { prop: property } = info
   activeColumn.value = property
-  curTableColumn.value = info as COMMON.commonColumnConfig
+  curTableColumn.value = info as COMMON.CommonColumnConfig
 }
 const addFieldDialog = useGuDialog({
   title: '新增列表字段',

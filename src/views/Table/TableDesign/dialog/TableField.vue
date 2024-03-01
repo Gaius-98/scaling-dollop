@@ -40,15 +40,11 @@
 <script lang='ts' setup>
 import { reactive, toRefs, ref, PropType } from 'vue'
 import type { FormInstance } from 'element-plus'
-import { resolve } from 'dns'
 
-interface obj {
-  [key:string]:any
-}
 const formRef = ref<FormInstance>()
-const formData = reactive<obj>({})
+const formData = reactive<COMMON.Obj>({})
   
-const rules = reactive<obj>({ prop: [{
+const rules = reactive<COMMON.Obj>({ prop: [{
   required: true,
   trigger: 'blur',
   message: '字段名不能为空',

@@ -1,8 +1,8 @@
 import { reactive, watch } from 'vue'
 
-const pool = reactive<COMMON.obj>({})
+const pool = reactive<COMMON.Obj>({})
 const useParamsPool = () => {
-  const setParams = (paramsObj:COMMON.obj) => {
+  const setParams = (paramsObj:COMMON.Obj) => {
     Object.assign(pool, {
       ...pool,
       ...paramsObj,

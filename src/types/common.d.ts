@@ -5,13 +5,13 @@ declare namespace COMMON{
   /**
    * 任意对象
    */
-  declare interface obj{
+  declare interface Obj{
     [key:string]:any
   }
   /**
    * 通用参数
    */
-  declare interface params {
+  declare interface Params {
     pageNumber:number,
     pageSize:number,
     keyword:string
@@ -19,7 +19,7 @@ declare namespace COMMON{
   /**
    * 替换字段
    */
-  declare interface replaceFields{
+  declare interface ReplaceFields{
     value:string,
     children:string,
     label:string,
@@ -29,7 +29,7 @@ declare namespace COMMON{
   /**
    * 请求
    */
-  declare interface reqForm{
+  declare interface ReqForm{
     url:string,
     method:'get'|'post',
     params:obj,
@@ -39,7 +39,7 @@ declare namespace COMMON{
   /**
    * 请求参数
    */
-  declare interface reqTableData{
+  declare interface ReqTableData{
     key:string,
     paramsKey:string,
     paramsValue:string
@@ -47,7 +47,7 @@ declare namespace COMMON{
   /**
    * 变量设置
    */
-  declare interface varTableData{
+  declare interface VarTableData{
     key:string,
     varKey:string,
     varValue?:string
@@ -55,24 +55,24 @@ declare namespace COMMON{
   /**
    * 分页响应
    */
-  declare interface pageData<T>{
+  declare interface PageData<T>{
     rows:T,
     count:number
   }
   /**
    * 列表配置
    */
-  declare interface columnConfig {
+  declare interface ColumnConfig {
     field:string,
     label:string,
   }
   /**
    * 列表插槽
    */
-  declare interface columnScope {
-    row:COMMON.obj
+  declare interface ColumnScope {
+    row:COMMON.Obj
   }
-  declare interface commonColumnConfig {
+  declare interface CommonColumnConfig {
     label:string,
     prop:string,
     width?:string|number,
@@ -81,10 +81,10 @@ declare namespace COMMON{
     align?:string,
     slot?:string,
     type?:'selection' | 'index' | 'expand' | null,
-    children?:commonColumnConfig[]
+    children?:CommonColumnConfig[]
   }
   declare interface TableCfg {
-    columns:commonColumnConfig[],
+    columns:CommonColumnConfig[],
     opt:{
       fixed?:string|boolean,
       width?:string|number,

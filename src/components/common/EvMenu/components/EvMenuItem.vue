@@ -41,11 +41,11 @@ import { reactive, toRefs, ref, PropType } from 'vue'
 
 const props = defineProps({
   menuData: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: true,
   },
   replaceFields: {
-    type: Object as PropType<COMMON.replaceFields>,
+    type: Object as PropType<COMMON.ReplaceFields>,
     required: false,
     default: () => ({
       value: 'value',
@@ -58,7 +58,7 @@ const props = defineProps({
 })
 const { menuData, replaceFields } = toRefs(props)
 const emits = defineEmits(['onClickItem'])
-const onClickItem = (item:COMMON.obj) => {
+const onClickItem = (item:COMMON.Obj) => {
   emits('onClickItem', item.index)
 }
 const onClick = (val:any) => {

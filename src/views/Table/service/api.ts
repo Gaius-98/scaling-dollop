@@ -4,8 +4,8 @@ interface TableId{
     id:string|number
 }
 export default {
-  getList(data:COMMON.params) {
-    return request<COMMON.pageData<TableSaveCfg[]>>({
+  getList(data:COMMON.Params) {
+    return request<COMMON.PageData<TableSaveCfg[]>>({
       url: '/biz/table/list',
       method: 'post',
       data,

@@ -19,7 +19,7 @@ import useParamsPool from '@/hooks/useParamsPool'
 
 interface Props {
     value:string,
-    list:COMMON.obj[],
+    list:COMMON.Obj[],
     replaceFields:{
         value:string,
         label:string,

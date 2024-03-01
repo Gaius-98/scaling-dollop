@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 
-const compList = <formComp[]>[
+const compList = <FormComp[]>[
   {
     comp: 'input', // 组件
     compId: '1', // 随机uuid

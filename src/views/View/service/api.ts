@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
-interface pageId {
+interface PageId {
     id:number | string
 }
 export default {
-  getList(data:COMMON.params) {
-    return request<COMMON.pageData<ViewData[]>>({
+  getList(data:COMMON.Params) {
+    return request<COMMON.PageData<ViewData[]>>({
       url: '/biz/page/list',
       method: 'post',
       data,
@@ -25,14 +25,14 @@ export default {
       data,
     })
   },
-  deletePage(data:pageId) {
+  deletePage(data:PageId) {
     return request({
       url: '/biz/page/delete',
       method: 'post',
       data,
     })
   },
-  getDetail(data:pageId) {
+  getDetail(data:PageId) {
     return request<ViewData>({
       url: '/biz/page/detail',
       method: 'post',

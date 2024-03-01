@@ -35,4 +35,4 @@ export default [
     icon: '',
     description: '', 
   },
-] as sysMenu[]
+] as SysMenu[]

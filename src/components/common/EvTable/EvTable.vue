@@ -53,10 +53,10 @@
 import { reactive, toRefs, ref, PropType } from 'vue'
 import EvColumn from './components/EvColumn.vue'
 
-interface tableData {
+interface TableData {
   [key: string]: any
 }
-interface columns{
+interface Columns{
   label:string,
   prop:string,
   width?:string|number,
@@ -65,10 +65,10 @@ interface columns{
   align?:string,
   slot?:string,
   type?:'selection' | 'index' | 'expand' | null,
-  children?:columns[]
+  children?:Columns[]
 }
-interface tableConfig {
-  columns:columns[],
+interface TableConfig {
+  columns:Columns[],
   opt:{
     fixed?:string|boolean,
     width?:string|number,
@@ -76,7 +76,7 @@ interface tableConfig {
     show?:boolean
   }
 }
-interface pagConfig {
+interface PagConfig {
   total:number,
   pageSize:number,
   pageNumber:number,
@@ -86,19 +86,19 @@ interface pagConfig {
 }
 defineProps({
   data: {
-    type: Array as PropType<tableData[]>,
+    type: Array as PropType<TableData[]>,
     require: true,
     default: () => ([]),
   },
   tableConfig: {
-    type: Object as PropType<tableConfig>,
+    type: Object as PropType<TableConfig>,
     require: true,
     default: () => ({
       columns: [],
     }),
   },
   pagConfig: {
-    type: Object as PropType<pagConfig>,
+    type: Object as PropType<PagConfig>,
     default: () => ({
       show: false,
     }),

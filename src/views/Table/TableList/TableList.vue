@@ -142,7 +142,7 @@ onMounted(() => {
 })
   
 const router = useRouter()
-const onView = (scope:COMMON.columnScope) => {
+const onView = (scope:COMMON.ColumnScope) => {
   router.push({
     name: 'tablePre',
     query: {
@@ -158,7 +158,7 @@ const onAdd = () => {
     },
   })
 }
-const onEdit = (scope:COMMON.columnScope) => {
+const onEdit = (scope:COMMON.ColumnScope) => {
   router.push({
     name: 'tableDesign',
     query: {
@@ -168,7 +168,7 @@ const onEdit = (scope:COMMON.columnScope) => {
   })
 }
   
-const onDel = (scope:COMMON.columnScope) => {
+const onDel = (scope:COMMON.ColumnScope) => {
   api.deleteForm({
     id: scope.row.id,
   }).then(res => {

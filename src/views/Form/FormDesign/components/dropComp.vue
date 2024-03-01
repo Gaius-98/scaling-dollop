@@ -157,7 +157,7 @@ import { v4 as uuid } from 'uuid'
 
 const props = defineProps({
   list: {
-    type: Array as PropType<formComp[]>,
+    type: Array as PropType<FormComp[]>,
     required: true,
     default: () => [],
   },
@@ -166,7 +166,7 @@ const store = useFormDesignStore()
 const { formData, curFormItem } = storeToRefs(store)
 const { onClickFormItem } = store
 const emit = defineEmits(['update:list'])
-const compList = computed<formComp[]>({
+const compList = computed<FormComp[]>({
   get() {
     return props.list
   },
@@ -174,22 +174,22 @@ const compList = computed<formComp[]>({
     emit('update:list', value)
   },
 })
-const onClickRemove = (element:formComp) => {
+const onClickRemove = (element:FormComp) => {
   const idx = compList.value.findIndex((formItem) => formItem.compId == element.compId)
   compList.value.splice(idx, 1)
 }
-const handleDeepData = (element:formComp) => {
+const handleDeepData = (element:FormComp) => {
   if (element.type == 'container') {
     if (element.comp == 'grid') {
       element.prop.cols!.forEach((col:{list:any[]}) => {
-        col.list = col.list.map((comp:formComp) => handleDeepData(comp))
+        col.list = col.list.map((comp:FormComp) => handleDeepData(comp))
       })
       return element
     } if (element.comp == 'card') {
-      element.prop.card?.list!.map((comp:formComp) => handleDeepData(comp))
+      element.prop.card?.list!.map((comp:FormComp) => handleDeepData(comp))
       return element
     } if (element.comp == 'collapse') {
-      element.prop.collapse?.list!.map((comp:formComp) => handleDeepData(comp))
+      element.prop.collapse?.list!.map((comp:FormComp) => handleDeepData(comp))
       return element
     }
     return element
@@ -199,14 +199,14 @@ const handleDeepData = (element:formComp) => {
   cloneComp.prop.field = `field${(Math.random() * 10000).toFixed(0)}`
   return cloneComp
 }
-const onClickCopy = (element:formComp) => {
+const onClickCopy = (element:FormComp) => {
   const cloneComp = handleDeepData(cloneDeep(element))
   compList.value.push(cloneComp)
 }
 const dropComp = (ev:DragEvent) => {
   if (ev && ev.dataTransfer) {
     const compJson = ev.dataTransfer.getData('comp') 
-    let comp = JSON.parse(compJson) as formComp
+    let comp = JSON.parse(compJson) as FormComp
     compList.value.push(comp)
   }
 }

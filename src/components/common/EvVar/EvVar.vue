@@ -60,15 +60,15 @@ import { v4 as uuidv4 } from 'uuid'
 
 const props = defineProps({
   data: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: true,
   },
 })
 const { data } = toRefs(props)
-// const tableData = ref<COMMON.reqTableData[]>([])
+// const tableData = ref<COMMON.ReqTableData[]>([])
 const tableKey = ref(uuidv4())
 const tableData = computed(() => {
-  const table:COMMON.varTableData[] = []
+  const table:COMMON.VarTableData[] = []
   if (Object.keys(data.value).length == 0) {
     table.push({
       key: uuidv4(),
@@ -90,7 +90,7 @@ const tableData = computed(() => {
 })
 const emits = defineEmits(['update:data'])
 const onHandle = () => {
-  const obj:COMMON.obj = {}
+  const obj:COMMON.Obj = {}
   tableData.value.forEach((item => {
     obj[item.varKey] = item.varValue
   }))
@@ -105,7 +105,7 @@ const onAdd = () => {
   })
   tableKey.value = uuidv4()
 }
-const onDelete = (row:COMMON.obj) => {
+const onDelete = (row:COMMON.Obj) => {
   const idx = tableData.value.findIndex((item) => item.key == row.key)
   tableData.value.splice(idx, 1)
   tableKey.value = uuidv4()

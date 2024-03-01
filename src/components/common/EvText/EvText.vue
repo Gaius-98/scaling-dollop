@@ -12,16 +12,13 @@
 import { transformCssVar } from '@/utils/func'
 import { reactive, toRefs, ref, watch } from 'vue'
 
-interface obj{
-[key:string]:any
-}
 enum openTypes {
   _self='_self',
   _blank='_blank'
 }
 interface Props {
     value:string,
-    styleConfig?:COMMON.obj,
+    styleConfig?:COMMON.Obj,
     openUrl:boolean,
     openType:keyof typeof openTypes,
     url:string,

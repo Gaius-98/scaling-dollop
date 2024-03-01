@@ -5,12 +5,12 @@ export interface LoginData {
     password:string,
     code:string|number
 }
-export interface loginToken {
+export interface LoginToken {
     token:string
 }
 
 export default {
-  login: (data:LoginData) => request<loginToken>({
+  login: (data:LoginData) => request<LoginToken>({
     url: 'sys/user/login',
     method: 'post',
     data,

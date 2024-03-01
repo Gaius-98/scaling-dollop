@@ -99,7 +99,7 @@ const onOpenJSon = () => {
 const jsonForm = ref('')
 const { setForm } = store
 const onClickSubmitJson = () => {
-  const form = JSON.parse(jsonForm.value) as formConfig
+  const form = JSON.parse(jsonForm.value) as FormConfig
   setForm(form)
   dialogJson.value = false
 }
@@ -109,10 +109,10 @@ const onAddPreviewForm = () => {
   vNode.style.width = '720px'
   vNode.style.height = '500px'
   vNode.style.overflowY = 'auto'
-  let formComp = createApp(EvForm, {
+  let FormComp = createApp(EvForm, {
     formConfig: saveForm.value,
   })
-  formComp.mount(vNode).$el
+  FormComp.mount(vNode).$el
   document.body.appendChild(vNode)
 }
 const onSave = async () => {

@@ -12,7 +12,7 @@ import { reactive, toRefs, ref } from 'vue'
   
   interface Props {
       icon:string,
-      styleConfig?:COMMON.obj,
+      styleConfig?:COMMON.Obj,
   }
 const props = withDefaults(defineProps<Props>(), {
   styleConfig: () => ({}),

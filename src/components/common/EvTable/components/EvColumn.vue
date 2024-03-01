@@ -16,7 +16,7 @@
 <script lang='ts' setup name="EvColumn">
 import { reactive, toRefs, ref } from 'vue'
 
-interface columns{
+interface Columns{
   label:string,
   prop:string,
   width?:string|number,
@@ -25,10 +25,10 @@ interface columns{
   align?:string,
   slot?:string,
   type?:'selection' | 'index' | 'expand' | null,
-  children?:columns[]
+  children?:Columns[]
 }
 interface Props {
-    columnList:columns[]
+    columnList:Columns[]
 }
 const props = withDefaults(defineProps<Props>(), {})
 const { columnList } = toRefs(props)

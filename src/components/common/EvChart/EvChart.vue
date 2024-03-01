@@ -11,7 +11,7 @@ import { init, EChartsType } from 'echarts'
 import { reactive, toRefs, ref, onMounted, watch } from 'vue'
 
 export interface Props {
-    option:COMMON.obj
+    option:COMMON.Obj
   }
 const props = withDefaults(defineProps<Props>(), {
   option: () => ({}),
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   
 const loading = ref(true)
 const { option } = toRefs(props)
-const chartOption = reactive<COMMON.obj>({})
+const chartOption = reactive<COMMON.Obj>({})
 
 Object.assign(chartOption, option.value)
 const evChart = ref()

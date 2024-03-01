@@ -19,11 +19,11 @@ import { reactive, toRefs, ref, PropType } from 'vue'
 
 const props = defineProps({
   data: {
-    type: Array as PropType<COMMON.obj[]>,
+    type: Array as PropType<COMMON.Obj[]>,
     required: true,
   },
   replaceFields: {
-    type: Object as PropType<COMMON.replaceFields>,
+    type: Object as PropType<COMMON.ReplaceFields>,
     required: false,
     default: () => ({
       value: 'value',

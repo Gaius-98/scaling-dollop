@@ -239,11 +239,8 @@ import formApi from '@/views/Form/service/api'
 import EvSimpleDataSource from '@/components/common/EvSimpleDataSource/EvSimpleDataSource.vue'
 import { useGuDialog } from 'gaius-utils'
 
-interface obj {
-  [key:string]:any
-}
 interface Props {
-  cfg:COMMON.obj
+  cfg:COMMON.Obj
 }
 const props = withDefaults(defineProps<Props>(), {
   cfg: () => ({
@@ -255,7 +252,7 @@ const props = withDefaults(defineProps<Props>(), {
 const formRef = ref<FormInstance>()
 const { cfg: formData } = toRefs(props)
   
-const rules = reactive<obj>({})
+const rules = reactive<COMMON.Obj>({})
 const getFormData = () => formData
   
 const resetForm = () => {
@@ -272,7 +269,7 @@ const getFormDict = () => {
   })
 }
 getFormDict()
-const onOpenReqSettingModal = (data:reqSetting, type:'add'|'edit'|'delete') => {
+const onOpenReqSettingModal = (data:ReqSetting, type:'add'|'edit'|'delete') => {
   console.log(data)
   const dialog = useGuDialog({
     title: '请求配置',

@@ -122,11 +122,11 @@ import { reactive, toRefs, ref, PropType, computed } from 'vue'
 
 const props = defineProps({
   list: {
-    type: Array as PropType<COMMON.obj[]>,
+    type: Array as PropType<COMMON.Obj[]>,
     required: true,
   },
   data: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: true,
   },
 })
@@ -140,7 +140,7 @@ const formData = computed({
     emit('update:data', value)
   },
 })
-const clickEvents = reactive<COMMON.obj>({})
+const clickEvents = reactive<COMMON.Obj>({})
 list.value.forEach(item => {
   if (item.comp == 'button' && item.prop.clickEvent) {
     clickEvents[item.prop.field] = new Function('formData', item.prop.clickEvent)

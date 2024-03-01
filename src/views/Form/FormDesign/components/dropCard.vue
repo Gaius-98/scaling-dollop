@@ -14,7 +14,7 @@ import { reactive, toRefs, ref, PropType, computed } from 'vue'
 
 const props = defineProps({
   card: {
-    type: Object as PropType<COMMON.obj>,
+    type: Object as PropType<COMMON.Obj>,
     required: true,
   },
 })

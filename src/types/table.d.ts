@@ -1,7 +1,7 @@
 declare interface TableModalCfg{
     show:boolean,
     id?:number,
-    reqSetting?:reqSetting,
+    reqSetting?:ReqSetting,
 }
 declare interface TableGlobalCfg {
     pagConfig:{
@@ -20,7 +20,7 @@ declare interface TableGlobalCfg {
 declare interface TableSaveCfg {
     id?:number,
     name:string,
-    dataSetting:getDataCfg,
+    dataSetting:ProxyDataParams,
     tableCfg:TableCfg,
     globalCfg:TableGlobalCfg
 }
